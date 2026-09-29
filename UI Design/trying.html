@@ -1,0 +1,3751 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Rwanda School of Hospitality — International Luxury Hotel School in Kigali."
+    >
+
+    <meta
+        name="theme-color"
+        content="#071A12"
+    >
+
+    <title>Rwanda School of Hospitality | FAQ</title>
+
+
+    <!-- =========================================================
+         EXTERNAL RESOURCES
+    ========================================================== -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <!-- =========================================================
+         CUSTOM CSS
+    ========================================================== -->
+
+    <style>
+
+        /* =====================================================
+           ROOT VARIABLES
+        ====================================================== */
+
+        :root {
+
+            --forest: #071A12;
+            --forest-light: #10382A;
+            --forest-medium: #164A36;
+
+            --gold: #D6B56A;
+            --gold-dark: #B9974F;
+            --gold-light: #E8D49B;
+
+            --cream: #F8F7F2;
+            --white: #FFFFFF;
+
+            --black: #050505;
+            --text-dark: #101512;
+            --text-light: #EDEDE8;
+
+            --footer-primary: #071A12;
+            --footer-secondary: #0B241B;
+
+            --border-dark: rgba(214,181,106,.18);
+            --border-light: rgba(16,21,18,.12);
+
+            --shadow-luxury:
+                0 25px 80px rgba(0,0,0,.25);
+        }
+
+
+        /* =====================================================
+           GLOBAL
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            margin: 0;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(214,181,106,.06),
+                    transparent 35%
+                ),
+                var(--forest);
+
+            color: var(--text-light);
+
+            font-family:
+                "Plus Jakarta Sans",
+                Arial,
+                sans-serif;
+
+            overflow-x: hidden;
+
+            transition:
+                background .4s ease,
+                color .4s ease;
+        }
+
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+
+        h1,
+        h2,
+        h3,
+        h4 {
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+        }
+
+
+        button,
+        input,
+        textarea {
+
+            font-family:
+                "Plus Jakarta Sans",
+                Arial,
+                sans-serif;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        ::selection {
+
+            background: var(--gold);
+            color: var(--forest);
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ====================================================== */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background:
+                linear-gradient(
+                    var(--gold-dark),
+                    var(--gold)
+                );
+
+            border-radius: 999px;
+        }
+
+
+        /* =====================================================
+           UTILITY
+        ====================================================== */
+
+        .gold-text-gradient {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--gold-light),
+                    var(--gold),
+                    var(--gold-dark)
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .gold-divider {
+
+            width: 70px;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--gold),
+                    transparent
+                );
+
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           GLASS EFFECTS
+        ====================================================== */
+
+        .glass-luxury {
+
+            background:
+                rgba(255,255,255,.035);
+
+            border:
+                1px solid
+                rgba(214,181,106,.16);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,.15);
+        }
+
+
+        .glass-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.015)
+                );
+
+            border:
+                1px solid
+                rgba(214,181,106,.14);
+
+            transition:
+                transform .35s ease,
+                border-color .35s ease,
+                box-shadow .35s ease;
+        }
+
+
+        .glass-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(214,181,106,.42);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,.20);
+        }
+
+
+        /* =====================================================
+           ANNOUNCEMENT BAR
+        ====================================================== */
+
+        .announcement-bar {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #050505,
+                    #0B241B,
+                    #050505
+                );
+
+            border-bottom:
+                1px solid
+                rgba(214,181,106,.15);
+
+            min-height: 38px;
+
+            position: relative;
+            z-index: 100;
+        }
+
+
+        .announcement-link {
+
+            color: var(--gold);
+
+            transition:
+                color .25s ease;
+        }
+
+
+        .announcement-link:hover {
+            color: white;
+        }
+
+
+        .language-button {
+
+            border:
+                1px solid
+                rgba(214,181,106,.20);
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .language-button.active {
+
+            background: var(--gold);
+            color: var(--forest);
+
+            border-color: var(--gold);
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ====================================================== */
+
+        #mainNavbar {
+
+            transition:
+                transform .35s ease,
+                background .35s ease,
+                box-shadow .35s ease,
+                border-color .35s ease;
+        }
+
+
+        #mainNavbar.scrolled {
+
+            background:
+                rgba(5,5,5,.90);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.28);
+
+            border-bottom:
+                1px solid
+                rgba(214,181,106,.12);
+        }
+
+
+        .logo-mark {
+
+            width: 40px;
+            height: 40px;
+
+            border:
+                1px solid
+                rgba(214,181,106,.55);
+
+            color: var(--gold);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 25px rgba(214,181,106,.08);
+        }
+
+
+        .menu-button {
+
+            width: 44px;
+            height: 44px;
+
+            border:
+                1px solid
+                rgba(214,181,106,.20);
+
+            background:
+                rgba(255,255,255,.035);
+
+            transition:
+                all .3s ease;
+        }
+
+
+        .menu-button:hover {
+
+            border-color: var(--gold);
+
+            color: var(--gold);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =====================================================
+           NAVIGATION MENU
+        ====================================================== */
+
+        #navigationMenu {
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(-10px)
+                scale(.98);
+
+            pointer-events: none;
+
+            transition:
+                opacity .25s ease,
+                visibility .25s ease,
+                transform .25s ease;
+        }
+
+
+        #navigationMenu.menu-open {
+
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+            pointer-events: auto;
+        }
+
+
+        .menu-link {
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 11px 13px;
+
+            border-radius: 10px;
+
+            color:
+                rgba(255,255,255,.76);
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .menu-link:hover {
+
+            color: var(--gold);
+
+            background:
+                rgba(214,181,106,.07);
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .menu-link i {
+
+            width: 18px;
+
+            color:
+                rgba(214,181,106,.72);
+        }
+
+
+        /* =====================================================
+           FAQ HERO
+        ====================================================== */
+
+        .faq-background {
+
+            position: relative;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(214,181,106,.08),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(22,74,54,.25),
+                    transparent 35%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #071A12,
+                    #050505
+                );
+        }
+
+
+        .faq-background::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(214,181,106,.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(214,181,106,.025) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                50px 50px;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ====================================================== */
+
+        .faq-search {
+
+            width: 100%;
+
+            background:
+                rgba(255,255,255,.045);
+
+            border:
+                1px solid
+                rgba(214,181,106,.20);
+
+            color: white;
+
+            outline: none;
+
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease,
+                background .25s ease;
+        }
+
+
+        .faq-search::placeholder {
+
+            color:
+                rgba(255,255,255,.40);
+        }
+
+
+        .faq-search:focus {
+
+            border-color:
+                rgba(214,181,106,.65);
+
+            background:
+                rgba(255,255,255,.065);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(214,181,106,.06);
+        }
+
+
+        /* =====================================================
+           FAQ CATEGORIES
+        ====================================================== */
+
+        .faq-category {
+
+            position: relative;
+            overflow: hidden;
+
+            border:
+                1px solid
+                rgba(214,181,106,.14);
+
+            background:
+                rgba(255,255,255,.025);
+
+            color:
+                rgba(255,255,255,.72);
+
+            transition:
+                all .3s ease;
+        }
+
+
+        .faq-category::after {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -100%;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.10),
+                    transparent
+                );
+
+            transition:
+                left .5s ease;
+        }
+
+
+        .faq-category:hover::after {
+            left: 100%;
+        }
+
+
+        .faq-category:hover {
+
+            border-color:
+                rgba(214,181,106,.45);
+
+            color: var(--gold);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .faq-category.active {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--gold),
+                    var(--gold-dark)
+                );
+
+            color: var(--forest);
+
+            border-color: var(--gold);
+
+            box-shadow:
+                0 10px 30px
+                rgba(214,181,106,.15);
+        }
+
+
+        /* =====================================================
+           FAQ GROUP
+        ====================================================== */
+
+        .faq-group {
+
+            display: none;
+
+            animation:
+                faqFade .35s ease;
+        }
+
+
+        .faq-group.active {
+            display: block;
+        }
+
+
+        @keyframes faqFade {
+
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .faq-group-title {
+
+            position: relative;
+
+            padding-bottom: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .faq-group-title::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            width: 50px;
+            height: 2px;
+
+            background: var(--gold);
+        }
+
+
+        /* =====================================================
+           FAQ ITEMS
+        ====================================================== */
+
+        .faq-item {
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.045),
+                    rgba(255,255,255,.015)
+                );
+
+            border:
+                1px solid
+                rgba(214,181,106,.13);
+
+            border-radius: 16px;
+
+            margin-bottom: 12px;
+
+            transition:
+                border-color .3s ease,
+                background .3s ease,
+                box-shadow .3s ease;
+        }
+
+
+        .faq-item:hover {
+
+            border-color:
+                rgba(214,181,106,.35);
+        }
+
+
+        .faq-item[open] {
+
+            border-color:
+                rgba(214,181,106,.45);
+
+            background:
+                rgba(214,181,106,.035);
+
+            box-shadow:
+                0 15px 45px
+                rgba(0,0,0,.12);
+        }
+
+
+        .faq-question {
+
+            list-style: none;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 20px 22px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        .faq-question::-webkit-details-marker {
+            display: none;
+        }
+
+
+        .faq-chevron {
+
+            flex-shrink: 0;
+
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(214,181,106,.18);
+
+            color: var(--gold);
+
+            transition:
+                transform .3s ease,
+                background .3s ease;
+        }
+
+
+        .faq-item[open]
+        .faq-chevron {
+
+            transform:
+                rotate(180deg);
+
+            background:
+                rgba(214,181,106,.08);
+        }
+
+
+        .faq-answer {
+
+            padding:
+                0 22px 22px;
+
+            color:
+                rgba(255,255,255,.63);
+
+            line-height: 1.8;
+
+            animation:
+                answerReveal .3s ease;
+        }
+
+
+        @keyframes answerReveal {
+
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           SEARCH RESULTS
+        ====================================================== */
+
+        #searchResultsInfo {
+
+            color:
+                rgba(255,255,255,.55);
+
+            font-size: .85rem;
+        }
+
+
+        #faqEmptyState {
+
+            display: none;
+
+            text-align: center;
+
+            padding: 55px 20px;
+
+            border:
+                1px dashed
+                rgba(214,181,106,.25);
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.025);
+        }
+
+
+        /* =====================================================
+           PREMIUM BUTTON
+        ====================================================== */
+
+        .premium-button {
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--gold),
+                    var(--gold-dark)
+                );
+
+            color: var(--forest);
+
+            font-weight: 800;
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            box-shadow:
+                0 15px 40px
+                rgba(214,181,106,.14);
+
+            transition:
+                all .3s ease;
+        }
+
+
+        .premium-button:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(214,181,106,.22);
+        }
+
+
+        .premium-button:active {
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =====================================================
+           INQUIRY MODAL
+        ====================================================== */
+
+        #inquiryModal {
+
+            opacity: 0;
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity .3s ease,
+                visibility .3s ease;
+        }
+
+
+        #inquiryModal.modal-open {
+
+            opacity: 1;
+            visibility: visible;
+
+            pointer-events: auto;
+        }
+
+
+        .modal-card {
+
+            transform:
+                translateY(20px)
+                scale(.97);
+
+            transition:
+                transform .3s ease;
+        }
+
+
+        #inquiryModal.modal-open
+        .modal-card {
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .form-input {
+
+            width: 100%;
+
+            background:
+                rgba(255,255,255,.045);
+
+            border:
+                1px solid
+                rgba(214,181,106,.18);
+
+            color: white;
+
+            outline: none;
+
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+
+        .form-input:focus {
+
+            border-color: var(--gold);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(214,181,106,.06);
+        }
+
+
+        .form-input::placeholder {
+
+            color:
+                rgba(255,255,255,.38);
+        }
+
+
+        /* =====================================================
+           STATUS MESSAGES
+        ====================================================== */
+
+        .status-message {
+
+            display: none;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            font-size: .85rem;
+
+            margin-top: 12px;
+        }
+
+
+        .status-message.show {
+            display: block;
+        }
+
+
+        .status-success {
+
+            color: #DDF8E9;
+
+            background:
+                rgba(65,180,110,.10);
+
+            border:
+                1px solid
+                rgba(65,180,110,.25);
+        }
+
+
+        .status-error {
+
+            color: #FFE0E0;
+
+            background:
+                rgba(220,70,70,.10);
+
+            border:
+                1px solid
+                rgba(220,70,70,.25);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .luxury-footer {
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--footer-primary),
+                    var(--footer-secondary)
+                );
+
+            border-top:
+                1px solid
+                rgba(214,181,106,.14);
+
+            overflow: hidden;
+
+            transition:
+                background .4s ease;
+        }
+
+
+        .luxury-footer::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            top: -300px;
+            right: -200px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(214,181,106,.10),
+                    transparent 70%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .luxury-footer::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 400px;
+            height: 400px;
+
+            bottom: -250px;
+            left: -200px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(22,74,54,.25),
+                    transparent 70%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .footer-link {
+
+            color:
+                rgba(255,255,255,.58);
+
+            transition:
+                color .25s ease,
+                transform .25s ease;
+        }
+
+
+        .footer-link:hover {
+
+            color: var(--gold);
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .footer-social {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border:
+                1px solid
+                rgba(214,181,106,.16);
+
+            color:
+                rgba(255,255,255,.65);
+
+            border-radius: 50%;
+
+            transition:
+                all .3s ease;
+        }
+
+
+        .footer-social:hover {
+
+            color: var(--forest);
+
+            background: var(--gold);
+
+            border-color: var(--gold);
+
+            transform:
+                translateY(-4px);
+        }
+
+
+        /* =====================================================
+           FOOTER COLOR PANEL
+        ====================================================== */
+
+        .footer-color-panel {
+
+            max-height: 0;
+
+            opacity: 0;
+            overflow: hidden;
+
+            transition:
+                max-height .4s ease,
+                opacity .3s ease;
+        }
+
+
+        .footer-color-panel.open {
+
+            max-height: 300px;
+
+            opacity: 1;
+        }
+
+
+        .footer-color-swatch {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid
+                rgba(255,255,255,.15);
+
+            transition:
+                transform .25s ease,
+                border-color .25s ease;
+        }
+
+
+        .footer-color-swatch:hover {
+
+            transform:
+                scale(1.12);
+        }
+
+
+        .footer-color-swatch.active {
+
+            border-color:
+                white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(214,181,106,.25);
+        }
+
+
+        /* =====================================================
+           BACK TO TOP
+        ====================================================== */
+
+        #backToTop {
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(15px);
+
+            transition:
+                all .3s ease;
+        }
+
+
+        #backToTop.show {
+
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =====================================================
+           TOAST
+        ====================================================== */
+
+        #toast {
+
+            position: fixed;
+
+            right: 20px;
+            bottom: 20px;
+
+            z-index: 9999;
+
+            max-width: 340px;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(20px);
+
+            transition:
+                all .3s ease;
+        }
+
+
+        #toast.show {
+
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =====================================================
+           LIGHT THEME
+        ====================================================== */
+
+        html.light-theme body {
+
+            --text-light: #151914;
+
+            background:
+                #F5F3EC;
+
+            color:
+                #151914;
+        }
+
+
+        html.light-theme
+        #mainNavbar.scrolled {
+
+            background:
+                rgba(248,247,242,.94);
+
+            border-color:
+                rgba(16,21,18,.10);
+
+            box-shadow:
+                0 15px 50px
+                rgba(0,0,0,.10);
+        }
+
+
+        html.light-theme
+        .menu-button {
+
+            background:
+                rgba(16,21,18,.04);
+
+            color:
+                var(--forest);
+
+            border-color:
+                rgba(16,21,18,.14);
+        }
+
+
+        html.light-theme
+        #navigationMenu {
+
+            background:
+                rgba(248,247,242,.97) !important;
+
+            border-color:
+                rgba(16,21,18,.12) !important;
+        }
+
+
+        html.light-theme
+        .menu-link {
+
+            color:
+                rgba(16,21,18,.72);
+        }
+
+
+        html.light-theme
+        .menu-link:hover {
+
+            background:
+                rgba(16,21,18,.05);
+
+            color:
+                var(--forest);
+        }
+
+
+        html.light-theme
+        .faq-background {
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(214,181,106,.14),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #F8F7F2,
+                    #EDEBE2
+                );
+
+            color:
+                #151914;
+        }
+
+
+        html.light-theme
+        .faq-search {
+
+            color:
+                #151914;
+
+            background:
+                rgba(255,255,255,.70);
+
+            border-color:
+                rgba(16,21,18,.14);
+        }
+
+
+        html.light-theme
+        .faq-search::placeholder {
+
+            color:
+                rgba(16,21,18,.42);
+        }
+
+
+        html.light-theme
+        .faq-category {
+
+            color:
+                rgba(16,21,18,.70);
+
+            background:
+                rgba(255,255,255,.55);
+
+            border-color:
+                rgba(16,21,18,.12);
+        }
+
+
+        html.light-theme
+        .faq-category:hover {
+
+            color:
+                var(--forest);
+        }
+
+
+        html.light-theme
+        .faq-item {
+
+            background:
+                rgba(255,255,255,.72);
+
+            border-color:
+                rgba(16,21,18,.11);
+        }
+
+
+        html.light-theme
+        .faq-answer {
+
+            color:
+                rgba(16,21,18,.62);
+        }
+
+
+        html.light-theme
+        #searchResultsInfo {
+
+            color:
+                rgba(16,21,18,.55);
+        }
+
+
+        html.light-theme
+        #faqEmptyState {
+
+            border-color:
+                rgba(16,21,18,.18);
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ====================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                scroll-behavior: auto !important;
+
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+
+                transition-duration: .01ms !important;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 640px) {
+
+            .faq-question {
+
+                padding: 17px;
+
+                font-size:
+                    .92rem;
+            }
+
+
+            .faq-answer {
+
+                padding:
+                    0 17px 18px;
+
+                font-size:
+                    .88rem;
+            }
+
+
+            .footer-social {
+
+                width: 38px;
+                height: 38px;
+            }
+
+
+            #toast {
+
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+
+                max-width: none;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     ANNOUNCEMENT BAR
+========================================================== -->
+
+<div class="announcement-bar">
+
+    <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+        min-h-[38px] flex flex-wrap items-center
+        justify-center md:justify-between gap-2 py-2"
+    >
+
+        <div class="flex items-center gap-2 text-xs sm:text-sm">
+
+            <span class="text-[#D6B56A]">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </span>
+
+            <span class="text-white/70">
+                Admissions Open for
+                <strong class="text-white">
+                    2026/2027
+                </strong>
+                Academic Year
+            </span>
+
+        </div>
+
+
+        <div class="flex items-center gap-4 text-xs">
+
+            <span class="hidden sm:inline text-white/45">
+                Kigali, Rwanda — International Standards
+            </span>
+
+            <button
+                type="button"
+                class="announcement-link"
+                data-action="virtual-tour"
+            >
+                Virtual Tour
+            </button>
+
+            <button
+                type="button"
+                class="announcement-link"
+                data-action="admissions-desk"
+            >
+                Admissions Desk
+            </button>
+
+
+            <div class="flex gap-1">
+
+                <button
+                    type="button"
+                    class="language-button active px-2 py-1 rounded"
+                    data-language="EN"
+                >
+                    EN
+                </button>
+
+                <button
+                    type="button"
+                    class="language-button px-2 py-1 rounded"
+                    data-language="FR"
+                >
+                    FR
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================== -->
+
+<header
+    id="mainNavbar"
+    class="fixed top-[38px] left-0 right-0 z-[90]
+    px-4 sm:px-6 lg:px-8"
+>
+
+    <div class="max-w-7xl mx-auto">
+
+        <nav
+            class="h-[72px] flex items-center
+            justify-between"
+        >
+
+            <!-- BRAND -->
+
+            <a
+                href="#top"
+                class="flex items-center gap-3 group"
+                aria-label="Rwanda School of Hospitality home"
+            >
+
+                <span class="logo-mark">
+
+                    <i class="fa-solid fa-hotel"></i>
+
+                </span>
+
+
+                <span class="hidden sm:block">
+
+                    <span
+                        class="block text-[10px] tracking-[.25em]
+                        text-[#D6B56A] font-bold"
+                    >
+                        RWANDA
+                    </span>
+
+                    <span
+                        class="block text-xs sm:text-sm
+                        font-bold tracking-[.08em]
+                        text-white"
+                    >
+                        SCHOOL OF HOSPITALITY
+                    </span>
+
+                </span>
+
+            </a>
+
+
+
+            <!-- RIGHT CONTROLS -->
+
+            <div class="flex items-center gap-3">
+
+                <!-- THEME -->
+
+                <button
+                    id="themeToggle"
+                    type="button"
+                    class="menu-button rounded-full
+                    flex items-center justify-center"
+                    aria-label="Toggle light and dark mode"
+                    title="Toggle theme"
+                >
+
+                    <i
+                        id="themeIcon"
+                        class="fa-solid fa-sun text-sm"
+                    ></i>
+
+                </button>
+
+
+                <!-- MENU -->
+
+                <button
+                    id="menuToggle"
+                    type="button"
+                    class="menu-button rounded-xl
+                    flex items-center justify-center"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    aria-controls="navigationMenu"
+                >
+
+                    <i
+                        id="menuIcon"
+                        class="fa-solid fa-bars"
+                    ></i>
+
+                </button>
+
+            </div>
+
+        </nav>
+
+
+
+        <!-- =================================================
+             DROPDOWN MENU
+        ================================================== -->
+
+        <div
+            id="navigationMenu"
+            class="absolute right-4 sm:right-6 lg:right-8
+            top-[78px]
+            w-[min(320px,calc(100vw-2rem))]
+            rounded-2xl
+            border border-[#D6B56A]/20
+            bg-[#071A12]/95
+            backdrop-blur-xl
+            shadow-2xl
+            p-3"
+        >
+
+            <div class="px-3 pt-2 pb-3">
+
+                <p
+                    class="text-[10px] tracking-[.3em]
+                    uppercase text-[#D6B56A]"
+                >
+                    Explore
+                </p>
+
+                <p
+                    class="mt-1 text-xs text-white/40"
+                >
+                    Discover Rwanda School of Hospitality
+                </p>
+
+            </div>
+
+
+            <div class="space-y-1">
+
+                <a
+                    href="#faq"
+                    class="menu-link"
+                    data-menu-link
+                >
+                    <i class="fa-solid fa-circle-info"></i>
+                    About
+                </a>
+
+
+                <a
+                    href="#faq"
+                    class="menu-link"
+                    data-menu-link
+                >
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Programs
+                </a>
+
+
+                <a
+                    href="#faq"
+                    class="menu-link"
+                    data-menu-link
+                >
+                    <i class="fa-solid fa-star"></i>
+                    Experience
+                </a>
+
+
+                <a
+                    href="#faq"
+                    class="menu-link"
+                    data-menu-link
+                >
+                    <i class="fa-solid fa-handshake"></i>
+                    Partnerships
+                </a>
+
+
+                <a
+                    href="#faq"
+                    class="menu-link"
+                    data-menu-link
+                >
+                    <i class="fa-solid fa-building-columns"></i>
+                    Campus
+                </a>
+
+
+                <a
+                    href="#faq"
+                    class="menu-link"
+                    data-menu-link
+                >
+                    <i class="fa-solid fa-circle-question"></i>
+                    FAQ
+                </a>
+
+
+                <button
+                    type="button"
+                    class="menu-link w-full text-left"
+                    id="menuEnquire"
+                >
+                    <i class="fa-solid fa-envelope"></i>
+                    Enquire
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================== -->
+
+<main id="top">
+
+
+    <!-- =====================================================
+         FAQ SECTION
+    ====================================================== -->
+
+    <section
+        id="faq"
+        class="faq-background
+        relative min-h-screen
+        pt-44 sm:pt-48
+        pb-24"
+    >
+
+        <div
+            class="relative z-10
+            max-w-6xl mx-auto
+            px-4 sm:px-6 lg:px-8"
+        >
+
+
+            <!-- HEADER -->
+
+            <div
+                class="max-w-3xl mx-auto
+                text-center"
+            >
+
+                <p
+                    class="text-xs tracking-[.35em]
+                    uppercase text-[#D6B56A]
+                    font-bold"
+                >
+                    Common Inquiries
+                </p>
+
+
+                <h1
+                    class="mt-5
+                    text-4xl sm:text-5xl lg:text-6xl
+                    font-semibold"
+                >
+
+                    Frequently Asked
+                    <span class="gold-text-gradient">
+                        Questions
+                    </span>
+
+                </h1>
+
+
+                <div class="gold-divider mt-7"></div>
+
+
+                <p
+                    class="mt-7
+                    text-sm sm:text-base
+                    leading-8
+                    text-white/55"
+                >
+                    Find answers to common questions about
+                    admissions, programs, fees, internships,
+                    careers and student life at Rwanda School
+                    of Hospitality.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SEARCH
+            ================================================== -->
+
+            <div
+                class="max-w-3xl mx-auto mt-10"
+            >
+
+                <div class="relative">
+
+                    <i
+                        class="fa-solid fa-magnifying-glass
+                        absolute left-5 top-1/2
+                        -translate-y-1/2
+                        text-[#D6B56A]/70"
+                    ></i>
+
+
+                    <input
+                        id="faqSearch"
+                        type="search"
+                        class="faq-search
+                        rounded-2xl
+                        pl-13 pr-5
+                        py-4"
+                        placeholder="Search your question..."
+                        autocomplete="off"
+                        aria-label="Search frequently asked questions"
+                    >
+
+                </div>
+
+
+                <div
+                    id="searchResultsInfo"
+                    class="mt-3 text-center"
+                    aria-live="polite"
+                >
+                    Showing Admissions questions
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CATEGORIES
+            ================================================== -->
+
+            <div
+                id="faqCategories"
+                class="mt-8
+                grid grid-cols-2
+                sm:grid-cols-3
+                lg:grid-cols-5
+                gap-3"
+            >
+
+                <button
+                    type="button"
+                    class="faq-category active
+                    rounded-xl px-4 py-3
+                    text-xs sm:text-sm font-semibold"
+                    data-category="admissions"
+                >
+                    <i class="fa-solid fa-door-open mr-2"></i>
+                    Admissions
+                </button>
+
+
+                <button
+                    type="button"
+                    class="faq-category
+                    rounded-xl px-4 py-3
+                    text-xs sm:text-sm font-semibold"
+                    data-category="programs"
+                >
+                    <i class="fa-solid fa-book-open mr-2"></i>
+                    Programs
+                </button>
+
+
+                <button
+                    type="button"
+                    class="faq-category
+                    rounded-xl px-4 py-3
+                    text-xs sm:text-sm font-semibold"
+                    data-category="fees"
+                >
+                    <i class="fa-solid fa-coins mr-2"></i>
+                    Fees
+                </button>
+
+
+                <button
+                    type="button"
+                    class="faq-category
+                    rounded-xl px-4 py-3
+                    text-xs sm:text-sm font-semibold"
+                    data-category="careers"
+                >
+                    <i class="fa-solid fa-briefcase mr-2"></i>
+                    Careers
+                </button>
+
+
+                <button
+                    type="button"
+                    class="faq-category
+                    rounded-xl px-4 py-3
+                    text-xs sm:text-sm font-semibold"
+                    data-category="student-life"
+                >
+                    <i class="fa-solid fa-users mr-2"></i>
+                    Student Life
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FAQ CONTENT
+            ================================================== -->
+
+            <div
+                id="faqContainer"
+                class="mt-12"
+            >
+
+
+                <!-- =============================================
+                     ADMISSIONS
+                ============================================== -->
+
+                <div
+                    class="faq-group active"
+                    data-group="admissions"
+                >
+
+                    <h2
+                        class="faq-group-title
+                        text-2xl sm:text-3xl"
+                    >
+                        Admissions
+                    </h2>
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                How can I apply to the school?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Applications can be started by contacting
+                            the admissions office or submitting an
+                            enquiry through the school's official
+                            admissions process. You should prepare
+                            the required identification and academic
+                            documents before submitting your
+                            application.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                What documents are required for admission?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Required documents may include academic
+                            certificates, identification documents,
+                            passport photographs and other documents
+                            requested by the admissions office.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Can I contact admissions before applying?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Yes. Prospective students are encouraged
+                            to contact the admissions team with
+                            questions about programs, requirements,
+                            fees and the application process.
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     PROGRAMS
+                ============================================== -->
+
+                <div
+                    class="faq-group"
+                    data-group="programs"
+                >
+
+                    <h2
+                        class="faq-group-title
+                        text-2xl sm:text-3xl"
+                    >
+                        Programs & Courses
+                    </h2>
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                What programs does the school offer?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            The school focuses on hospitality and
+                            tourism education, including areas such
+                            as Food & Beverage Service, Food &
+                            Beverage Operation and Tourism.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Are practical skills included in the courses?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Hospitality education combines academic
+                            knowledge with practical skills. Students
+                            can develop professional abilities through
+                            practical training and hospitality-focused
+                            learning activities.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Is the school focused only on hotel operations?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            No. Hospitality and tourism education can
+                            cover multiple professional areas,
+                            including food and beverage, tourism,
+                            guest service, operations and professional
+                            leadership.
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     FEES
+                ============================================== -->
+
+                <div
+                    class="faq-group"
+                    data-group="fees"
+                >
+
+                    <h2
+                        class="faq-group-title
+                        text-2xl sm:text-3xl"
+                    >
+                        Fees & Scholarships
+                    </h2>
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                How much are the school fees?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Fees can vary depending on the program
+                            and academic year. Contact the admissions
+                            or finance office for the current official
+                            fee structure.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Are payment plans available?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Payment arrangements depend on the school's
+                            current policies. Students should contact
+                            the finance or admissions office for the
+                            latest available options.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Does the school provide scholarships?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Scholarship and financial-support
+                            opportunities may vary by academic year.
+                            Contact the school directly for current
+                            information and eligibility requirements.
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     CAREERS
+                ============================================== -->
+
+                <div
+                    class="faq-group"
+                    data-group="careers"
+                >
+
+                    <h2
+                        class="faq-group-title
+                        text-2xl sm:text-3xl"
+                    >
+                        Careers & Internships
+                    </h2>
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Does the school provide internship opportunities?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Hospitality education commonly includes
+                            opportunities for students to gain
+                            practical industry experience. Contact
+                            the school to learn about current
+                            internship arrangements and partners.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                What careers can hospitality students pursue?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Graduates can pursue careers across hotels,
+                            restaurants, tourism businesses, events,
+                            guest relations, food and beverage,
+                            travel and other hospitality-related
+                            organizations.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Does the school teach professional leadership?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Professional development can include
+                            communication, teamwork, service standards,
+                            leadership, problem solving and other
+                            skills needed in hospitality workplaces.
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     STUDENT LIFE
+                ============================================== -->
+
+                <div
+                    class="faq-group"
+                    data-group="student-life"
+                >
+
+                    <h2
+                        class="faq-group-title
+                        text-2xl sm:text-3xl"
+                    >
+                        Student Life
+                    </h2>
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                What is student life like?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Student life is designed around learning,
+                            practical development, teamwork and
+                            professional preparation within a
+                            hospitality-focused environment.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                Can students participate in activities outside class?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Activities can include student events,
+                            professional development activities,
+                            hospitality projects and community-focused
+                            experiences depending on the academic
+                            calendar.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <details class="faq-item">
+
+                        <summary class="faq-question">
+
+                            <span>
+                                How can students get more information?
+                            </span>
+
+                            <span class="faq-chevron">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </summary>
+
+
+                        <div class="faq-answer">
+
+                            Students and prospective applicants can
+                            contact the school through the admissions
+                            desk or submit an enquiry using the
+                            enquiry form on this page.
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- EMPTY SEARCH -->
+
+            <div
+                id="faqEmptyState"
+                class="mt-8"
+            >
+
+                <div
+                    class="w-16 h-16 mx-auto
+                    rounded-full
+                    border border-[#D6B56A]/25
+                    flex items-center justify-center
+                    text-[#D6B56A]"
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </div>
+
+
+                <h3
+                    class="mt-5 text-2xl"
+                >
+                    No questions found
+                </h3>
+
+
+                <p
+                    class="mt-2 text-sm text-white/45"
+                >
+                    Try another search term or contact our
+                    admissions team directly.
+                </p>
+
+
+                <button
+                    type="button"
+                    id="emptyStateEnquire"
+                    class="premium-button
+                    mt-6 px-6 py-3 rounded-xl"
+                >
+                    Ask a Question
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+
+
+
+            <!-- CTA -->
+
+            <div
+                class="glass-luxury
+                mt-14
+                rounded-3xl
+                p-7 sm:p-10
+                text-center"
+            >
+
+                <div
+                    class="mx-auto
+                    w-14 h-14
+                    rounded-full
+                    border border-[#D6B56A]/30
+                    flex items-center justify-center
+                    text-[#D6B56A]"
+                >
+
+                    <i class="fa-solid fa-headset"></i>
+
+                </div>
+
+
+                <h2
+                    class="mt-5
+                    text-2xl sm:text-3xl"
+                >
+                    Still have a specific question?
+                </h2>
+
+
+                <p
+                    class="mt-3
+                    text-sm
+                    text-white/50
+                    max-w-xl mx-auto
+                    leading-7"
+                >
+                    Our admissions team can help you with
+                    questions that are not answered above.
+                </p>
+
+
+                <button
+                    type="button"
+                    id="openInquiry"
+                    class="premium-button
+                    mt-7
+                    px-7 py-3.5
+                    rounded-xl"
+                >
+
+                    Contact Admissions
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     INQUIRY MODAL
+========================================================== -->
+
+<div
+    id="inquiryModal"
+    class="fixed inset-0 z-[200]
+    bg-black/75 backdrop-blur-md
+    flex items-center justify-center
+    p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="inquiryTitle"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-card
+        w-full max-w-xl
+        max-h-[90vh]
+        overflow-y-auto
+        rounded-3xl
+        border border-[#D6B56A]/20
+        bg-[#071A12]
+        shadow-2xl"
+    >
+
+        <!-- MODAL HEADER -->
+
+        <div
+            class="flex items-start justify-between
+            gap-5
+            p-6 sm:p-8
+            border-b border-white/10"
+        >
+
+            <div>
+
+                <p
+                    class="text-[10px]
+                    tracking-[.3em]
+                    uppercase
+                    text-[#D6B56A]"
+                >
+                    Admissions
+                </p>
+
+
+                <h2
+                    id="inquiryTitle"
+                    class="mt-2 text-3xl"
+                >
+                    Send an Enquiry
+                </h2>
+
+
+                <p
+                    class="mt-2
+                    text-sm
+                    text-white/45"
+                >
+                    Ask us anything about studying with us.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="closeInquiry"
+                class="w-10 h-10
+                rounded-full
+                border border-white/10
+                text-white/60
+                hover:text-[#D6B56A]
+                hover:border-[#D6B56A]/40
+                transition"
+                aria-label="Close inquiry form"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- FORM -->
+
+        <form
+            id="inquiryForm"
+            class="p-6 sm:p-8"
+        >
+
+            <div class="grid sm:grid-cols-2 gap-5">
+
+
+                <!-- NAME -->
+
+                <div>
+
+                    <label
+                        for="inquiryName"
+                        class="block text-xs
+                        font-semibold
+                        text-white/65
+                        mb-2"
+                    >
+                        Full Name
+                    </label>
+
+
+                    <input
+                        id="inquiryName"
+                        name="name"
+                        type="text"
+                        class="form-input
+                        rounded-xl px-4 py-3"
+                        placeholder="Your full name"
+                        required
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div>
+
+                    <label
+                        for="inquiryEmail"
+                        class="block text-xs
+                        font-semibold
+                        text-white/65
+                        mb-2"
+                    >
+                        Email Address
+                    </label>
+
+
+                    <input
+                        id="inquiryEmail"
+                        name="email"
+                        type="email"
+                        class="form-input
+                        rounded-xl px-4 py-3"
+                        placeholder="you@example.com"
+                        required
+                        autocomplete="email"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUESTION -->
+
+            <div class="mt-5">
+
+                <label
+                    for="inquiryQuestion"
+                    class="block text-xs
+                    font-semibold
+                    text-white/65
+                    mb-2"
+                >
+                    Your Question
+                </label>
+
+
+                <textarea
+                    id="inquiryQuestion"
+                    name="question"
+                    rows="6"
+                    class="form-input
+                    rounded-xl px-4 py-3
+                    resize-none"
+                    placeholder="How can we help you?"
+                    required
+                ></textarea>
+
+            </div>
+
+
+
+            <div
+                id="inquiryStatus"
+                class="status-message"
+                role="status"
+                aria-live="polite"
+            ></div>
+
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="premium-button
+                w-full
+                mt-6
+                py-3.5
+                rounded-xl"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Send Enquiry
+
+            </button>
+
+
+            <p
+                class="mt-4
+                text-center
+                text-[11px]
+                text-white/30"
+            >
+                Your enquiry is saved locally in this demo.
+                Connect a backend later for real email/database
+                submission.
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================== -->
+
+<footer
+    id="footer"
+    class="luxury-footer"
+>
+
+    <div
+        class="relative z-10
+        max-w-7xl mx-auto
+        px-4 sm:px-6 lg:px-8
+        pt-16 pb-8"
+    >
+
+
+        <!-- =================================================
+             TOP FOOTER
+        ================================================== -->
+
+        <div
+            class="grid
+            lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]
+            gap-12"
+        >
+
+
+            <!-- BRAND -->
+
+            <div>
+
+                <div
+                    class="flex items-center gap-3"
+                >
+
+                    <span class="logo-mark">
+
+                        <i class="fa-solid fa-hotel"></i>
+
+                    </span>
+
+
+                    <div>
+
+                        <p
+                            class="text-[10px]
+                            tracking-[.28em]
+                            text-[#D6B56A]"
+                        >
+                            RWANDA
+                        </p>
+
+                        <p
+                            class="text-sm
+                            font-bold
+                            tracking-[.08em]"
+                        >
+                            SCHOOL OF HOSPITALITY
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <p
+                    class="mt-6
+                    max-w-sm
+                    text-sm
+                    leading-7
+                    text-white/45"
+                >
+                    Developing hospitality professionals
+                    through knowledge, practical skills,
+                    service excellence and professional
+                    leadership.
+                </p>
+
+
+                <!-- SOCIAL -->
+
+                <div
+                    class="flex flex-wrap
+                    gap-2 mt-7"
+                >
+
+                    <a
+                        href="#"
+                        class="footer-social"
+                        data-placeholder-social="Facebook"
+                        aria-label="Facebook"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="footer-social"
+                        data-placeholder-social="Instagram"
+                        aria-label="Instagram"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="footer-social"
+                        data-placeholder-social="LinkedIn"
+                        aria-label="LinkedIn"
+                    >
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="footer-social"
+                        data-placeholder-social="Twitter"
+                        aria-label="Twitter"
+                    >
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+
+
+                    <a
+                        href="https://wa.me/250780327623"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="footer-social"
+                        aria-label="WhatsApp"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EXPLORE -->
+
+            <div>
+
+                <h3
+                    class="text-lg"
+                >
+                    Explore
+                </h3>
+
+
+                <div
+                    class="gold-divider !mx-0 mt-4 mb-5"
+                ></div>
+
+
+                <ul class="space-y-3 text-sm">
+
+                    <li>
+                        <a href="#faq" class="footer-link">
+                            About Us
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#faq" class="footer-link">
+                            Programs
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#faq" class="footer-link">
+                            Experience
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#faq" class="footer-link">
+                            Partnerships
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#faq" class="footer-link">
+                            Campus
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#faq" class="footer-link">
+                            Frequently Asked Questions
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- ADMISSIONS -->
+
+            <div>
+
+                <h3
+                    class="text-lg"
+                >
+                    Admissions
+                </h3>
+
+
+                <div
+                    class="gold-divider !mx-0 mt-4 mb-5"
+                ></div>
+
+
+                <ul class="space-y-3 text-sm">
+
+                    <li>
+                        <button
+                            type="button"
+                            class="footer-link"
+                            data-footer-inquiry
+                        >
+                            Apply Now
+                        </button>
+                    </li>
+
+                    <li>
+                        <button
+                            type="button"
+                            class="footer-link"
+                            data-footer-inquiry
+                        >
+                            Request Information
+                        </button>
+                    </li>
+
+                    <li>
+                        <button
+                            type="button"
+                            class="footer-link"
+                            data-footer-inquiry
+                        >
+                            Contact Admissions
+                        </button>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#faq"
+                            class="footer-link"
+                        >
+                            FAQ
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- CONTACT -->
+
+            <div>
+
+                <h3
+                    class="text-lg"
+                >
+                    Contact
+                </h3>
+
+
+                <div
+                    class="gold-divider !mx-0 mt-4 mb-5"
+                ></div>
+
+
+                <ul
+                    class="space-y-4
+                    text-sm
+                    text-white/50"
+                >
+
+                    <li
+                        class="flex items-start gap-3"
+                    >
+
+                        <i
+                            class="fa-solid fa-location-dot
+                            text-[#D6B56A]
+                            mt-1"
+                        ></i>
+
+                        <span>
+                            Kigali, Rwanda
+                        </span>
+
+                    </li>
+
+
+                    <li
+                        class="flex items-center gap-3"
+                    >
+
+                        <i
+                            class="fa-solid fa-phone
+                            text-[#D6B56A]"
+                        ></i>
+
+                        <a
+                            href="tel:+250791684945"
+                            class="hover:text-[#D6B56A] transition"
+                        >
+                            +250 791 684 945
+                        </a>
+
+                    </li>
+
+
+                    <li
+                        class="flex items-center gap-3"
+                    >
+
+                        <i
+                            class="fa-brands fa-whatsapp
+                            text-[#D6B56A]"
+                        ></i>
+
+                        <a
+                            href="https://wa.me/250780327623"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-[#D6B56A] transition"
+                        >
+                            WhatsApp Admissions
+                        </a>
+
+                    </li>
+
+
+                    <li
+                        class="flex items-center gap-3"
+                    >
+
+                        <i
+                            class="fa-solid fa-envelope
+                            text-[#D6B56A]"
+                        ></i>
+
+                        <button
+                            type="button"
+                            data-footer-inquiry
+                            class="hover:text-[#D6B56A] transition"
+                        >
+                            Send an enquiry
+                        </button>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             NEWSLETTER
+        ================================================== -->
+
+        <div
+            class="mt-16
+            rounded-3xl
+            border border-[#D6B56A]/15
+            bg-white/[.025]
+            p-6 sm:p-8"
+        >
+
+            <div
+                class="grid
+                lg:grid-cols-[1fr_1.2fr]
+                gap-8
+                items-center"
+            >
+
+                <div>
+
+                    <p
+                        class="text-[10px]
+                        uppercase
+                        tracking-[.3em]
+                        text-[#D6B56A]"
+                    >
+                        Stay Connected
+                    </p>
+
+
+                    <h3
+                        class="mt-2 text-2xl"
+                    >
+                        Receive School Updates
+                    </h3>
+
+
+                    <p
+                        class="mt-2
+                        text-sm
+                        text-white/40"
+                    >
+                        Get important admissions and school
+                        updates in your inbox.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="newsletterForm"
+                    class="flex flex-col sm:flex-row gap-3"
+                >
+
+                    <input
+                        id="newsletterEmail"
+                        type="email"
+                        class="form-input
+                        rounded-xl
+                        px-4 py-3"
+                        placeholder="Your email address"
+                        required
+                        autocomplete="email"
+                        aria-label="Newsletter email address"
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="premium-button
+                        px-6 py-3
+                        rounded-xl
+                        whitespace-nowrap"
+                    >
+                        Subscribe
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div
+                id="newsletterStatus"
+                class="status-message"
+                role="status"
+                aria-live="polite"
+            ></div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER COLOR CUSTOMIZER
+        ================================================== -->
+
+        <div class="mt-10">
+
+            <div
+                class="flex flex-wrap
+                items-center
+                justify-between gap-4"
+            >
+
+                <div>
+
+                    <button
+                        type="button"
+                        id="footerCustomizerToggle"
+                        class="text-xs
+                        text-white/50
+                        hover:text-[#D6B56A]
+                        transition"
+                        aria-expanded="false"
+                        aria-controls="footerColorPanel"
+                    >
+
+                        <i
+                            class="fa-solid fa-palette mr-2"
+                        ></i>
+
+                        Customize Footer Color
+
+                    </button>
+
+                </div>
+
+
+                <span
+                    id="activeFooterColor"
+                    class="text-[10px]
+                    tracking-[.15em]
+                    uppercase
+                    text-white/25"
+                >
+                    Forest Gold
+                </span>
+
+            </div>
+
+
+            <div
+                id="footerColorPanel"
+                class="footer-color-panel"
+            >
+
+                <div
+                    class="flex flex-wrap
+                    gap-4 pt-5"
+                >
+
+                    <button
+                        type="button"
+                        class="footer-color-swatch active"
+                        style="background:#071A12"
+                        data-footer-name="Forest Gold"
+                        data-footer-primary="#071A12"
+                        data-footer-secondary="#0B241B"
+                        aria-label="Forest Gold footer"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="footer-color-swatch"
+                        style="background:#050505"
+                        data-footer-name="Obsidian"
+                        data-footer-primary="#050505"
+                        data-footer-secondary="#111111"
+                        aria-label="Obsidian footer"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="footer-color-swatch"
+                        style="background:#06382A"
+                        data-footer-name="Emerald"
+                        data-footer-primary="#06382A"
+                        data-footer-secondary="#0B5942"
+                        aria-label="Emerald footer"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="footer-color-swatch"
+                        style="background:#24100F"
+                        data-footer-name="Burgundy"
+                        data-footer-primary="#24100F"
+                        data-footer-secondary="#421B18"
+                        aria-label="Burgundy footer"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="footer-color-swatch"
+                        style="background:#081426"
+                        data-footer-name="Midnight Navy"
+                        data-footer-primary="#081426"
+                        data-footer-secondary="#102744"
+                        aria-label="Midnight Navy footer"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="footer-color-swatch"
+                        style="background:#21170F"
+                        data-footer-name="Warm Mocha"
+                        data-footer-primary="#21170F"
+                        data-footer-secondary="#3A2819"
+                        aria-label="Warm Mocha footer"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="footer-color-swatch"
+                        style="background:#15191A"
+                        data-footer-name="Luxury Slate"
+                        data-footer-primary="#15191A"
+                        data-footer-secondary="#252B2D"
+                        aria-label="Luxury Slate footer"
+                    ></button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER BOTTOM
+        ================================================== -->
+
+        <div
+            class="mt-10
+            pt-7
+            border-t border-white/10
+            flex flex-col
+            md:flex-row
+            items-center
+            justify-between
+            gap-4"
+        >
+
+            <p
+                class="text-xs
+                text-white/30
+                text-center md:text-left"
+            >
+                ©
+                <span id="currentYear">
+                    2026
+                </span>
+                Rwanda School of Hospitality.
+                All rights reserved.
+            </p>
+
+
+            <div
+                class="flex flex-wrap
+                justify-center
+                gap-5
+                text-xs"
+            >
+
+                <button
+                    type="button"
+                    class="footer-link"
+                    data-policy="Privacy Policy"
+                >
+                    Privacy
+                </button>
+
+
+                <button
+                    type="button"
+                    class="footer-link"
+                    data-policy="Terms & Conditions"
+                >
+                    Terms
+                </button>
+
+
+                <a
+                    href="#faq"
+                    class="footer-link"
+                >
+                    FAQ
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     BACK TO TOP
+========================================================== -->
+
+<button
+    id="backToTop"
+    type="button"
+    class="fixed
+    right-5 bottom-5
+    z-[80]
+    w-12 h-12
+    rounded-full
+    border border-[#D6B56A]/30
+    bg-[#071A12]/90
+    backdrop-blur-xl
+    text-[#D6B56A]
+    shadow-xl
+    flex items-center justify-center"
+    aria-label="Back to top"
+    title="Back to top"
+>
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================== -->
+
+<div
+    id="toast"
+    class="rounded-xl
+    border border-[#D6B56A]/25
+    bg-[#071A12]/95
+    backdrop-blur-xl
+    shadow-2xl
+    px-4 py-3"
+    role="status"
+    aria-live="polite"
+>
+
+    <div class="flex items-start gap-3">
+
+        <span
+            id="toastIcon"
+            class="text-[#D6B56A] mt-0.5"
+        >
+            <i class="fa-solid fa-circle-check"></i>
+        </span>
+
+
+        <div>
+
+            <p
+                id="toastTitle"
+                class="font-semibold text-sm"
+            >
+                Success
+            </p>
+
+
+            <p
+                id="toastMessage"
+                class="mt-1 text-xs text-white/45"
+            >
+                Done.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../JS/FAQ.js"></script>
+</body>
+</html>
