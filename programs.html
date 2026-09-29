@@ -1,0 +1,2911 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Programs | Noah's Ark International School</title>
+
+    <meta
+        name="description"
+        content="Explore academic and professional programs at Noah's Ark International School of Hospitality & Tourism."
+    >
+
+    <!-- =========================================================
+         TAILWIND CSS
+    ========================================================== -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: "#0B241B",
+                        forestdeep: "#06150F",
+                        forestlight: "#10382A",
+                        emerald: "#164A36",
+                        gold: "#D6B56A",
+                        goldlight: "#E8D39B",
+                        cream: "#F1E4C3",
+                        ivory: "#F7F5EF"
+                    },
+
+                    fontFamily: {
+                        display: [
+                            "Playfair Display",
+                            "Georgia",
+                            "serif"
+                        ],
+                        sans: [
+                            "Plus Jakarta Sans",
+                            "Arial",
+                            "sans-serif"
+                        ]
+                    }
+                }
+            }
+        };
+    </script>
+
+
+    <!-- =========================================================
+         GOOGLE FONTS
+    ========================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         LUCIDE ICONS
+    ========================================================== -->
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <!-- =========================================================
+         CUSTOM CSS
+    ========================================================== -->
+
+    <style>
+
+        /* =====================================================
+           GLOBAL VARIABLES
+        ====================================================== */
+
+        :root {
+            --forest: #0B241B;
+            --deep: #06150F;
+            --forest-light: #10382A;
+            --emerald: #164A36;
+
+            --gold: #D6B56A;
+            --gold-light: #E8D39B;
+
+            --cream: #F1E4C3;
+
+            --text: #FFFFFF;
+            --muted: rgba(255,255,255,.65);
+
+            --card: rgba(255,255,255,.05);
+            --border: rgba(214,181,106,.20);
+
+            /* Footer */
+            --footer-bg: #06150F;
+            --footer-accent: #D6B56A;
+            --footer-text: #FFFFFF;
+            --footer-muted: rgba(255,255,255,.55);
+        }
+
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+            overflow-x: hidden;
+
+            font-family:
+                "Plus Jakarta Sans",
+                Arial,
+                sans-serif;
+
+            background: var(--deep);
+            color: var(--text);
+
+            transition:
+                background-color .4s ease,
+                color .4s ease;
+        }
+
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+
+        button,
+        a,
+        input,
+        textarea,
+        select {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        ::selection {
+            background: rgba(214,181,106,.30);
+            color: #fff;
+        }
+
+
+        /* =====================================================
+           PROGRAMS SECTION
+        ====================================================== */
+
+        .programs-section {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    ellipse at 12% 15%,
+                    rgba(214,181,106,.12),
+                    transparent 34%
+                ),
+                radial-gradient(
+                    ellipse at 90% 70%,
+                    rgba(30,97,71,.32),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    135deg,
+                    #071A12,
+                    #0B241B 50%,
+                    #06150F
+                );
+        }
+
+
+        .programs-section::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+
+            opacity: .12;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.05) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.05) 1px,
+                    transparent 1px
+                );
+
+            background-size: 54px 54px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    #000,
+                    transparent 85%
+                );
+        }
+
+
+        /* =====================================================
+           GOLD TEXT
+        ====================================================== */
+
+        .gold-text {
+            background:
+                linear-gradient(
+                    110deg,
+                    #F7E9BD,
+                    #D6B56A 48%,
+                    #A98235
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        /* =====================================================
+           PROGRAM CARDS
+        ====================================================== */
+
+        .program-card {
+            position: relative;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 18px 55px rgba(0,0,0,.20);
+
+            backdrop-filter: blur(16px);
+
+            transition:
+                transform .35s ease,
+                border-color .35s ease,
+                box-shadow .35s ease;
+        }
+
+
+        .program-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: -1px;
+            left: 28px;
+            right: 28px;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #D6B56A,
+                    transparent
+                );
+
+            opacity: 0;
+
+            transition: opacity .35s ease;
+        }
+
+
+        .program-card:hover {
+            transform: translateY(-8px);
+
+            border-color:
+                rgba(214,181,106,.65);
+
+            box-shadow:
+                0 28px 70px rgba(0,0,0,.38);
+        }
+
+
+        .program-card:hover::before {
+            opacity: 1;
+        }
+
+
+        /* =====================================================
+           ICON TILE
+        ====================================================== */
+
+        .icon-tile {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(214,181,106,.17),
+                    rgba(214,181,106,.04)
+                );
+
+            border:
+                1px solid rgba(214,181,106,.28);
+
+            transition:
+                transform .35s ease;
+        }
+
+
+        .program-card:hover .icon-tile {
+            transform:
+                rotate(-5deg)
+                scale(1.06);
+        }
+
+
+        /* =====================================================
+           PROGRAM ACTION
+        ====================================================== */
+
+        .program-action {
+            transition:
+                gap .3s ease,
+                color .3s ease;
+        }
+
+
+        .program-card:hover .program-action {
+            gap: .7rem;
+            color: #E8D39B;
+        }
+
+
+        /* =====================================================
+           FILTER BUTTONS
+        ====================================================== */
+
+        .filter-button {
+            border:
+                1px solid rgba(214,181,106,.20);
+
+            background:
+                rgba(255,255,255,.025);
+
+            color:
+                var(--muted);
+
+            transition:
+                .3s ease;
+        }
+
+
+        .filter-button:hover,
+        .filter-button.active {
+            border-color:
+                rgba(214,181,106,.60);
+
+            color:
+                #E8D39B;
+
+            background:
+                rgba(214,181,106,.10);
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ====================================================== */
+
+        .program-search {
+            background:
+                rgba(255,255,255,.045);
+
+            border:
+                1px solid rgba(214,181,106,.20);
+
+            color: #fff;
+
+            outline: none;
+
+            transition:
+                .3s ease;
+        }
+
+
+        .program-search::placeholder {
+            color:
+                rgba(255,255,255,.35);
+        }
+
+
+        .program-search:focus {
+            border-color:
+                rgba(214,181,106,.70);
+
+            box-shadow:
+                0 0 0 4px rgba(214,181,106,.07);
+        }
+
+
+        /* =====================================================
+           REVEAL
+        ====================================================== */
+
+        .reveal {
+            animation:
+                rise .75s both;
+        }
+
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+
+        /* =====================================================
+           MODALS
+        ====================================================== */
+
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+
+            transition:
+                opacity .3s ease,
+                visibility .3s ease;
+        }
+
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+
+        .modal-card {
+            opacity: 0;
+            transform:
+                translateY(25px)
+                scale(.97);
+
+            transition:
+                opacity .35s ease,
+                transform .35s ease;
+        }
+
+
+        .modal-overlay.active .modal-card {
+            opacity: 1;
+            transform: none;
+        }
+
+
+        /* =====================================================
+           TOAST
+        ====================================================== */
+
+        #toast {
+            opacity: 0;
+            transform:
+                translateY(30px)
+                translateX(-50%);
+
+            pointer-events: none;
+
+            transition:
+                opacity .3s ease,
+                transform .3s ease;
+        }
+
+
+        #toast.show {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                translateX(-50%);
+        }
+
+
+        /* =====================================================
+           BACK TO TOP
+        ====================================================== */
+
+        #backToTopFloating {
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(15px);
+
+            transition:
+                opacity .3s ease,
+                visibility .3s ease,
+                transform .3s ease;
+        }
+
+
+        #backToTopFloating.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+        }
+
+
+        /* =====================================================
+           PREMIUM FOOTER
+        ====================================================== */
+
+        .site-footer {
+            position: relative;
+            overflow: hidden;
+
+            background: var(--footer-bg);
+            color: var(--footer-text);
+
+            border-top:
+                1px solid
+                rgba(214,181,106,.20);
+
+            transition:
+                background-color .45s ease,
+                color .35s ease,
+                border-color .35s ease;
+        }
+
+
+        .site-footer::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            top: -180px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            border-radius: 50%;
+
+            background:
+                var(--footer-accent);
+
+            opacity: .07;
+
+            filter:
+                blur(100px);
+
+            pointer-events: none;
+        }
+
+
+        .footer-accent {
+            color:
+                var(--footer-accent);
+        }
+
+
+        .footer-link {
+            color:
+                var(--footer-muted);
+
+            transition:
+                color .3s ease;
+        }
+
+
+        .footer-link:hover {
+            color:
+                var(--footer-accent);
+        }
+
+
+        .footer-social {
+            color:
+                var(--footer-muted);
+
+            border:
+                1px solid rgba(255,255,255,.10);
+
+            background:
+                rgba(255,255,255,.03);
+
+            transition:
+                .3s ease;
+        }
+
+
+        .footer-social:hover {
+            color:
+                var(--footer-accent);
+
+            border-color:
+                var(--footer-accent);
+
+            background:
+                rgba(214,181,106,.10);
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        .footer-card {
+            border:
+                1px solid rgba(255,255,255,.10);
+
+            background:
+                rgba(255,255,255,.03);
+
+            transition:
+                .3s ease;
+        }
+
+
+        .footer-card:hover {
+            border-color:
+                var(--footer-accent);
+        }
+
+
+        /* =====================================================
+           FOOTER THEMES
+        ====================================================== */
+
+        .site-footer.footer-gold {
+            --footer-bg: #06150F;
+            --footer-accent: #D6B56A;
+        }
+
+
+        .site-footer.footer-emerald {
+            --footer-bg: #10382A;
+            --footer-accent: #D6B56A;
+        }
+
+
+        .site-footer.footer-black {
+            --footer-bg: #080808;
+            --footer-accent: #D6B56A;
+        }
+
+
+        .site-footer.footer-burgundy {
+            --footer-bg: #241015;
+            --footer-accent: #D6B56A;
+        }
+
+
+        .site-footer.footer-navy {
+            --footer-bg: #0B1724;
+            --footer-accent: #D6B56A;
+        }
+
+
+        /* =====================================================
+           LIGHT MODE
+        ====================================================== */
+
+        body.light-mode {
+            color-scheme: light;
+
+            background:
+                #F7F5EF;
+
+            color:
+                #10251B;
+        }
+
+
+        body.light-mode .top-bar {
+            background:
+                #F0EBDD !important;
+
+            color:
+                rgba(16,37,27,.65);
+        }
+
+
+        body.light-mode .top-bar .text-white\/60,
+        body.light-mode .top-bar .text-white\/70 {
+            color:
+                rgba(16,37,27,.65) !important;
+        }
+
+
+        body.light-mode .top-bar .text-white\/20 {
+            color:
+                rgba(16,37,27,.20) !important;
+        }
+
+
+        body.light-mode #navbar nav {
+            background:
+                rgba(255,255,255,.90);
+
+            border-color:
+                rgba(169,130,53,.25);
+        }
+
+
+        body.light-mode .nav-logo-title {
+            color:
+                #10251B !important;
+        }
+
+
+        body.light-mode .nav-link {
+            color:
+                rgba(16,37,27,.70) !important;
+        }
+
+
+        body.light-mode .nav-link:hover {
+            color:
+                #76591C !important;
+        }
+
+
+        body.light-mode .programs-section {
+            background:
+                radial-gradient(
+                    ellipse at 10% 15%,
+                    rgba(214,181,106,.18),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    ellipse at 90% 70%,
+                    rgba(30,97,71,.10),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    135deg,
+                    #F7F5EF,
+                    #EFEBDD 50%,
+                    #E8E4D7
+                );
+        }
+
+
+        body.light-mode .program-card {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.96),
+                    rgba(246,242,231,.92)
+                );
+
+            border-color:
+                rgba(16,37,27,.12);
+
+            box-shadow:
+                0 18px 50px
+                rgba(16,37,27,.08);
+        }
+
+
+        body.light-mode .program-card:hover {
+            border-color:
+                rgba(169,130,53,.55);
+
+            box-shadow:
+                0 25px 60px
+                rgba(16,37,27,.12);
+        }
+
+
+        body.light-mode .program-title,
+        body.light-mode .hero-title {
+            color:
+                #10251B !important;
+        }
+
+
+        body.light-mode .program-description,
+        body.light-mode .hero-description {
+            color:
+                rgba(16,37,27,.68) !important;
+        }
+
+
+        body.light-mode .program-search {
+            background:
+                rgba(255,255,255,.75);
+
+            color:
+                #10251B;
+        }
+
+
+        body.light-mode .program-search::placeholder {
+            color:
+                rgba(16,37,27,.40);
+        }
+
+
+        body.light-mode .filter-button {
+            color:
+                rgba(16,37,27,.65);
+
+            background:
+                rgba(255,255,255,.55);
+
+            border-color:
+                rgba(16,37,27,.12);
+        }
+
+
+        body.light-mode .filter-button:hover,
+        body.light-mode .filter-button.active {
+            color:
+                #76591C;
+
+            border-color:
+                rgba(169,130,53,.55);
+
+            background:
+                rgba(214,181,106,.15);
+        }
+
+
+        body.light-mode .modal-card {
+            background:
+                #F7F5EF !important;
+
+            color:
+                #10251B;
+        }
+
+
+        body.light-mode .modal-card h2,
+        body.light-mode .modal-card p,
+        body.light-mode .modal-card li {
+            color:
+                #10251B;
+        }
+
+
+        body.light-mode .modal-card .text-white\/60,
+        body.light-mode .modal-card .text-white\/65,
+        body.light-mode .modal-card .text-white\/70 {
+            color:
+                rgba(16,37,27,.65) !important;
+        }
+
+
+        body.light-mode .modal-card input,
+        body.light-mode .modal-card textarea,
+        body.light-mode .modal-card select {
+            color:
+                #10251B !important;
+
+            background:
+                rgba(16,37,27,.05) !important;
+
+            border-color:
+                rgba(16,37,27,.15) !important;
+        }
+
+
+        body.light-mode .modal-card input::placeholder,
+        body.light-mode .modal-card textarea::placeholder {
+            color:
+                rgba(16,37,27,.40);
+        }
+
+
+        /* Footer remains dark in light mode for premium contrast. */
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 640px) {
+
+            .program-card {
+                min-height: 300px;
+            }
+
+
+            .programs-section::before {
+                background-size: 35px 35px;
+            }
+
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ====================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    .01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    .01ms !important;
+
+                scroll-behavior:
+                    auto !important;
+            }
+
+        }
+
+         /* =========================================================
+   FOOTER THEME SWITCH
+========================================================= */
+
+#siteFooter{
+    background:#071A12;
+    color:#F1E4C3;
+    border-color:rgba(214,181,106,.15);
+    transition:background .4s ease,color .4s ease,border-color .4s ease;
+}
+
+/* Footer text */
+#siteFooter p,
+#siteFooter span{
+    color:rgba(255,255,255,.65);
+}
+
+/* Footer headings */
+#siteFooter h3,
+#siteFooter h4{
+    color:#F1E4C3;
+}
+
+/* Footer links */
+#siteFooter a{
+    color:rgba(255,255,255,.65);
+    transition:color .25s ease;
+}
+
+#siteFooter a:hover{
+    color:#D6B56A;
+}
+
+/* Footer borders */
+#siteFooter .footer-border{
+    border-color:rgba(214,181,106,.15);
+}
+
+
+/* =========================================================
+   LIGHT MODE — NAVIGATION
+========================================================= */
+
+body.light-mode #navbar nav {
+
+    background: rgba(255,255,255,.96) !important;
+
+    border-color: rgba(16,37,27,.12) !important;
+
+    box-shadow:
+        0 10px 35px rgba(16,37,27,.08);
+}
+
+
+/* Navigation title / logo text */
+
+body.light-mode .nav-logo-title {
+
+    color: #10251B !important;
+}
+
+
+/* Navigation links */
+
+body.light-mode .nav-link {
+
+    color: #10251B !important;
+}
+
+
+/* Navigation link hover */
+
+body.light-mode .nav-link:hover {
+
+    color: #A67C28 !important;
+}
+
+
+/* Navigation icons */
+
+body.light-mode #navbar button {
+
+    color: #10251B !important;
+}
+
+
+/* =========================================================
+   LIGHT MODE — MOBILE MENU
+========================================================= */
+
+body.light-mode #menuPanel {
+
+    background: rgba(255,255,255,.98) !important;
+
+    border-color: rgba(16,37,27,.12) !important;
+
+    box-shadow:
+        0 20px 50px rgba(16,37,27,.15);
+}
+
+
+/* Mobile menu links */
+
+body.light-mode #menuPanel a {
+
+    color: #10251B !important;
+}
+
+
+/* Mobile menu hover */
+
+body.light-mode #menuPanel a:hover {
+
+    color: #A67C28 !important;
+
+    background: rgba(214,181,106,.12) !important;
+}
+
+
+/* =========================================================
+   LIGHT MODE — FOOTER
+========================================================= */
+
+body.light-mode #siteFooter {
+
+    background: #FFFFFF !important;
+
+    color: #10291E !important;
+
+    border-color:
+        rgba(16,41,30,.12) !important;
+}
+
+
+/* Footer paragraphs */
+
+body.light-mode #siteFooter p,
+body.light-mode #siteFooter span {
+
+    color:
+        rgba(16,41,30,.68) !important;
+}
+
+
+/* Footer headings */
+
+body.light-mode #siteFooter h3,
+body.light-mode #siteFooter h4 {
+
+    color:
+        #10291E !important;
+}
+
+
+/* Footer links */
+
+body.light-mode #siteFooter a {
+
+    color:
+        rgba(16,41,30,.68) !important;
+}
+
+
+/* Footer link hover */
+
+body.light-mode #siteFooter a:hover {
+
+    color:
+        #A67C28 !important;
+}
+
+
+/* Footer borders */
+
+body.light-mode #siteFooter .footer-border {
+
+    border-color:
+        rgba(16,41,30,.12) !important;
+}
+
+
+/* Footer social buttons */
+
+body.light-mode #siteFooter .footer-social {
+
+    color:
+        #10291E !important;
+
+    border-color:
+        rgba(16,41,30,.15) !important;
+
+    background:
+        rgba(16,41,30,.03) !important;
+}
+
+
+/* Footer social hover */
+
+body.light-mode #siteFooter .footer-social:hover {
+
+    color:
+        #A67C28 !important;
+
+    border-color:
+        #D6B56A !important;
+
+    background:
+        rgba(214,181,106,.10) !important;
+}
+
+
+/* Footer gold accent */
+
+body.light-mode #siteFooter .footer-accent {
+
+    color:
+        #A67C28 !important;
+}
+
+body.light-mode .nav-link {
+
+    color: #10251B !important;
+}
+/* =========================================================
+   LIGHT MODE — HEADER TEXT
+========================================================= */
+
+/* School / logo title */
+body.light-mode .nav-logo-title {
+    color: #10251B !important;
+}
+
+/* Main navigation text */
+body.light-mode .nav-link {
+    color: #10251B !important;
+}
+
+/* Navigation hover */
+body.light-mode .nav-link:hover {
+    color: #A67C28 !important;
+}
+
+/* Header buttons / icons */
+body.light-mode #navbar button {
+    color: #10251B !important;
+}
+
+/* Header small text */
+body.light-mode #navbar .text-white\/60,
+body.light-mode #navbar .text-white\/70,
+body.light-mode #navbar .text-white\/80 {
+    color: rgba(16,37,27,.70) !important;
+}
+
+/* Gold elements stay gold */
+body.light-mode #navbar .text-gold {
+    color: #A67C28 !important;
+}
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         TOP ANNOUNCEMENT BAR
+    ========================================================== -->
+
+    <div
+        class="top-bar relative z-[70] border-b border-gold/10 bg-[#071A12] text-xs tracking-wider text-white/70"
+    >
+
+        <div
+            class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-2.5 sm:flex-row sm:px-8 lg:px-10"
+        >
+
+            <div
+                class="flex flex-wrap items-center justify-center gap-3 sm:justify-start"
+            >
+
+                <span
+                    class="h-2 w-2 rounded-full bg-gold shadow-[0_0_12px_#D6B56A]"
+                ></span>
+
+                <span class="font-semibold text-cream">
+                    Admissions Open for 2026/2027 Academic Year
+                </span>
+
+                <span class="hidden text-white/20 md:inline">
+                    |
+                </span>
+
+                <span class="hidden text-white/60 md:inline">
+                    Kigali, Rwanda — International Standards
+                </span>
+
+            </div>
+
+
+            <div class="flex items-center gap-5">
+
+                <a
+                    href="../index.html#campus"
+                    class="transition hover:text-gold"
+                >
+                    Virtual Tour
+                </a>
+
+                <a
+                    href="../index.html#contact"
+                    class="transition hover:text-gold"
+                >
+                    Admissions Desk
+                </a>
+
+                <div
+                    class="flex items-center gap-2 border-l border-white/10 pl-4"
+                >
+
+                    <button
+                        type="button"
+                        id="englishButton"
+                        class="font-bold text-gold"
+                    >
+                        EN
+                    </button>
+
+                    <span class="text-white/20">
+                        /
+                    </span>
+
+                    <button
+                        type="button"
+                        id="frenchButton"
+                        class="transition hover:text-gold"
+                    >
+                        FR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <header
+        id="navbar"
+        class="fixed left-0 right-0 top-[38px] z-50 transition-all duration-500"
+    >
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
+
+            <nav
+                class="flex items-center justify-between rounded-2xl border border-gold/20 bg-[#0B241B]/85 px-4 py-3 shadow-2xl shadow-black/30 backdrop-blur-2xl sm:px-6"
+            >
+
+                <!-- LOGO -->
+
+                <a
+                    href="../index.html"
+                    class="group flex min-w-0 items-center gap-3.5"
+                >
+
+                    <div
+                        class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden border border-gold/50 bg-gradient-to-br from-[#164A36] to-[#0B241B] shadow-lg transition group-hover:border-gold"
+                    >
+
+                        <img
+                            src="../IMAGES/logo.png"
+                            alt="Noah's Ark logo"
+                            class="h-full w-full object-contain p-1"
+                        >
+
+                    </div>
+
+
+                    <div class="min-w-0">
+
+                        <div
+                            class="nav-logo-title text-[11px] font-extrabold tracking-[.22em] text-white/95"
+                        >
+                            NOAH’S ARK
+                        </div>
+
+                        <div
+                            class="whitespace-nowrap text-[9px] font-bold uppercase tracking-[.13em] text-gold sm:text-xs sm:tracking-[.18em]"
+                        >
+                            International School
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- DESKTOP NAVIGATION -->
+
+                <div class="hidden items-center gap-2 md:flex">
+
+<!-- HOME -->
+<a
+    href="./index.html"
+    class="block rounded-lg px-4 py-3 text-sm text-white/80 transition hover:bg-gold/10 hover:text-gold"
+>
+    Home
+</a>
+
+<!-- PROGRAMS -->
+<a
+    href="./programs.html"
+    class="block rounded-lg bg-gold/10 px-4 py-3 text-sm font-semibold text-gold"
+>
+    Programs
+</a>
+
+<!-- EXPERIENCE -->
+<a
+    href="./Experience.html"
+    class="block rounded-lg px-4 py-3 text-sm text-white/80 transition hover:bg-gold/10 hover:text-gold"
+>
+    Experience
+</a>
+
+<!-- FAQ -->
+<a
+    href="./faq.html"
+    class="block rounded-lg px-4 py-3 text-sm text-white/80 transition hover:bg-gold/10 hover:text-gold"
+>
+    FAQ
+</a>
+
+<!-- PARTNERSHIP -->
+<a
+    href="./partnership.html"
+    class="block rounded-lg px-4 py-3 text-sm text-white/80 transition hover:bg-gold/10 hover:text-gold"
+>
+    Partnership
+</a>
+
+                    <a
+                        href="../index.html#contact"
+                        class="nav-link rounded-lg px-3 py-2 text-xs font-semibold text-white/75 transition hover:bg-gold/10 hover:text-gold"
+                    >
+                        Contact
+                    </a>
+
+                </div>
+
+
+                <!-- RIGHT CONTROLS -->
+
+                <div class="flex items-center gap-3">
+
+                    <!-- THEME TOGGLE -->
+
+                    <button
+                        id="themeToggle"
+                        type="button"
+                        aria-label="Switch to light mode"
+                        title="Switch theme"
+                        class="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-[#10382A]/80 text-gold transition hover:scale-105 hover:border-gold hover:bg-[#164A36]"
+                    >
+
+                        <i
+                            id="sunIcon"
+                            data-lucide="sun"
+                            class="h-5 w-5"
+                        ></i>
+
+                        <i
+                            id="moonIcon"
+                            data-lucide="moon"
+                            class="hidden h-5 w-5"
+                        ></i>
+
+                    </button>
+
+
+                    <!-- MOBILE MENU -->
+
+                    <div class="relative">
+
+                        <button
+                            id="menuButton"
+                            type="button"
+                            aria-label="Open navigation menu"
+                            aria-expanded="false"
+                            aria-controls="menuPanel"
+                            class="flex h-11 w-11 items-center justify-center border border-gold/30 bg-black/20 text-gold backdrop-blur-md transition hover:border-gold hover:bg-gold/10 md:hidden"
+                        >
+
+                            <i
+                                id="menuIcon"
+                                data-lucide="menu"
+                                class="h-5 w-5"
+                            ></i>
+
+                        </button>
+
+
+                        <div
+                            id="menuPanel"
+                            class="pointer-events-none absolute right-0 top-14 z-50 w-[min(16rem,calc(100vw-2rem))] origin-top-right scale-95 rounded-2xl border border-gold/25 bg-[#07100d]/95 p-3 opacity-0 shadow-2xl backdrop-blur-xl transition-all duration-300"
+                        >
+
+<!-- HOME -->
+<a href="index.html">
+    Home
+</a>
+
+<!-- PROGRAMS -->
+<a href="programs.html">
+    Programs
+</a>
+
+<!-- EXPERIENCE -->
+<a href="Experience.html">
+    Experience
+</a>
+
+<!-- FAQ -->
+<a href="faq.html">
+    FAQ
+</a>
+
+<!-- PARTNERSHIP -->
+<a href="partnership.html">
+    Partnership
+</a>
+
+                            <button
+                                type="button"
+                                id="mobileEnquireButton"
+                                class="mt-1 flex w-full items-center justify-between rounded-lg bg-gold/10 px-4 py-3 text-left text-sm font-semibold text-gold transition hover:bg-gold/20"
+                            >
+                                Enquire
+
+                                <i
+                                    data-lucide="arrow-up-right"
+                                    class="h-4 w-4"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main>
+
+        <section
+            id="programs"
+            class="programs-section min-h-screen pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-32"
+        >
+
+            <div
+                class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"
+            >
+
+                <!-- HERO -->
+
+                <header
+                    class="mx-auto mb-12 max-w-4xl text-center sm:mb-14 lg:mb-16"
+                >
+
+                    <div
+                        class="mb-5 inline-flex items-center gap-3 rounded-full border border-gold/25 bg-gold/[0.07] px-4 py-2"
+                    >
+
+                        <span
+                            class="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_12px_#D6B56A]"
+                        ></span>
+
+                        <span
+                            class="text-[10px] font-extrabold uppercase tracking-[.28em] text-cream sm:text-xs"
+                        >
+                            Explore our academic programs
+                        </span>
+
+                    </div>
+
+
+                    <h1
+                        class="hero-title font-display text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-7xl"
+                    >
+                        Programs
+                        <span class="gold-text italic">
+                            offered
+                        </span>
+                    </h1>
+
+
+                    <p
+                        class="hero-description mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8"
+                    >
+                        Discover learning pathways in hospitality, food and
+                        beverage, and tourism. Find the area that inspires you
+                        and take your next step toward a future in the industry.
+                    </p>
+
+
+                    <div
+                        class="mx-auto mt-8 flex max-w-xl items-center justify-center gap-4"
+                    >
+
+                        <span
+                            class="h-px w-12 bg-gradient-to-r from-transparent to-gold/70 sm:w-20"
+                        ></span>
+
+                        <span
+                            class="text-center text-xs font-bold uppercase tracking-[.18em] text-gold sm:text-sm"
+                        >
+                            Build knowledge. Gain skills. Create your future
+                        </span>
+
+                        <span
+                            class="h-px w-12 bg-gradient-to-l from-transparent to-gold/70 sm:w-20"
+                        ></span>
+
+                    </div>
+
+                </header>
+
+
+                <!-- SEARCH + FILTER -->
+
+                <div class="mx-auto mb-10 max-w-5xl">
+
+                    <div
+                        class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
+                    >
+
+                        <div class="relative w-full lg:max-w-md">
+
+                            <i
+                                data-lucide="search"
+                                class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/70"
+                            ></i>
+
+                            <input
+                                id="programSearch"
+                                type="search"
+                                autocomplete="off"
+                                placeholder="Search programs..."
+                                class="program-search h-12 w-full rounded-xl pl-11 pr-4 text-sm"
+                            >
+
+                        </div>
+
+
+                        <div
+                            id="programFilters"
+                            class="flex flex-wrap items-center gap-2"
+                        >
+
+                            <button
+                                type="button"
+                                class="filter-button active rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-wider"
+                                data-filter="all"
+                            >
+                                All
+                            </button>
+
+                            <button
+                                type="button"
+                                class="filter-button rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-wider"
+                                data-filter="hospitality"
+                            >
+                                Hospitality
+                            </button>
+
+                            <button
+                                type="button"
+                                class="filter-button rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-wider"
+                                data-filter="food"
+                            >
+                                Food & Beverage
+                            </button>
+
+                            <button
+                                type="button"
+                                class="filter-button rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-wider"
+                                data-filter="tourism"
+                            >
+                                Tourism
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="programResultMessage"
+                        class="mt-4 hidden text-center text-xs text-white/45 lg:text-left"
+                    ></div>
+
+                </div>
+
+
+                <!-- PROGRAM GRID -->
+
+                <div
+                    id="programGrid"
+                    class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4"
+                >
+
+                    <!-- PROGRAM 01 -->
+
+                    <article
+                        class="program-card reveal group flex min-h-[330px] flex-col rounded-[1.7rem] p-7 sm:p-8"
+                        data-category="hospitality"
+                        data-search="trades offered hospitality practical professional training"
+                        data-program="trades"
+                    >
+
+                        <div class="mb-9 flex items-start justify-between">
+
+                            <span
+                                class="rounded-full border border-gold/25 bg-gold/[0.08] px-3 py-1.5 font-mono text-[10px] font-semibold tracking-[.17em] text-gold"
+                            >
+                                PROGRAM 01
+                            </span>
+
+                            <div
+                                class="icon-tile flex h-14 w-14 items-center justify-center rounded-2xl text-gold"
+                            >
+                                <i data-lucide="utensils" class="h-6 w-6"></i>
+                            </div>
+
+                        </div>
+
+
+                        <h2
+                            class="program-title font-display text-2xl font-semibold leading-snug text-white sm:text-[1.7rem]"
+                        >
+                            Trades Offered
+                        </h2>
+
+
+                        <p
+                            class="program-description mt-4 flex-1 text-sm leading-7 text-white/60"
+                        >
+                            Explore practical and professional training areas
+                            available through the school's trade programs.
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="program-action mt-7 flex items-center gap-2 border-t border-white/10 pt-5 text-left text-xs font-semibold uppercase tracking-[.14em] text-gold"
+                            data-open-program="trades"
+                        >
+                            <span>Explore this program</span>
+
+                            <i
+                                data-lucide="arrow-up-right"
+                                class="h-4 w-4"
+                            ></i>
+                        </button>
+
+                    </article>
+
+
+                    <!-- PROGRAM 02 -->
+
+                    <article
+                        class="program-card reveal group flex min-h-[330px] flex-col rounded-[1.7rem] p-7 sm:p-8"
+                        data-category="food"
+                        data-search="food beverage service hospitality restaurant serving"
+                        data-program="service"
+                    >
+
+                        <div class="mb-9 flex items-start justify-between">
+
+                            <span
+                                class="rounded-full border border-gold/25 bg-gold/[0.08] px-3 py-1.5 font-mono text-[10px] font-semibold tracking-[.17em] text-gold"
+                            >
+                                PROGRAM 02
+                            </span>
+
+                            <div
+                                class="icon-tile flex h-14 w-14 items-center justify-center rounded-2xl text-gold"
+                            >
+                                <i data-lucide="concierge-bell" class="h-6 w-6"></i>
+                            </div>
+
+                        </div>
+
+
+                        <h2
+                            class="program-title font-display text-2xl font-semibold leading-snug text-white sm:text-[1.7rem]"
+                        >
+                            Food &amp; Beverage Service
+                        </h2>
+
+
+                        <p
+                            class="program-description mt-4 flex-1 text-sm leading-7 text-white/60"
+                        >
+                            Develop knowledge and practical skills connected
+                            to serving food and beverages in hospitality settings.
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="program-action mt-7 flex items-center gap-2 border-t border-white/10 pt-5 text-left text-xs font-semibold uppercase tracking-[.14em] text-gold"
+                            data-open-program="service"
+                        >
+                            <span>Explore this program</span>
+
+                            <i
+                                data-lucide="arrow-up-right"
+                                class="h-4 w-4"
+                            ></i>
+                        </button>
+
+                    </article>
+
+
+                    <!-- PROGRAM 03 -->
+
+                    <article
+                        class="program-card reveal group flex min-h-[330px] flex-col rounded-[1.7rem] p-7 sm:p-8"
+                        data-category="food"
+                        data-search="food beverage operation management hospitality restaurant operations"
+                        data-program="operation"
+                    >
+
+                        <div class="mb-9 flex items-start justify-between">
+
+                            <span
+                                class="rounded-full border border-gold/25 bg-gold/[0.08] px-3 py-1.5 font-mono text-[10px] font-semibold tracking-[.17em] text-gold"
+                            >
+                                PROGRAM 03
+                            </span>
+
+                            <div
+                                class="icon-tile flex h-14 w-14 items-center justify-center rounded-2xl text-gold"
+                            >
+                                <i data-lucide="clipboard-list" class="h-6 w-6"></i>
+                            </div>
+
+                        </div>
+
+
+                        <h2
+                            class="program-title font-display text-2xl font-semibold leading-snug text-white sm:text-[1.7rem]"
+                        >
+                            Food &amp; Beverage Operation
+                        </h2>
+
+
+                        <p
+                            class="program-description mt-4 flex-1 text-sm leading-7 text-white/60"
+                        >
+                            Build an understanding of the operational side
+                            of food and beverage within the hospitality industry.
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="program-action mt-7 flex items-center gap-2 border-t border-white/10 pt-5 text-left text-xs font-semibold uppercase tracking-[.14em] text-gold"
+                            data-open-program="operation"
+                        >
+                            <span>Explore this program</span>
+
+                            <i
+                                data-lucide="arrow-up-right"
+                                class="h-4 w-4"
+                            ></i>
+                        </button>
+
+                    </article>
+
+
+                    <!-- PROGRAM 04 -->
+
+                    <article
+                        class="program-card reveal group flex min-h-[330px] flex-col rounded-[1.7rem] p-7 sm:p-8"
+                        data-category="tourism"
+                        data-search="tourism travel visitor experiences destinations hospitality"
+                        data-program="tourism"
+                    >
+
+                        <div class="mb-9 flex items-start justify-between">
+
+                            <span
+                                class="rounded-full border border-gold/25 bg-gold/[0.08] px-3 py-1.5 font-mono text-[10px] font-semibold tracking-[.17em] text-gold"
+                            >
+                                PROGRAM 04
+                            </span>
+
+                            <div
+                                class="icon-tile flex h-14 w-14 items-center justify-center rounded-2xl text-gold"
+                            >
+                                <i data-lucide="compass" class="h-6 w-6"></i>
+                            </div>
+
+                        </div>
+
+
+                        <h2
+                            class="program-title font-display text-2xl font-semibold leading-snug text-white sm:text-[1.7rem]"
+                        >
+                            Tourism
+                        </h2>
+
+
+                        <p
+                            class="program-description mt-4 flex-1 text-sm leading-7 text-white/60"
+                        >
+                            Discover the tourism field and develop knowledge
+                            for learning and working in travel and visitor experiences.
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="program-action mt-7 flex items-center gap-2 border-t border-white/10 pt-5 text-left text-xs font-semibold uppercase tracking-[.14em] text-gold"
+                            data-open-program="tourism"
+                        >
+                            <span>Explore this program</span>
+
+                            <i
+                                data-lucide="arrow-up-right"
+                                class="h-4 w-4"
+                            ></i>
+                        </button>
+
+                    </article>
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    id="emptyState"
+                    class="hidden py-16 text-center"
+                >
+
+                    <div
+                        class="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-gold/20 bg-gold/5 text-gold"
+                    >
+                        <i
+                            data-lucide="search-x"
+                            class="h-7 w-7"
+                        ></i>
+                    </div>
+
+                    <h3
+                        class="mt-5 font-display text-2xl text-white"
+                    >
+                        No program found
+                    </h3>
+
+                    <p
+                        class="mx-auto mt-2 max-w-md text-sm leading-7 text-white/50"
+                    >
+                        Try another search term or choose a different program category.
+                    </p>
+
+                    <button
+                        id="clearSearch"
+                        type="button"
+                        class="mt-6 rounded-xl border border-gold/30 px-5 py-3 text-xs font-bold uppercase tracking-wider text-gold transition hover:bg-gold/10"
+                    >
+                        Clear search
+                    </button>
+
+                </div>
+
+
+                <!-- CTA -->
+
+                <div
+                    class="mt-14 overflow-hidden rounded-[1.8rem] border border-gold/25 bg-gradient-to-r from-[#10382A] via-[#0B241B] to-[#132F23] px-6 py-8 shadow-2xl sm:mt-16 sm:px-10 sm:py-10 lg:flex lg:items-center lg:justify-between lg:gap-8"
+                >
+
+                    <div class="max-w-2xl">
+
+                        <p
+                            class="text-[10px] font-extrabold uppercase tracking-[.28em] text-gold"
+                        >
+                            Your future starts here
+                        </p>
+
+                        <h2
+                            class="mt-3 font-display text-2xl font-semibold leading-snug text-white sm:text-3xl"
+                        >
+                            Build knowledge.
+                            <span class="gold-text italic">
+                                Gain skills.
+                            </span>
+                            Create your future.
+                        </h2>
+
+                        <p
+                            class="mt-3 max-w-xl text-sm leading-7 text-white/55"
+                        >
+                            Speak with our admissions team to learn more about
+                            programs, entry requirements and your next steps.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="ctaEnquire"
+                        type="button"
+                        class="mt-6 inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#E8D39B] via-[#D6B56A] to-[#B38D42] px-6 py-4 text-xs font-extrabold uppercase tracking-[.15em] text-[#10251B] shadow-lg transition hover:-translate-y-1 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-gold lg:mt-0"
+                    >
+                        Enquire about programs
+
+                        <i
+                            data-lucide="arrow-right"
+                            class="h-4 w-4"
+                        ></i>
+                    </button>
+
+                </div>
+
+
+                <!-- PROGRAM STATS -->
+
+                <div
+                    class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4"
+                >
+
+                    <div
+                        class="rounded-2xl border border-gold/15 bg-white/[0.025] p-5 text-center backdrop-blur-md"
+                    >
+                        <div class="font-display text-3xl text-gold">
+                            04
+                        </div>
+
+                        <div
+                            class="mt-1 text-[10px] font-bold uppercase tracking-[.2em] text-white/45"
+                        >
+                            Programs
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="rounded-2xl border border-gold/15 bg-white/[0.025] p-5 text-center backdrop-blur-md"
+                    >
+                        <div class="font-display text-3xl text-gold">
+                            03
+                        </div>
+
+                        <div
+                            class="mt-1 text-[10px] font-bold uppercase tracking-[.2em] text-white/45"
+                        >
+                            Study Areas
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="rounded-2xl border border-gold/15 bg-white/[0.025] p-5 text-center backdrop-blur-md"
+                    >
+                        <div class="font-display text-3xl text-gold">
+                            01
+                        </div>
+
+                        <div
+                            class="mt-1 text-[10px] font-bold uppercase tracking-[.2em] text-white/45"
+                        >
+                            Vision
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="rounded-2xl border border-gold/15 bg-white/[0.025] p-5 text-center backdrop-blur-md"
+                    >
+                        <div class="font-display text-3xl text-gold">
+                            ∞
+                        </div>
+
+                        <div
+                            class="mt-1 text-[10px] font-bold uppercase tracking-[.2em] text-white/45"
+                        >
+                            Possibilities
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         PROGRAM DETAILS MODAL
+    ========================================================== -->
+
+    <div
+        id="programModal"
+        class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-card relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-[2rem] border border-gold/25 bg-[#0B241B] p-6 shadow-2xl sm:p-8"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="programModalTitle"
+        >
+
+            <button
+                id="closeProgramModal"
+                type="button"
+                aria-label="Close program details"
+                class="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-gold/20 bg-white/5 text-white/70 transition hover:border-gold/50 hover:bg-gold/10 hover:text-gold"
+            >
+                <i data-lucide="x" class="h-5 w-5"></i>
+            </button>
+
+
+            <div class="pr-12">
+
+                <span
+                    id="modalProgramNumber"
+                    class="inline-flex rounded-full border border-gold/25 bg-gold/10 px-3 py-1.5 font-mono text-[10px] font-bold tracking-[.17em] text-gold"
+                >
+                    PROGRAM
+                </span>
+
+                <h2
+                    id="programModalTitle"
+                    class="mt-5 font-display text-3xl font-semibold text-white sm:text-4xl"
+                >
+                    Program
+                </h2>
+
+                <p
+                    id="programModalDescription"
+                    class="mt-4 text-sm leading-7 text-white/60"
+                ></p>
+
+            </div>
+
+
+            <div
+                class="my-7 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent"
+            ></div>
+
+
+            <div>
+
+                <p
+                    class="text-[10px] font-extrabold uppercase tracking-[.25em] text-gold"
+                >
+                    What you can explore
+                </p>
+
+                <ul
+                    id="programModalList"
+                    class="mt-5 space-y-3"
+                ></ul>
+
+            </div>
+
+
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+
+                <button
+                    id="modalEnquireButton"
+                    type="button"
+                    class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#E8D39B] via-[#D6B56A] to-[#B38D42] px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] text-[#10251B] transition hover:-translate-y-0.5 hover:brightness-110"
+                >
+                    Enquire about this program
+
+                    <i
+                        data-lucide="arrow-right"
+                        class="h-4 w-4"
+                    ></i>
+                </button>
+
+
+                <button
+                    id="modalCloseSecondary"
+                    type="button"
+                    class="rounded-xl border border-white/10 px-5 py-3.5 text-xs font-bold uppercase tracking-[.12em] text-white/60 transition hover:border-gold/30 hover:text-gold"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         INQUIRY MODAL
+    ========================================================== -->
+
+    <div
+        id="inquiryModal"
+        class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-card relative max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-[2rem] border border-gold/25 bg-[#0B241B] p-6 shadow-2xl sm:p-8"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="inquiryTitle"
+        >
+
+            <button
+                id="closeInquiryModal"
+                type="button"
+                aria-label="Close inquiry form"
+                class="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-gold/20 bg-white/5 text-white/70 transition hover:border-gold/50 hover:bg-gold/10 hover:text-gold"
+            >
+                <i data-lucide="x" class="h-5 w-5"></i>
+            </button>
+
+
+            <div class="pr-12">
+
+                <p
+                    class="text-[10px] font-extrabold uppercase tracking-[.25em] text-gold"
+                >
+                    Admissions Desk
+                </p>
+
+                <h2
+                    id="inquiryTitle"
+                    class="mt-3 font-display text-3xl font-semibold text-white"
+                >
+                    Enquire about programs
+                </h2>
+
+                <p
+                    class="mt-3 text-sm leading-7 text-white/55"
+                >
+                    Send us your question and our admissions team can guide you
+                    through the next steps.
+                </p>
+
+            </div>
+
+
+            <form
+                id="inquiryForm"
+                class="mt-7 space-y-5"
+            >
+
+                <div>
+
+                    <label
+                        for="inquiryName"
+                        class="mb-2 block text-xs font-bold uppercase tracking-wider text-white/60"
+                    >
+                        Full name
+                    </label>
+
+                    <input
+                        id="inquiryName"
+                        name="name"
+                        type="text"
+                        required
+                        autocomplete="name"
+                        class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-gold/60 focus:bg-white/[0.06] focus:ring-4 focus:ring-gold/5"
+                        placeholder="Your full name"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        for="inquiryEmail"
+                        class="mb-2 block text-xs font-bold uppercase tracking-wider text-white/60"
+                    >
+                        Email address
+                    </label>
+
+                    <input
+                        id="inquiryEmail"
+                        name="email"
+                        type="email"
+                        required
+                        autocomplete="email"
+                        class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-gold/60 focus:bg-white/[0.06] focus:ring-4 focus:ring-gold/5"
+                        placeholder="you@example.com"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        for="inquiryProgram"
+                        class="mb-2 block text-xs font-bold uppercase tracking-wider text-white/60"
+                    >
+                        Program
+                    </label>
+
+                    <select
+                        id="inquiryProgram"
+                        name="program"
+                        class="w-full rounded-xl border border-white/10 bg-[#10382A] px-4 py-3.5 text-sm text-white outline-none transition focus:border-gold/60 focus:ring-4 focus:ring-gold/5"
+                    >
+
+                        <option value="General inquiry">
+                            General inquiry
+                        </option>
+
+                        <option value="Trades Offered">
+                            Trades Offered
+                        </option>
+
+                        <option value="Food & Beverage Service">
+                            Food & Beverage Service
+                        </option>
+
+                        <option value="Food & Beverage Operation">
+                            Food & Beverage Operation
+                        </option>
+
+                        <option value="Tourism">
+                            Tourism
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        for="inquiryMessage"
+                        class="mb-2 block text-xs font-bold uppercase tracking-wider text-white/60"
+                    >
+                        Your question
+                    </label>
+
+                    <textarea
+                        id="inquiryMessage"
+                        name="message"
+                        rows="4"
+                        required
+                        class="w-full resize-none rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-gold/60 focus:bg-white/[0.06] focus:ring-4 focus:ring-gold/5"
+                        placeholder="Tell us what you would like to know..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#E8D39B] via-[#D6B56A] to-[#B38D42] px-5 py-4 text-xs font-extrabold uppercase tracking-[.14em] text-[#10251B] transition hover:-translate-y-0.5 hover:brightness-110"
+                >
+                    Send inquiry
+
+                    <i
+                        data-lucide="send"
+                        class="h-4 w-4"
+                    ></i>
+                </button>
+
+
+                <div
+                    id="inquirySuccess"
+                    class="hidden rounded-xl border border-emerald-400/20 bg-emerald-400/5 p-4 text-center text-sm text-emerald-200"
+                >
+                    Thank you. Your inquiry has been recorded in this browser.
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+
+    <div
+        id="toast"
+        class="fixed bottom-6 left-1/2 z-[150] rounded-full border border-gold/25 bg-[#0B241B]/95 px-5 py-3 text-xs font-semibold text-white shadow-2xl backdrop-blur-xl"
+        role="status"
+        aria-live="polite"
+    >
+        Message
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER COLOR CONTROLS
+    ========================================================== -->
+
+    <div
+        class="fixed bottom-5 left-5 z-[80]"
+    >
+
+        <div
+            id="footerColorPanel"
+            class="mb-3 hidden rounded-2xl border border-white/10 bg-[#07150F]/95 p-3 shadow-2xl backdrop-blur-xl"
+        >
+
+            <p
+                class="mb-3 px-1 text-[10px] font-bold uppercase tracking-[.2em] text-white/50"
+            >
+                Footer Color
+            </p>
+
+
+            <div class="flex gap-2">
+
+                <button
+                    type="button"
+                    data-footer-theme="gold"
+                    class="h-8 w-8 rounded-full border-2 border-[#D6B56A] bg-[#06150F]"
+                    title="Forest Gold"
+                    aria-label="Forest Gold footer"
+                ></button>
+
+                <button
+                    type="button"
+                    data-footer-theme="emerald"
+                    class="h-8 w-8 rounded-full border border-white/20 bg-[#10382A]"
+                    title="Emerald"
+                    aria-label="Emerald footer"
+                ></button>
+
+                <button
+                    type="button"
+                    data-footer-theme="black"
+                    class="h-8 w-8 rounded-full border border-white/20 bg-[#080808]"
+                    title="Black"
+                    aria-label="Black footer"
+                ></button>
+
+                <button
+                    type="button"
+                    data-footer-theme="burgundy"
+                    class="h-8 w-8 rounded-full border border-white/20 bg-[#241015]"
+                    title="Burgundy"
+                    aria-label="Burgundy footer"
+                ></button>
+
+                <button
+                    type="button"
+                    data-footer-theme="navy"
+                    class="h-8 w-8 rounded-full border border-white/20 bg-[#0B1724]"
+                    title="Navy"
+                    aria-label="Navy footer"
+                ></button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="footerColorToggle"
+            type="button"
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-[#D6B56A]/30 bg-[#07150F]/90 text-[#D6B56A] shadow-xl backdrop-blur-xl transition hover:scale-105"
+            title="Change footer color"
+            aria-label="Change footer color"
+            aria-expanded="false"
+        >
+
+            <i
+                data-lucide="palette"
+                class="h-5 w-5"
+            ></i>
+
+        </button>
+
+    </div>
+
+
+    <!-- =========================================================
+         PREMIUM FOOTER
+    ========================================================== -->
+
+<footer id="siteFooter" class="relative">
+
+        <!-- Decorative glow -->
+
+        <div
+            class="pointer-events-none absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#D6B56A]/10 blur-[120px]"
+        ></div>
+
+        <div
+            class="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-[#10382A]/30 blur-[100px]"
+        ></div>
+
+
+        <div
+            class="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12"
+        >
+
+            <!-- FOOTER CTA -->
+
+            <div
+                class="border-b border-white/10 py-16 lg:py-20"
+            >
+
+                <div
+                    class="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center"
+                >
+
+                    <div class="max-w-2xl">
+
+                        <span
+                            class="footer-accent mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em]"
+                        >
+
+                            <span
+                                class="h-px w-8 bg-current"
+                            ></span>
+
+                            Begin Your Journey
+
+                        </span>
+
+
+                        <h2
+                            class="font-display text-3xl leading-tight text-white sm:text-4xl lg:text-5xl"
+                        >
+                            Build the skills that
+                            <span class="footer-accent">
+                                shape your future.
+                            </span>
+                        </h2>
+
+
+                        <p
+                            class="mt-5 max-w-xl text-sm leading-7 text-white/60 sm:text-base"
+                        >
+                            Discover practical hospitality and tourism
+                            education designed to help you develop knowledge,
+                            confidence and professional skills for your future.
+                        </p>
+
+                    </div>
+
+
+                    <div class="flex flex-wrap gap-4">
+
+                        <a
+                            href="#programs"
+                            class="group inline-flex items-center gap-3 rounded-full bg-[#D6B56A] px-6 py-3.5 text-sm font-bold text-[#0B241B] transition-all duration-300 hover:-translate-y-1 hover:bg-[#E4C982] hover:shadow-[0_15px_40px_rgba(214,181,106,0.18)]"
+                        >
+                            Explore Programs
+
+                            <i
+                                data-lucide="arrow-up-right"
+                                class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                            ></i>
+                        </a>
+
+
+                        <button
+                            type="button"
+                            data-open-inquiry
+                            class="group inline-flex items-center gap-3 rounded-full border border-[#D6B56A]/40 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[#D6B56A] hover:bg-[#D6B56A]/10"
+                        >
+                            Contact Admissions
+
+                            <i
+                                data-lucide="message-circle"
+                                class="h-4 w-4 transition-transform duration-300 group-hover:scale-110"
+                            ></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAIN FOOTER -->
+
+            <div
+                class="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]"
+            >
+
+                <!-- BRAND -->
+
+                <div>
+
+                    <a
+                        href="../index.html"
+                        class="inline-flex items-center"
+                    >
+
+                        <img
+                            src="../IMAGES/logo.png"
+                            alt="Noah's Ark International School"
+                            class="h-14 w-auto object-contain"
+                        >
+
+                    </a>
+
+
+                    <p
+                        class="mt-6 max-w-sm text-sm leading-7 text-white/55"
+                    >
+                        Noah's Ark International School of Hospitality &
+                        Tourism is dedicated to developing practical skills,
+                        professional confidence and a strong foundation for
+                        the hospitality and tourism industry.
+                    </p>
+
+
+                    <!-- Social -->
+
+                    <div class="mt-7 flex items-center gap-3">
+
+                        <a
+                            href="#"
+                            aria-label="Facebook"
+                            class="footer-social flex h-10 w-10 items-center justify-center rounded-full"
+                        >
+                            <i data-lucide="facebook" class="h-4 w-4"></i>
+                        </a>
+
+
+                        <a
+                            href="#"
+                            aria-label="Instagram"
+                            class="footer-social flex h-10 w-10 items-center justify-center rounded-full"
+                        >
+                            <i data-lucide="instagram" class="h-4 w-4"></i>
+                        </a>
+
+
+                        <a
+                            href="#"
+                            aria-label="LinkedIn"
+                            class="footer-social flex h-10 w-10 items-center justify-center rounded-full"
+                        >
+                            <i data-lucide="linkedin" class="h-4 w-4"></i>
+                        </a>
+
+
+                        <a
+                            href="#"
+                            aria-label="YouTube"
+                            class="footer-social flex h-10 w-10 items-center justify-center rounded-full"
+                        >
+                            <i data-lucide="youtube" class="h-4 w-4"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK LINKS -->
+
+                <div>
+
+                    <h3
+                        class="footer-accent mb-6 text-xs font-bold uppercase tracking-[0.25em]"
+                    >
+                        Explore
+                    </h3>
+
+
+                    <ul class="space-y-4 text-sm">
+
+                        <li>
+                            <a
+                                href="../index.html"
+                                class="footer-link"
+                            >
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="#programs"
+                                class="footer-link"
+                            >
+                                Programs
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="../index.html#experience"
+                                class="footer-link"
+                            >
+                                Experience
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="../index.html#campus"
+                                class="footer-link"
+                            >
+                                Campus
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="../index.html#faq"
+                                class="footer-link"
+                            >
+                                FAQ
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- PROGRAMS -->
+
+                <div>
+
+                    <h3
+                        class="footer-accent mb-6 text-xs font-bold uppercase tracking-[0.25em]"
+                    >
+                        Programs
+                    </h3>
+
+
+                    <ul class="space-y-4 text-sm">
+
+                        <li>
+                            <button
+                                type="button"
+                                data-footer-program="trades"
+                                class="footer-link text-left"
+                            >
+                                Trades Offered
+                            </button>
+                        </li>
+
+                        <li>
+                            <button
+                                type="button"
+                                data-footer-program="service"
+                                class="footer-link text-left"
+                            >
+                                Food & Beverage Service
+                            </button>
+                        </li>
+
+                        <li>
+                            <button
+                                type="button"
+                                data-footer-program="operation"
+                                class="footer-link text-left"
+                            >
+                                Food & Beverage Operation
+                            </button>
+                        </li>
+
+                        <li>
+                            <button
+                                type="button"
+                                data-footer-program="tourism"
+                                class="footer-link text-left"
+                            >
+                                Tourism
+                            </button>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- CONTACT -->
+
+                <div>
+
+                    <h3
+                        class="footer-accent mb-6 text-xs font-bold uppercase tracking-[0.25em]"
+                    >
+                        Admissions
+                    </h3>
+
+
+                    <p
+                        class="mb-6 text-sm leading-7 text-white/55"
+                    >
+                        Have questions about our programs or admissions?
+                        Our team will be happy to assist you.
+                    </p>
+
+
+                    <button
+                        type="button"
+                        data-open-inquiry
+                        class="footer-card group flex w-full items-center justify-between rounded-2xl p-4 text-left"
+                    >
+
+                        <span>
+
+                            <span
+                                class="block text-xs uppercase tracking-widest text-white/40"
+                            >
+                                Start a conversation
+                            </span>
+
+                            <span
+                                class="mt-1 block text-sm font-semibold text-white"
+                            >
+                                Contact Admissions
+                            </span>
+
+                        </span>
+
+
+                        <span
+                            class="footer-accent flex h-10 w-10 items-center justify-center rounded-full bg-[#D6B56A]/10 transition-transform duration-300 group-hover:translate-x-1"
+                        >
+                            <i
+                                data-lucide="arrow-right"
+                                class="h-4 w-4"
+                            ></i>
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER BOTTOM -->
+
+            <div
+                class="flex flex-col gap-5 border-t border-white/10 py-7 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between"
+            >
+
+                <p>
+                    ©
+                    <span id="footerYear"></span>
+                    Noah's Ark International School of Hospitality & Tourism.
+                    All rights reserved.
+                </p>
+
+
+                <div class="flex flex-wrap items-center gap-5">
+
+                    <a
+                        href="#"
+                        class="transition-colors hover:text-[#D6B56A]"
+                    >
+                        Privacy Policy
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="transition-colors hover:text-[#D6B56A]"
+                    >
+                        Terms & Conditions
+                    </a>
+
+
+                    <!-- IMPORTANT:
+                         This is NOT the floating button.
+                    -->
+
+                    <button
+                        type="button"
+                        id="footerBackToTop"
+                        class="group flex items-center gap-2 transition-colors hover:text-[#D6B56A]"
+                    >
+
+                        Back to top
+
+                        <span
+                            class="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 transition-all duration-300 group-hover:border-[#D6B56A]/50"
+                        >
+                            <i
+                                data-lucide="arrow-up"
+                                class="h-3.5 w-3.5"
+                            ></i>
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         FLOATING BACK TO TOP
+    ========================================================== -->
+
+    <button
+        id="backToTopFloating"
+        type="button"
+        aria-label="Back to top"
+        title="Back to top"
+        class="fixed bottom-6 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-gold/30 bg-[#0B241B]/90 text-gold shadow-2xl backdrop-blur-xl transition hover:-translate-y-1 hover:border-gold hover:bg-[#10382A] sm:right-8"
+    >
+
+        <i
+            data-lucide="arrow-up"
+            class="h-5 w-5"
+        ></i>
+
+    </button>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="../js/programs.js" defer></script>
+
+</body>
+</html>
