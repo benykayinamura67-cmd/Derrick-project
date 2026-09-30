@@ -1700,40 +1700,42 @@
             justify-between"
         >
 
-  <!-- LOGO -->
+            <!-- BRAND -->
 
-  <a href="index.html"
-     class="flex items-center gap-3.5 group">
+            <a
+                href="#top"
+                class="flex items-center gap-3 group"
+                aria-label="Rwanda School of Hospitality home"
+            >
 
-<div
-  class="w-11 h-11 rounded-none
-  bg-gradient-to-br from-[#164A36] to-[#0B241B]
-  border border-[#D6B56A]/50
-  flex items-center justify-center
-  shadow-lg
-  group-hover:border-[#D6B56A]
-  transition
-  overflow-hidden"
->
-  <img
-    src="../IMAGES/logo.png"
-    alt="Noah's Ark logo"
-    class="w-full h-full object-contain p-1"
-  />
-</div>
-    <div>
+                <span class="logo-mark">
 
-      <div class="font-bold tracking-[0.22em] text-[11px] text-white/90">
-       NOAH’S ARK
-      </div>
+                    <i class="fa-solid fa-hotel"></i>
 
-      <div class="font-semibold tracking-[0.18em] text-xs text-[#D6B56A] uppercase">
-      INTERNATIONAL SCHOOL
-      </div>
+                </span>
 
-    </div>
 
-  </a>
+                <span class="hidden sm:block">
+
+                    <span
+                        class="block text-[10px] tracking-[.25em]
+                        text-[#D6B56A] font-bold"
+                    >
+                        RWANDA
+                    </span>
+
+                    <span
+                        class="block text-xs sm:text-sm
+                        font-bold tracking-[.08em]
+                        text-white"
+                    >
+                        SCHOOL OF HOSPITALITY
+                    </span>
+
+                </span>
+
+            </a>
+
 
 
             <!-- RIGHT CONTROLS -->
@@ -1822,16 +1824,18 @@
             <div class="space-y-1">
 
                 <a
-                    href="index.html" class="menu-link"
+                    href="#faq"
+                    class="menu-link"
                     data-menu-link
                 >
                     <i class="fa-solid fa-circle-info"></i>
-                    Home 
+                    About
                 </a>
 
 
                 <a
-                    href="programs.html" class="menu-link"
+                    href="#faq"
+                    class="menu-link"
                     data-menu-link
                 >
                     <i class="fa-solid fa-graduation-cap"></i>
@@ -1840,8 +1844,8 @@
 
 
                 <a
-                    href="experience.html" class="menu-link"
-                    data-menu-link
+                    href="#faq"
+                    class="menu-link"
                     data-menu-link
                 >
                     <i class="fa-solid fa-star"></i>
@@ -1850,8 +1854,8 @@
 
 
                 <a
-                    href="partnership.html" class="menu-link"
-                    data-menu-link
+                    href="#faq"
+                    class="menu-link"
                     data-menu-link
                 >
                     <i class="fa-solid fa-handshake"></i>
@@ -1878,13 +1882,15 @@
                     FAQ
                 </a>
 
-                <a
-                    href="apply.html" class="menu-link"
-                    data-menu-link
+
+                <button
+                    type="button"
+                    class="menu-link w-full text-left"
+                    id="menuEnquire"
                 >
-                    <i class="fa-solid fa-paper-plane"></i>
-                    Apply now
-                </a>
+                    <i class="fa-solid fa-envelope"></i>
+                    Enquire
+                </button>
 
             </div>
 
