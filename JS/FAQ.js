@@ -1,1639 +1,47 @@
+
 /* =========================================================
-   FAQ PAGE JAVASCRIPT
-   Noah's Ark International School
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* =========================================================
-       ELEMENTS
-    ========================================================== */
-
-    const html = document.documentElement;
-    const body = document.body;
-
-    const navbar =
-        document.getElementById("mainNavbar");
-
-    const menuToggle =
-        document.getElementById("menuToggle");
-
-    const navigationMenu =
-        document.getElementById("navigationMenu");
-
-    const menuIcon =
-        document.getElementById("menuIcon");
-
-    const themeToggle =
-        document.getElementById("themeToggle");
-
-    const themeIcon =
-        document.getElementById("themeIcon");
-
-    const faqSearch =
-        document.getElementById("faqSearch");
-
-    const faqCategories =
-        document.querySelectorAll(".faq-category");
-
-    const faqGroups =
-        document.querySelectorAll(".faq-group");
-
-    const faqItems =
-        document.querySelectorAll(".faq-item");
-
-    const searchResultsInfo =
-        document.getElementById("searchResultsInfo");
-
-    const faqEmptyState =
-        document.getElementById("faqEmptyState");
-
-    const inquiryModal =
-        document.getElementById("inquiryModal");
-
-    const inquiryForm =
-        document.getElementById("inquiryForm");
-
-    const inquiryStatus =
-        document.getElementById("inquiryStatus");
-
-    const newsletterForm =
-        document.getElementById("newsletterForm");
-
-    const newsletterStatus =
-        document.getElementById("newsletterStatus");
-
-    const footer =
-        document.getElementById("footer");
-
-    const footerCustomizerToggle =
-        document.getElementById("footerCustomizerToggle");
-
-    const footerColorPanel =
-        document.getElementById("footerColorPanel");
-
-    const footerSwatches =
-        document.querySelectorAll(".footer-color-swatch");
-
-    const activeFooterColor =
-        document.getElementById("activeFooterColor");
-
-    const backToTop =
-        document.getElementById("backToTop");
-
-    const toast =
-        document.getElementById("toast");
-
-
-    /* =========================================================
-       STATE
-    ========================================================== */
-
-    let activeCategory = "admissions";
-
-    let lastFocusedElement = null;
-
-    let toastTimer = null;
-
-
-    /* =========================================================
-       TOAST
-    ========================================================== */
-
-    function showToast(
-        title,
-        message,
-        type = "success"
-    ) {
-
-        const toastTitle =
-            document.getElementById("toastTitle");
-
-        const toastMessage =
-            document.getElementById("toastMessage");
-
-        const toastIcon =
-            document.getElementById("toastIcon");
-
-
-        toastTitle.textContent = title;
-
-        toastMessage.textContent = message;
-
-
-        if (type === "error") {
-
-            toastIcon.innerHTML =
-                '<i class="fa-solid fa-circle-exclamation"></i>';
-
-            toastIcon.className =
-                "text-red-400 mt-0.5";
-
-        } else {
-
-            toastIcon.innerHTML =
-                '<i class="fa-solid fa-circle-check"></i>';
-
-            toastIcon.className =
-                "text-[#D6B56A] mt-0.5";
-        }
-
-
-        toast.classList.add("show");
-
-
-        clearTimeout(toastTimer);
-
-
-        toastTimer =
-            setTimeout(() => {
-
-                toast.classList.remove("show");
-
-            }, 3500);
-    }
-
-
-    /* =========================================================
-       MENU
-    ========================================================== */
-
-    function openMenu() {
-
-        navigationMenu.classList.add("menu-open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Close navigation menu"
-        );
-
-        menuIcon.className =
-            "fa-solid fa-xmark";
-    }
-
-
-    function closeMenu() {
-
-        navigationMenu.classList.remove("menu-open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Open navigation menu"
-        );
-
-        menuIcon.className =
-            "fa-solid fa-bars";
-    }
-
-
-    if (menuToggle) {
-
-        menuToggle.addEventListener(
-            "click",
-            (event) => {
-
-                event.stopPropagation();
-
-                if (
-                    navigationMenu.classList.contains(
-                        "menu-open"
-                    )
-                ) {
-
-                    closeMenu();
-
-                } else {
-
-                    openMenu();
-                }
-            }
-        );
-    }
-
-
-    document.addEventListener(
-        "click",
-        (event) => {
-
-            if (
-                navigationMenu &&
-                menuToggle &&
-                navigationMenu.classList.contains(
-                    "menu-open"
-                ) &&
-                !navigationMenu.contains(event.target) &&
-                !menuToggle.contains(event.target)
-            ) {
-
-                closeMenu();
-            }
-        }
-    );
-
-
-    document
-        .querySelectorAll("[data-menu-link]")
-        .forEach(link => {
-
-            link.addEventListener(
-                "click",
-                () => {
-
-                    closeMenu();
-
-                }
-            );
-
-        });
-
-
-    /* =========================================================
-       MENU ENQUIRE
-    ========================================================== */
-
-    const menuEnquire =
-        document.getElementById("menuEnquire");
-
-    if (menuEnquire) {
-
-        menuEnquire.addEventListener(
-            "click",
-            () => {
-
-                closeMenu();
-
-                openInquiry();
-
-            }
-        );
-    }
-
-
-    /* =========================================================
-       THEME
-    ========================================================== */
-
-    function updateThemeIcon() {
-
-        const isLight =
-            html.classList.contains(
-                "light-theme"
-            );
-
-
-        if (isLight) {
-
-            themeIcon.className =
-                "fa-solid fa-moon text-sm";
-
-            themeToggle.setAttribute(
-                "aria-label",
-                "Switch to dark mode"
-            );
-
-            themeToggle.setAttribute(
-                "title",
-                "Switch to dark mode"
-            );
-
-        } else {
-
-            themeIcon.className =
-                "fa-solid fa-sun text-sm";
-
-            themeToggle.setAttribute(
-                "aria-label",
-                "Switch to light mode"
-            );
-
-            themeToggle.setAttribute(
-                "title",
-                "Switch to light mode"
-            );
-        }
-    }
-
-
-    function loadTheme() {
-
-        const savedTheme =
-            localStorage.getItem(
-                "schoolTheme"
-            );
-
-
-        if (savedTheme === "light") {
-
-            html.classList.add(
-                "light-theme"
-            );
-
-        } else {
-
-            html.classList.remove(
-                "light-theme"
-            );
-        }
-
-
-        updateThemeIcon();
-    }
-
-
-    function toggleTheme() {
-
-        const isLight =
-            html.classList.toggle(
-                "light-theme"
-            );
-
-
-        localStorage.setItem(
-            "schoolTheme",
-            isLight
-                ? "light"
-                : "dark"
-        );
-
-
-        updateThemeIcon();
-
-
-        showToast(
-            "Theme Updated",
-            isLight
-                ? "Light mode is now active."
-                : "Dark mode is now active."
-        );
-    }
-
-
-    if (themeToggle) {
-
-        themeToggle.addEventListener(
-            "click",
-            toggleTheme
-        );
-    }
-
-
-    loadTheme();
-
-
-    /* =========================================================
-       NAVBAR SCROLL
-    ========================================================== */
-
-    function handleScroll() {
-
-        const scrollY =
-            window.scrollY;
-
-
-        if (navbar) {
-
-            if (scrollY > 40) {
-
-                navbar.classList.add(
-                    "scrolled"
-                );
-
-            } else {
-
-                navbar.classList.remove(
-                    "scrolled"
-                );
-            }
-        }
-
-
-        if (backToTop) {
-
-            if (scrollY > 500) {
-
-                backToTop.classList.add(
-                    "show"
-                );
-
-            } else {
-
-                backToTop.classList.remove(
-                    "show"
-                );
-            }
-        }
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        handleScroll,
-        { passive: true }
-    );
-
-
-    handleScroll();
-
-
-    /* =========================================================
-       FAQ CATEGORY
-    ========================================================== */
-
-    function closeAllFaqItems() {
-
-        faqItems.forEach(item => {
-
-            item.removeAttribute("open");
-
-        });
-    }
-
-
-    function setActiveCategory(
-        category
-    ) {
-
-        activeCategory =
-            category;
-
-
-        faqCategories.forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                button.dataset.category ===
-                category
-            );
-
-        });
-
-
-        faqGroups.forEach(group => {
-
-            group.classList.toggle(
-                "active",
-                group.dataset.group ===
-                category
-            );
-
-        });
-
-
-        closeAllFaqItems();
-
-
-        const activeButton =
-            [...faqCategories]
-                .find(
-                    button =>
-                        button.dataset.category ===
-                        category
-                );
-
-
-        if (
-            activeButton &&
-            searchResultsInfo
-        ) {
-
-            const categoryName =
-                activeButton.textContent.trim();
-
-            searchResultsInfo.textContent =
-                `Showing ${categoryName} questions`;
-        }
-
-
-        if (faqEmptyState) {
-
-            faqEmptyState.style.display =
-                "none";
-        }
-    }
-
-
-    faqCategories.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                if (faqSearch) {
-
-                    faqSearch.value = "";
-                }
-
-                resetFaqItemDisplay();
-
-                setActiveCategory(
-                    button.dataset.category
-                );
-
-
-                const faqContainer =
-                    document.getElementById(
-                        "faqContainer"
-                    );
-
-                if (faqContainer) {
-
-                    faqContainer.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-                }
-
-            }
-        );
-
-    });
-
-
-    /* =========================================================
-       FAQ ACCORDION
-    ========================================================== */
-
-    faqItems.forEach(item => {
-
-        item.addEventListener(
-            "toggle",
-            () => {
-
-                if (item.open) {
-
-                    faqItems.forEach(
-                        otherItem => {
-
-                            if (
-                                otherItem !== item &&
-                                otherItem.open
-                            ) {
-
-                                otherItem.removeAttribute(
-                                    "open"
-                                );
-                            }
-
-                        }
-                    );
-                }
-
-            }
-        );
-
-    });
-
-
-    /* =========================================================
-       FAQ SEARCH
-    ========================================================== */
-
-    function searchFAQs(
-        searchTerm
-    ) {
-
-        const term =
-            searchTerm
-                .trim()
-                .toLowerCase();
-
-
-        if (!term) {
-
-            resetFaqItemDisplay();
-
-            setActiveCategory(
-                activeCategory
-            );
-
-            return;
-        }
-
-
-        let totalMatches = 0;
-
-
-        faqCategories.forEach(
-            button => {
-
-                button.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-        faqGroups.forEach(group => {
-
-            let groupMatches = 0;
-
-
-            const items =
-                group.querySelectorAll(
-                    ".faq-item"
-                );
-
-
-            items.forEach(item => {
-
-                const text =
-                    item.textContent
-                        .toLowerCase();
-
-
-                const matches =
-                    text.includes(term);
-
-
-                item.style.display =
-                    matches
-                        ? ""
-                        : "none";
-
-
-                if (matches) {
-
-                    groupMatches++;
-
-                    totalMatches++;
-                }
-
-            });
-
-
-            group.classList.toggle(
-                "active",
-                groupMatches > 0
-            );
-
-
-            if (groupMatches === 0) {
-
-                group.style.display =
-                    "none";
-
-            } else {
-
-                group.style.display =
-                    "block";
-            }
-
-        });
-
-
-        closeAllFaqItems();
-
-
-        if (totalMatches === 0) {
-
-            if (faqEmptyState) {
-
-                faqEmptyState.style.display =
-                    "block";
-            }
-
-            if (searchResultsInfo) {
-
-                searchResultsInfo.textContent =
-                    `No results for "${searchTerm}"`;
-            }
-
-        } else {
-
-            if (faqEmptyState) {
-
-                faqEmptyState.style.display =
-                    "none";
-            }
-
-            if (searchResultsInfo) {
-
-                searchResultsInfo.textContent =
-                    `${totalMatches} question${
-                        totalMatches === 1
-                            ? ""
-                            : "s"
-                    } found for "${searchTerm}"`;
-            }
-        }
-    }
-
-
-    if (faqSearch) {
-
-        faqSearch.addEventListener(
-            "input",
-            event => {
-
-                searchFAQs(
-                    event.target.value
-                );
-
-            }
-        );
-    }
-
-
-    /* =========================================================
-       RESET FAQ ITEM DISPLAY
-    ========================================================== */
-
-    function resetFaqItemDisplay() {
-
-        faqItems.forEach(item => {
-
-            item.style.display = "";
-
-        });
-
-
-        faqGroups.forEach(group => {
-
-            group.style.display = "";
-
-        });
-    }
-
-
-    /* =========================================================
-       INQUIRY MODAL
-    ========================================================== */
-
-    function openInquiry() {
-
-        if (!inquiryModal) {
-            return;
-        }
-
-
-        lastFocusedElement =
-            document.activeElement;
-
-
-        inquiryModal.classList.add(
-            "modal-open"
-        );
-
-
-        inquiryModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-
-        body.classList.add(
-            "modal-open"
-        );
-
-
-        setTimeout(() => {
-
-            const inquiryName =
-                document.getElementById(
-                    "inquiryName"
-                );
-
-            if (inquiryName) {
-
-                inquiryName.focus();
-            }
-
-        }, 100);
-    }
-
-
-    function closeInquiry() {
-
-        if (!inquiryModal) {
-            return;
-        }
-
-
-        inquiryModal.classList.remove(
-            "modal-open"
-        );
-
-
-        inquiryModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-
-        body.classList.remove(
-            "modal-open"
-        );
-
-
-        if (
-            lastFocusedElement &&
-            typeof lastFocusedElement.focus ===
-            "function"
-        ) {
-
-            lastFocusedElement.focus();
-        }
-    }
-
-
-    const openInquiryButton =
-        document.getElementById("openInquiry");
-
-    if (openInquiryButton) {
-
-        openInquiryButton.addEventListener(
-            "click",
-            openInquiry
-        );
-    }
-
-
-    const emptyStateEnquire =
-        document.getElementById("emptyStateEnquire");
-
-    if (emptyStateEnquire) {
-
-        emptyStateEnquire.addEventListener(
-            "click",
-            openInquiry
-        );
-    }
-
-
-    const closeInquiryButton =
-        document.getElementById("closeInquiry");
-
-    if (closeInquiryButton) {
-
-        closeInquiryButton.addEventListener(
-            "click",
-            closeInquiry
-        );
-    }
-
-
-    document
-        .querySelectorAll(
-            "[data-footer-inquiry]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                openInquiry
-            );
-
-        });
-
-
-    /* =========================================================
-       INQUIRY FORM
-    ========================================================== */
-
-    if (inquiryForm) {
-
-        inquiryForm.addEventListener(
-            "submit",
-            event => {
-
-                event.preventDefault();
-
-
-                const formData =
-                    new FormData(
-                        inquiryForm
-                    );
-
-
-                const name =
-                    formData.get("name")
-                        ?.toString()
-                        .trim() || "";
-
-
-                const email =
-                    formData.get("email")
-                        ?.toString()
-                        .trim() || "";
-
-
-                const question =
-                    formData.get("question")
-                        ?.toString()
-                        .trim() || "";
-
-
-                if (
-                    !name ||
-                    !email ||
-                    !question
-                ) {
-
-                    showFormStatus(
-                        inquiryStatus,
-                        "Please complete all fields.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                const inquiry = {
-
-                    id:
-                        `INQ-${Date.now()}`,
-
-                    name,
-
-                    email,
-
-                    question,
-
-                    createdAt:
-                        new Date()
-                            .toISOString()
-                };
-
-
-                const existing =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "schoolInquiries"
-                        ) || "[]"
-                    );
-
-
-                existing.push(
-                    inquiry
-                );
-
-
-                localStorage.setItem(
-                    "schoolInquiries",
-                    JSON.stringify(
-                        existing
-                    )
-                );
-
-
-                showFormStatus(
-                    inquiryStatus,
-                    "Thank you. Your enquiry has been recorded successfully.",
-                    "success"
-                );
-
-
-                inquiryForm.reset();
-
-
-                showToast(
-                    "Enquiry Received",
-                    "Your question has been saved successfully."
-                );
-
-
-                setTimeout(
-                    closeInquiry,
-                    1800
-                );
-            }
-        );
-    }
-
-
-    /* =========================================================
-       FORM STATUS
-    ========================================================== */
-
-    function showFormStatus(
-        element,
-        message,
-        type
-    ) {
-
-        if (!element) {
-            return;
-        }
-
-
-        element.textContent =
-            message;
-
-
-        element.className =
-            `status-message show ${
-                type === "success"
-                    ? "status-success"
-                    : "status-error"
-            }`;
-    }
-
-
-    /* =========================================================
-       NEWSLETTER
-    ========================================================== */
-
-    if (newsletterForm) {
-
-        newsletterForm.addEventListener(
-            "submit",
-            event => {
-
-                event.preventDefault();
-
-
-                const emailInput =
-                    document.getElementById(
-                        "newsletterEmail"
-                    );
-
-
-                const email =
-                    emailInput
-                        ? emailInput.value.trim()
-                        : "";
-
-
-                if (!email) {
-
-                    showFormStatus(
-                        newsletterStatus,
-                        "Please enter your email address.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                const subscriptions =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "schoolNewsletter"
-                        ) || "[]"
-                    );
-
-
-                if (
-                    !subscriptions.includes(
-                        email
-                    )
-                ) {
-
-                    subscriptions.push(
-                        email
-                    );
-                }
-
-
-                localStorage.setItem(
-                    "schoolNewsletter",
-                    JSON.stringify(
-                        subscriptions
-                    )
-                );
-
-
-                showFormStatus(
-                    newsletterStatus,
-                    "You're subscribed. Thank you for staying connected.",
-                    "success"
-                );
-
-
-                newsletterForm.reset();
-
-
-                showToast(
-                    "Subscription Complete",
-                    "You'll receive school updates in this demo."
-                );
-            }
-        );
-    }
-
-
-    /* =========================================================
-       FOOTER COLOR CUSTOMIZER
-    ========================================================== */
-
-    const defaultFooter = {
-
-        name: "Forest Gold",
-
-        primary: "#071A12",
-
-        secondary: "#0B241B"
-    };
-
-
-    function isValidFooterColor(
-        data
-    ) {
-
-        return (
-            data &&
-            typeof data.name === "string" &&
-            typeof data.primary === "string" &&
-            typeof data.secondary === "string" &&
-            /^#[0-9A-F]{6}$/i.test(
-                data.primary
-            ) &&
-            /^#[0-9A-F]{6}$/i.test(
-                data.secondary
-            )
-        );
-    }
-
-
-    function applyFooterColor(
-        data,
-        save = true
-    ) {
-
-        if (
-            !isValidFooterColor(data)
-        ) {
-
-            data =
-                defaultFooter;
-        }
-
-
-        if (footer) {
-
-            footer.style.setProperty(
-                "--footer-primary",
-                data.primary
-            );
-
-
-            footer.style.setProperty(
-                "--footer-secondary",
-                data.secondary
-            );
-        }
-
-
-        if (activeFooterColor) {
-
-            activeFooterColor.textContent =
-                data.name;
-        }
-
-
-        footerSwatches.forEach(
-            swatch => {
-
-                swatch.classList.toggle(
-                    "active",
-                    swatch.dataset.footerName ===
-                    data.name
-                );
-
-            }
-        );
-
-
-        if (save) {
-
-            localStorage.setItem(
-                "footerColor",
-                JSON.stringify(data)
-            );
-        }
-    }
-
-
-    function loadFooterColor() {
-
-        try {
-
-            const saved =
-                JSON.parse(
-                    localStorage.getItem(
-                        "footerColor"
-                    )
-                );
-
-
-            if (
-                isValidFooterColor(saved)
-            ) {
-
-                applyFooterColor(
-                    saved,
-                    false
-                );
-
-            } else {
-
-                applyFooterColor(
-                    defaultFooter,
-                    false
-                );
-            }
-
-        } catch {
-
-            applyFooterColor(
-                defaultFooter,
-                false
-            );
-        }
-    }
-
-
-    footerSwatches.forEach(
-        swatch => {
-
-            swatch.addEventListener(
-                "click",
-                () => {
-
-                    const data = {
-
-                        name:
-                            swatch.dataset.footerName,
-
-                        primary:
-                            swatch.dataset.footerPrimary,
-
-                        secondary:
-                            swatch.dataset.footerSecondary
-                    };
-
-
-                    applyFooterColor(
-                        data
-                    );
-
-
-                    showToast(
-                        "Footer Updated",
-                        `${data.name} is now active.`
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    if (footerCustomizerToggle) {
-
-        footerCustomizerToggle.addEventListener(
-            "click",
-            () => {
-
-                const open =
-                    footerColorPanel.classList.toggle(
-                        "open"
-                    );
-
-
-                footerCustomizerToggle.setAttribute(
-                    "aria-expanded",
-                    open
-                );
-            }
-        );
-    }
-
-
-    loadFooterColor();
-
-
-    /* =========================================================
-       LANGUAGE BUTTONS
-    ========================================================== */
-
-    document
-        .querySelectorAll(
-            "[data-language]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    document
-                        .querySelectorAll(
-                            "[data-language]"
-                        )
-                        .forEach(
-                            languageButton => {
-
-                                languageButton.classList.toggle(
-                                    "active",
-                                    languageButton.dataset.language ===
-                                    button.dataset.language
-                                );
-
-                            }
-                        );
-
-
-                    const language =
-                        button.dataset.language;
-
-
-                    localStorage.setItem(
-                        "schoolLanguage",
-                        language
-                    );
-
-
-                    if (language === "FR") {
-
-                        showToast(
-                            "French Selected",
-                            "The French interface can be connected to your translated content."
-                        );
-
-                    } else {
-
-                        showToast(
-                            "English Selected",
-                            "English interface is active."
-                        );
-                    }
-
-                }
-            );
-
-        });
-
-
-    const savedLanguage =
-        localStorage.getItem(
-            "schoolLanguage"
-        );
-
-
-    if (
-        savedLanguage === "FR" ||
-        savedLanguage === "EN"
-    ) {
-
-        document
-            .querySelectorAll(
-                "[data-language]"
-            )
-            .forEach(button => {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.language ===
-                    savedLanguage
-                );
-
-            });
-    }
-
-
-    /* =========================================================
-       VIRTUAL TOUR / ADMISSIONS DESK
-    ========================================================== */
-
-    const virtualTour =
-        document.querySelector(
-            '[data-action="virtual-tour"]'
-        );
-
-    if (virtualTour) {
-
-        virtualTour.addEventListener(
-            "click",
-            () => {
-
-                showToast(
-                    "Virtual Tour",
-                    "Connect this button to your virtual-tour page when it is ready."
-                );
-
-            }
-        );
-    }
-
-
-    const admissionsDesk =
-        document.querySelector(
-            '[data-action="admissions-desk"]'
-        );
-
-    if (admissionsDesk) {
-
-        admissionsDesk.addEventListener(
-            "click",
-            openInquiry
-        );
-    }
-
-
-    /* =========================================================
-       SOCIAL PLACEHOLDER LINKS
-    ========================================================== */
-
-    document
-        .querySelectorAll(
-            "[data-placeholder-social]"
-        )
-        .forEach(link => {
-
-            link.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-
-                    showToast(
-                        "Social Link",
-                        `${link.dataset.placeholderSocial} link has not been configured yet.`
-                    );
-
-                }
-            );
-
-        });
-
-
-    /* =========================================================
-       POLICY PLACEHOLDERS
-    ========================================================== */
-
-    document
-        .querySelectorAll(
-            "[data-policy]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    showToast(
-                        button.dataset.policy,
-                        "Connect this button to your official policy page."
-                    );
-
-                }
-            );
-
-        });
-
-
-    /* =========================================================
-       BACK TO TOP
-    ========================================================== */
-
-    if (backToTop) {
-
-        backToTop.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-        );
-    }
-
-
-    /* =========================================================
-       ESCAPE KEY
-    ========================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Escape"
-            ) {
-
-                if (
-                    inquiryModal &&
-                    inquiryModal.classList.contains(
-                        "modal-open"
-                    )
-                ) {
-
-                    closeInquiry();
-
-                }
-
-
-                if (
-                    navigationMenu &&
-                    navigationMenu.classList.contains(
-                        "menu-open"
-                    )
-                ) {
-
-                    closeMenu();
-                }
-            }
-
-        }
-    );
-
-
-    /* =========================================================
-       MODAL OUTSIDE CLICK
-    ========================================================== */
-
-    if (inquiryModal) {
-
-        inquiryModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    inquiryModal
-                ) {
-
-                    closeInquiry();
-
-                }
-
-            }
-        );
-    }
-
-
-    /* =========================================================
-       CURRENT YEAR
-    ========================================================== */
-
-    const currentYear =
-        document.getElementById(
-            "currentYear"
-        );
-
-    if (currentYear) {
-
-        currentYear.textContent =
-            new Date().getFullYear();
-    }/* =========================================================
    RWANDA SCHOOL OF HOSPITALITY
    FAQ PAGE JAVASCRIPT
-   ========================================================= */
+   File: ../JS/FAQ.js
+========================================================= */
 
 "use strict";
-
-
-/* =========================================================
-   DOM READY
-========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
-       ELEMENTS
+       1. DOM ELEMENTS
     ====================================================== */
 
     const html = document.documentElement;
     const body = document.body;
 
-    const themeToggle = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-
+    const navbar = document.getElementById("mainNavbar");
     const menuToggle = document.getElementById("menuToggle");
     const menuIcon = document.getElementById("menuIcon");
     const navigationMenu = document.getElementById("navigationMenu");
 
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
     const faqSearch = document.getElementById("faqSearch");
-    const faqCategories = document.getElementById("faqCategories");
-    const faqContainer = document.getElementById("faqContainer");
+    const faqCategories = Array.from(
+        document.querySelectorAll(".faq-category")
+    );
+    const faqGroups = Array.from(
+        document.querySelectorAll(".faq-group")
+    );
+    const faqItems = Array.from(
+        document.querySelectorAll(".faq-item")
+    );
     const searchResultsInfo = document.getElementById("searchResultsInfo");
     const faqEmptyState = document.getElementById("faqEmptyState");
 
-    const openInquiry = document.getElementById("openInquiry");
-    const closeInquiry = document.getElementById("closeInquiry");
     const inquiryModal = document.getElementById("inquiryModal");
     const inquiryForm = document.getElementById("inquiryForm");
     const inquiryStatus = document.getElementById("inquiryStatus");
-
+    const openInquiryButton = document.getElementById("openInquiry");
+    const closeInquiryButton = document.getElementById("closeInquiry");
     const menuEnquire = document.getElementById("menuEnquire");
     const emptyStateEnquire = document.getElementById("emptyStateEnquire");
 
@@ -1641,38 +49,81 @@ document.addEventListener("DOMContentLoaded", () => {
     const newsletterEmail = document.getElementById("newsletterEmail");
     const newsletterStatus = document.getElementById("newsletterStatus");
 
+    const footer = document.getElementById("footer");
     const footerCustomizerToggle =
         document.getElementById("footerCustomizerToggle");
+    const footerColorPanel = document.getElementById("footerColorPanel");
+    const footerSwatches = Array.from(
+        document.querySelectorAll(".footer-color-swatch")
+    );
+    const activeFooterColor = document.getElementById("activeFooterColor");
 
-    const footerColorPanel =
-        document.getElementById("footerColorPanel");
+    const backToTop = document.getElementById("backToTop");
+    const currentYear = document.getElementById("currentYear");
 
-    const activeFooterColor =
-        document.getElementById("activeFooterColor");
+    const toast = document.getElementById("toast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastMessage = document.getElementById("toastMessage");
+    const toastIcon = document.getElementById("toastIcon");
 
-    const footer = document.getElementById("footer");
-
-    const backToTop =
-        document.getElementById("backToTop");
-
-    const toast =
-        document.getElementById("toast");
-
-    const toastTitle =
-        document.getElementById("toastTitle");
-
-    const toastMessage =
-        document.getElementById("toastMessage");
-
-    const toastIcon =
-        document.getElementById("toastIcon");
-
-    const currentYear =
-        document.getElementById("currentYear");
+    let activeCategory = "admissions";
+    let lastFocusedElement = null;
+    let toastTimer = null;
+    let modalCloseTimer = null;
 
 
     /* =====================================================
-       CURRENT YEAR
+       2. SAFE LOCAL STORAGE
+       Handles missing or invalid saved data.
+    ====================================================== */
+
+    function readStoredJSON(key, fallback = []) {
+        try {
+            const value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : fallback;
+        } catch (error) {
+            console.warn(`Could not read saved data: ${key}`, error);
+            return fallback;
+        }
+    }
+
+    function saveStoredJSON(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+        } catch (error) {
+            console.error(`Could not save data: ${key}`, error);
+            showToast(
+                "Storage Error",
+                "Your browser could not save this information.",
+                "error"
+            );
+            return false;
+        }
+    }
+
+    function readStoredValue(key, fallback = null) {
+        try {
+            return localStorage.getItem(key) ?? fallback;
+        } catch (error) {
+            console.warn(`Could not read setting: ${key}`, error);
+            return fallback;
+        }
+    }
+
+    function saveStoredValue(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (error) {
+            console.error(`Could not save setting: ${key}`, error);
+            return false;
+        }
+    }
+
+
+    /* =====================================================
+       3. CURRENT YEAR
     ====================================================== */
 
     if (currentYear) {
@@ -1681,17 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       TOAST SYSTEM
+       4. TOAST NOTIFICATIONS
     ====================================================== */
 
-    let toastTimer = null;
-
-    function showToast(
-        title = "Success",
-        message = "Done.",
-        type = "success"
-    ) {
-
+    function showToast(title, message, type = "success") {
         if (!toast) return;
 
         if (toastTitle) {
@@ -1703,22 +147,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (toastIcon) {
-
             if (type === "error") {
-
                 toastIcon.innerHTML =
                     '<i class="fa-solid fa-circle-exclamation"></i>';
-
-                toastIcon.className =
-                    "text-red-400 mt-0.5";
-
+                toastIcon.className = "text-red-400 mt-0.5";
             } else {
-
                 toastIcon.innerHTML =
                     '<i class="fa-solid fa-circle-check"></i>';
-
-                toastIcon.className =
-                    "text-[#D6B56A] mt-0.5";
+                toastIcon.className = "text-[#D6B56A] mt-0.5";
             }
         }
 
@@ -1733,1464 +169,942 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       THEME SWITCHER
+       5. FORM STATUS MESSAGES
     ====================================================== */
 
-    function updateThemeIcon() {
+    function showFormStatus(element, message, type = "success") {
+        if (!element) return;
 
-        if (!themeIcon) return;
-
-        const isLight =
-            html.classList.contains("light-theme");
-
-        if (isLight) {
-
-            themeIcon.className =
-                "fa-solid fa-moon text-sm";
-
-        } else {
-
-            themeIcon.className =
-                "fa-solid fa-sun text-sm";
-        }
-    }
-
-
-    function applySavedTheme() {
-
-        const savedTheme =
-            localStorage.getItem("rsh-theme");
-
-        if (savedTheme === "light") {
-
-            html.classList.add("light-theme");
-
-        } else {
-
-            html.classList.remove("light-theme");
-        }
-
-        updateThemeIcon();
-    }
-
-
-    applySavedTheme();
-
-
-    if (themeToggle) {
-
-        themeToggle.addEventListener("click", () => {
-
-            html.classList.toggle("light-theme");
-
-            const isLight =
-                html.classList.contains("light-theme");
-
-            localStorage.setItem(
-                "rsh-theme",
-                isLight ? "light" : "dark"
-            );
-
-            updateThemeIcon();
-
-            showToast(
-                "Theme Changed",
-                isLight
-                    ? "Light mode is now active."
-                    : "Dark mode is now active."
-            );
-        });
+        element.textContent = message;
+        element.className =
+            "status-message show " +
+            (type === "error" ? "status-error" : "status-success");
     }
 
 
     /* =====================================================
-       NAVIGATION MENU
+       6. DARK / LIGHT THEME
+       Supports the existing schoolTheme setting.
+    ====================================================== */
+
+    function updateThemeIcon() {
+        if (!themeIcon) return;
+
+        const isLight = html.classList.contains("light-theme");
+
+        themeIcon.className = isLight
+            ? "fa-solid fa-moon text-sm"
+            : "fa-solid fa-sun text-sm";
+
+        if (themeToggle) {
+            const label = isLight
+                ? "Switch to dark mode"
+                : "Switch to light mode";
+
+            themeToggle.setAttribute("aria-label", label);
+            themeToggle.setAttribute("title", label);
+        }
+    }
+
+    function loadTheme() {
+        const savedTheme =
+            readStoredValue("schoolTheme") ||
+            readStoredValue("rsh-theme");
+
+        html.classList.toggle("light-theme", savedTheme === "light");
+        updateThemeIcon();
+    }
+
+    function toggleTheme() {
+        const isLight = html.classList.toggle("light-theme");
+        const theme = isLight ? "light" : "dark";
+
+        saveStoredValue("schoolTheme", theme);
+        updateThemeIcon();
+
+        showToast(
+            "Theme Updated",
+            isLight
+                ? "Light mode is now active."
+                : "Dark mode is now active."
+        );
+    }
+
+    loadTheme();
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", toggleTheme);
+    }
+
+
+    /* =====================================================
+       7. MOBILE NAVIGATION MENU
     ====================================================== */
 
     function openMenu() {
-
         if (!navigationMenu) return;
 
         navigationMenu.classList.add("menu-open");
 
         if (menuToggle) {
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-            menuToggle.setAttribute(
-                "aria-label",
-                "Close navigation menu"
-            );
+            menuToggle.setAttribute("aria-expanded", "true");
+            menuToggle.setAttribute("aria-label", "Close navigation menu");
         }
 
         if (menuIcon) {
-
-            menuIcon.className =
-                "fa-solid fa-xmark";
+            menuIcon.className = "fa-solid fa-xmark";
         }
     }
 
-
     function closeMenu() {
-
         if (!navigationMenu) return;
 
         navigationMenu.classList.remove("menu-open");
 
         if (menuToggle) {
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-            menuToggle.setAttribute(
-                "aria-label",
-                "Open navigation menu"
-            );
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Open navigation menu");
         }
 
         if (menuIcon) {
-
-            menuIcon.className =
-                "fa-solid fa-bars";
+            menuIcon.className = "fa-solid fa-bars";
         }
     }
-
-
-    function toggleMenu() {
-
-        if (!navigationMenu) return;
-
-        if (
-            navigationMenu.classList.contains("menu-open")
-        ) {
-
-            closeMenu();
-
-        } else {
-
-            openMenu();
-        }
-    }
-
 
     if (menuToggle) {
+        menuToggle.addEventListener("click", event => {
+            event.stopPropagation();
 
-        menuToggle.addEventListener(
-            "click",
-            toggleMenu
-        );
+            if (navigationMenu?.classList.contains("menu-open")) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
     }
 
-
-    /* Close menu when clicking outside */
-
-    document.addEventListener("click", (event) => {
-
-        if (!navigationMenu || !menuToggle) {
-            return;
-        }
-
-        const clickedInsideMenu =
-            navigationMenu.contains(event.target);
-
-        const clickedMenuButton =
-            menuToggle.contains(event.target);
+    document.addEventListener("click", event => {
+        if (!navigationMenu || !menuToggle) return;
 
         if (
-            !clickedInsideMenu &&
-            !clickedMenuButton
+            navigationMenu.classList.contains("menu-open") &&
+            !navigationMenu.contains(event.target) &&
+            !menuToggle.contains(event.target)
         ) {
-
             closeMenu();
         }
     });
 
-
-    /* Close menu after clicking menu links */
-
-    document
-        .querySelectorAll("[data-menu-link]")
-        .forEach(link => {
-
-            link.addEventListener("click", () => {
-                closeMenu();
-            });
-        });
+    document.querySelectorAll("[data-menu-link]").forEach(link => {
+        link.addEventListener("click", closeMenu);
+    });
 
 
     /* =====================================================
-       NAVBAR SCROLL EFFECT
+       8. NAVBAR SCROLL EFFECT
     ====================================================== */
 
-    const mainNavbar =
-        document.getElementById("mainNavbar");
+    function handleScroll() {
+        if (navbar) {
+            navbar.classList.toggle("scrolled", window.scrollY > 40);
+        }
 
-
-    function updateNavbar() {
-
-        if (!mainNavbar) return;
-
-        if (window.scrollY > 25) {
-
-            mainNavbar.classList.add("scrolled");
-
-        } else {
-
-            mainNavbar.classList.remove("scrolled");
+        if (backToTop) {
+            backToTop.classList.toggle("show", window.scrollY > 500);
         }
     }
 
-
-    window.addEventListener(
-        "scroll",
-        updateNavbar,
-        { passive: true }
-    );
-
-    updateNavbar();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
 
     /* =====================================================
-       FAQ DATA / GROUPS
+       9. FAQ HELPERS
     ====================================================== */
 
-    const faqGroups = Array.from(
-        document.querySelectorAll(".faq-group")
-    );
+    function getGroupQuestions(group) {
+        return Array.from(group.querySelectorAll(".faq-item"));
+    }
 
-    const faqCategoryButtons = Array.from(
-        document.querySelectorAll(".faq-category")
-    );
-
-
-    let activeCategory = "admissions";
-
-
-    /* =====================================================
-       FAQ CATEGORY SWITCHING
-    ====================================================== */
-
-    function showCategory(category) {
-
-        activeCategory = category;
-
-        faqCategoryButtons.forEach(button => {
-
-            const buttonCategory =
-                button.dataset.category;
-
-            button.classList.toggle(
-                "active",
-                buttonCategory === category
-            );
+    function resetFAQDisplay() {
+        faqItems.forEach(item => {
+            item.style.display = "";
+            item.open = false;
         });
-
 
         faqGroups.forEach(group => {
-
-            const groupCategory =
-                group.dataset.group;
-
-            group.classList.toggle(
-                "active",
-                groupCategory === category
-            );
+            group.style.display = "";
         });
-
-
-        if (faqSearch) {
-
-            faqSearch.value = "";
-        }
-
-
-        resetAllFAQItems();
-
-        updateSearchInfo(
-            getVisibleQuestionCount(),
-            getVisibleQuestionCount()
-        );
-
-
-        if (faqEmptyState) {
-
-            faqEmptyState.style.display = "none";
-        }
     }
 
-
-    faqCategoryButtons.forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const category =
-                button.dataset.category;
-
-            if (!category) return;
-
-            showCategory(category);
-        });
-    });
-
-
-    /* =====================================================
-       FAQ OPEN / CLOSE
-    ====================================================== */
-
-    const faqItems =
-        Array.from(
-            document.querySelectorAll(".faq-item")
-        );
-
-
-    faqItems.forEach(item => {
-
-        item.addEventListener("toggle", () => {
-
-            if (!item.open) return;
-
-            /*
-             * Close other FAQ items in the same group.
-             */
-
-            const group =
-                item.closest(".faq-group");
-
-            if (!group) return;
-
-            group
-                .querySelectorAll(".faq-item[open]")
-                .forEach(otherItem => {
-
-                    if (otherItem !== item) {
-                        otherItem.open = false;
-                    }
-                });
-        });
-    });
-
-
-    function resetAllFAQItems() {
-
+    function closeAllFAQItems() {
         faqItems.forEach(item => {
             item.open = false;
         });
     }
 
+    function getCategoryName(category) {
+        const button = faqCategories.find(
+            item => item.dataset.category === category
+        );
 
-    /* =====================================================
-       FAQ SEARCH
-    ====================================================== */
+        if (button) {
+            return button.textContent.trim();
+        }
 
-    function getGroupQuestions(group) {
+        return category
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, letter => letter.toUpperCase());
+    }
 
-        return Array.from(
-            group.querySelectorAll(".faq-item")
+    function getActiveGroup() {
+        return faqGroups.find(
+            group => group.dataset.group === activeCategory
         );
     }
 
-
-    function getQuestionText(item) {
-
-        const question =
-            item.querySelector(".faq-question");
-
-        return question
-            ? question.textContent
-                .trim()
-                .toLowerCase()
-            : "";
-    }
-
-
-    function getAnswerText(item) {
-
-        const answer =
-            item.querySelector(".faq-answer");
-
-        return answer
-            ? answer.textContent
-                .trim()
-                .toLowerCase()
-            : "";
-    }
-
-
-    function getVisibleQuestionCount() {
-
-        const activeGroup =
-            faqGroups.find(
-                group =>
-                    group.dataset.group === activeCategory
-            );
-
-        if (!activeGroup) return 0;
-
-        return getGroupQuestions(activeGroup).length;
-    }
-
-
-    function updateSearchInfo(found, total) {
-
-        if (!searchResultsInfo) return;
-
-        if (!faqSearch || !faqSearch.value.trim()) {
-
-            const categoryName =
-                activeCategory
-                    .replace("-", " ")
-                    .replace(/\b\w/g, letter =>
-                        letter.toUpperCase()
-                    );
-
-            searchResultsInfo.textContent =
-                `Showing ${categoryName} questions`;
-
-            return;
-        }
-
-
-        if (found === 0) {
-
-            searchResultsInfo.textContent =
-                "No matching questions found.";
-
-        } else {
-
-            searchResultsInfo.textContent =
-                `Showing ${found} of ${total} matching questions`;
+    function updateSearchInfo(message) {
+        if (searchResultsInfo) {
+            searchResultsInfo.textContent = message;
         }
     }
 
 
-    function searchFAQs() {
+    /* =====================================================
+       10. FAQ CATEGORY SWITCHING
+    ====================================================== */
 
-        if (!faqSearch) return;
+    function setActiveCategory(category, clearSearch = true) {
+        if (!category) return;
 
-        const searchTerm =
-            faqSearch.value
-                .trim()
-                .toLowerCase();
+        const categoryExists = faqGroups.some(
+            group => group.dataset.group === category
+        );
 
-
-        const activeGroup =
-            faqGroups.find(
-                group =>
-                    group.dataset.group === activeCategory
-            );
-
-
-        if (!activeGroup) return;
-
-
-        const items =
-            getGroupQuestions(activeGroup);
-
-
-        /*
-         * No search term:
-         * show every question.
-         */
-
-        if (!searchTerm) {
-
-            items.forEach(item => {
-
-                item.style.display = "";
-
-            });
-
-
-            if (faqEmptyState) {
-                faqEmptyState.style.display = "none";
-            }
-
-
-            updateSearchInfo(
-                items.length,
-                items.length
-            );
-
-            return;
+        if (!categoryExists) {
+            const firstGroup = faqGroups[0];
+            if (!firstGroup) return;
+            category = firstGroup.dataset.group;
         }
 
+        activeCategory = category;
 
-        let found = 0;
+        if (clearSearch && faqSearch) {
+            faqSearch.value = "";
+        }
 
+        resetFAQDisplay();
 
-        items.forEach(item => {
+        faqCategories.forEach(button => {
+            const isActive = button.dataset.category === category;
 
-            const questionText =
-                getQuestionText(item);
-
-            const answerText =
-                getAnswerText(item);
-
-
-            const matches =
-                questionText.includes(searchTerm) ||
-                answerText.includes(searchTerm);
-
-
-            if (matches) {
-
-                item.style.display = "";
-
-                found++;
-
-            } else {
-
-                item.style.display = "none";
-
-                item.open = false;
-            }
+            button.classList.toggle("active", isActive);
+            button.setAttribute("aria-pressed", String(isActive));
         });
 
+        faqGroups.forEach(group => {
+            const isActive = group.dataset.group === category;
 
-        updateSearchInfo(
-            found,
-            items.length
-        );
-
+            group.classList.toggle("active", isActive);
+            group.style.display = isActive ? "" : "none";
+        });
 
         if (faqEmptyState) {
-
-            faqEmptyState.style.display =
-                found === 0
-                    ? "block"
-                    : "none";
+            faqEmptyState.style.display = "none";
         }
-    }
 
+        const activeGroup = getActiveGroup();
+        const questionCount = activeGroup
+            ? getGroupQuestions(activeGroup).length
+            : 0;
 
-    if (faqSearch) {
-
-        faqSearch.addEventListener(
-            "input",
-            searchFAQs
+        updateSearchInfo(
+            `Showing ${getCategoryName(category)} questions (${questionCount})`
         );
     }
 
+    faqCategories.forEach(button => {
+        button.addEventListener("click", () => {
+            const category = button.dataset.category;
+            if (!category) return;
+
+            setActiveCategory(category);
+
+            const container = document.getElementById("faqContainer");
+
+            if (container) {
+                container.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        });
+    });
+
 
     /* =====================================================
-       FAQ SEARCH - ENTER KEY
+       11. FAQ ACCORDION
+       Opens one answer at a time.
     ====================================================== */
 
-    if (faqSearch) {
+    faqItems.forEach(item => {
+        item.addEventListener("toggle", () => {
+            if (!item.open) return;
 
-        faqSearch.addEventListener(
-            "keydown",
-            event => {
-
-                if (event.key !== "Enter") {
-                    return;
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.open) {
+                    otherItem.open = false;
                 }
+            });
+        });
+    });
 
+
+    /* =====================================================
+       12. FAQ SEARCH
+       Searches questions and answers across all categories.
+    ====================================================== */
+
+    function searchFAQs() {
+        if (!faqSearch) return;
+
+        const term = faqSearch.value.trim().toLowerCase();
+
+        if (!term) {
+            setActiveCategory(activeCategory, false);
+            return;
+        }
+
+        let totalMatches = 0;
+
+        faqCategories.forEach(button => {
+            button.classList.remove("active");
+            button.setAttribute("aria-pressed", "false");
+        });
+
+        faqGroups.forEach(group => {
+            let groupMatches = 0;
+
+            getGroupQuestions(group).forEach(item => {
+                const matches = item.textContent
+                    .toLowerCase()
+                    .includes(term);
+
+                item.style.display = matches ? "" : "none";
+
+                if (!matches) {
+                    item.open = false;
+                } else {
+                    groupMatches++;
+                    totalMatches++;
+                }
+            });
+
+            const hasMatches = groupMatches > 0;
+
+            group.style.display = hasMatches ? "" : "none";
+            group.classList.toggle("active", hasMatches);
+        });
+
+        closeAllFAQItems();
+
+        if (faqEmptyState) {
+            faqEmptyState.style.display =
+                totalMatches === 0 ? "block" : "none";
+        }
+
+        updateSearchInfo(
+            totalMatches === 0
+                ? `No results for "${faqSearch.value.trim()}".`
+                : `${totalMatches} question${totalMatches === 1 ? "" : "s"} found for "${faqSearch.value.trim()}".`
+        );
+    }
+
+    if (faqSearch) {
+        faqSearch.addEventListener("input", searchFAQs);
+
+        faqSearch.addEventListener("keydown", event => {
+            if (event.key === "Enter") {
                 event.preventDefault();
-
                 searchFAQs();
             }
-        );
+        });
     }
 
 
     /* =====================================================
-       INQUIRY MODAL
+       13. INQUIRY MODAL
     ====================================================== */
 
     function openInquiryModal() {
-
         if (!inquiryModal) return;
+
+        clearTimeout(modalCloseTimer);
+
+        lastFocusedElement = document.activeElement;
 
         inquiryModal.classList.add("modal-open");
-
-        inquiryModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
+        inquiryModal.setAttribute("aria-hidden", "false");
         body.classList.add("modal-open");
 
+        const nameInput = document.getElementById("inquiryName");
+
         setTimeout(() => {
-
-            const nameInput =
-                document.getElementById("inquiryName");
-
-            if (nameInput) {
-                nameInput.focus();
-            }
-
-        }, 150);
+            if (nameInput) nameInput.focus();
+        }, 100);
     }
-
 
     function closeInquiryModal() {
-
         if (!inquiryModal) return;
 
-        inquiryModal.classList.remove(
-            "modal-open"
-        );
+        inquiryModal.classList.remove("modal-open");
+        inquiryModal.setAttribute("aria-hidden", "true");
+        body.classList.remove("modal-open");
 
-        inquiryModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        body.classList.remove(
-            "modal-open"
-        );
+        if (
+            lastFocusedElement &&
+            typeof lastFocusedElement.focus === "function" &&
+            document.contains(lastFocusedElement)
+        ) {
+            lastFocusedElement.focus();
+        }
     }
 
-
-    if (openInquiry) {
-
-        openInquiry.addEventListener(
-            "click",
-            openInquiryModal
-        );
+    if (openInquiryButton) {
+        openInquiryButton.addEventListener("click", openInquiryModal);
     }
 
-
-    if (closeInquiry) {
-
-        closeInquiry.addEventListener(
-            "click",
-            closeInquiryModal
-        );
+    if (closeInquiryButton) {
+        closeInquiryButton.addEventListener("click", closeInquiryModal);
     }
-
 
     if (menuEnquire) {
-
-        menuEnquire.addEventListener(
-            "click",
-            () => {
-
-                closeMenu();
-                openInquiryModal();
-            }
-        );
+        menuEnquire.addEventListener("click", () => {
+            closeMenu();
+            openInquiryModal();
+        });
     }
-
 
     if (emptyStateEnquire) {
-
-        emptyStateEnquire.addEventListener(
-            "click",
-            openInquiryModal
-        );
+        emptyStateEnquire.addEventListener("click", openInquiryModal);
     }
 
+    document.querySelectorAll("[data-footer-inquiry]").forEach(button => {
+        button.addEventListener("click", openInquiryModal);
+    });
 
-    /* Footer enquiry buttons */
-
-    document
-        .querySelectorAll("[data-footer-inquiry]")
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                openInquiryModal
-            );
-        });
-
-
-    /* =====================================================
-       CLOSE MODAL BY BACKDROP
-    ====================================================== */
+    document.querySelectorAll('[data-action="admissions-desk"]').forEach(button => {
+        button.addEventListener("click", openInquiryModal);
+    });
 
     if (inquiryModal) {
-
-        inquiryModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target === inquiryModal
-                ) {
-
-                    closeInquiryModal();
-                }
+        inquiryModal.addEventListener("click", event => {
+            if (event.target === inquiryModal) {
+                closeInquiryModal();
             }
-        );
+        });
     }
 
-
-    /* =====================================================
-       CLOSE MODAL WITH ESCAPE
-    ====================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (event.key !== "Escape") {
-                return;
-            }
-
-
-            if (
-                inquiryModal &&
-                inquiryModal.classList.contains(
-                    "modal-open"
-                )
-            ) {
-
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            if (inquiryModal?.classList.contains("modal-open")) {
                 closeInquiryModal();
-
-                return;
             }
 
-
-            if (
-                navigationMenu &&
-                navigationMenu.classList.contains(
-                    "menu-open"
-                )
-            ) {
-
+            if (navigationMenu?.classList.contains("menu-open")) {
                 closeMenu();
             }
         }
-    );
+    });
 
 
     /* =====================================================
-       INQUIRY FORM
+       14. INQUIRY FORM
+       Saves enquiries locally in this browser.
     ====================================================== */
 
     if (inquiryForm) {
+        inquiryForm.addEventListener("submit", event => {
+            event.preventDefault();
 
-        inquiryForm.addEventListener(
-            "submit",
-            event => {
+            const formData = new FormData(inquiryForm);
 
-                event.preventDefault();
+            const nameInput = document.getElementById("inquiryName");
+            const emailInput = document.getElementById("inquiryEmail");
+            const questionInput = document.getElementById("inquiryQuestion");
 
+            const name = (
+                nameInput?.value ??
+                formData.get("name") ??
+                ""
+            ).toString().trim();
 
-                const nameInput =
-                    document.getElementById(
-                        "inquiryName"
-                    );
+            const email = (
+                emailInput?.value ??
+                formData.get("email") ??
+                ""
+            ).toString().trim();
 
-                const emailInput =
-                    document.getElementById(
-                        "inquiryEmail"
-                    );
+            const question = (
+                questionInput?.value ??
+                formData.get("question") ??
+                ""
+            ).toString().trim();
 
-                const questionInput =
-                    document.getElementById(
-                        "inquiryQuestion"
-                    );
-
-
-                const name =
-                    nameInput
-                        ? nameInput.value.trim()
-                        : "";
-
-                const email =
-                    emailInput
-                        ? emailInput.value.trim()
-                        : "";
-
-                const question =
-                    questionInput
-                        ? questionInput.value.trim()
-                        : "";
-
-
-                if (
-                    !name ||
-                    !email ||
-                    !question
-                ) {
-
-                    showFormStatus(
-                        inquiryStatus,
-                        "Please complete all required fields.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                /*
-                 * Browser email validation.
-                 */
-
-                if (
-                    emailInput &&
-                    !emailInput.checkValidity()
-                ) {
-
-                    showFormStatus(
-                        inquiryStatus,
-                        "Please enter a valid email address.",
-                        "error"
-                    );
-
-                    emailInput.focus();
-
-                    return;
-                }
-
-
-                const enquiry = {
-
-                    id:
-                        Date.now(),
-
-                    name:
-                        name,
-
-                    email:
-                        email,
-
-                    question:
-                        question,
-
-                    date:
-                        new Date().toISOString()
-                };
-
-
-                const existingEnquiries =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "rsh-enquiries"
-                        )
-                    ) || [];
-
-
-                existingEnquiries.push(
-                    enquiry
-                );
-
-
-                localStorage.setItem(
-                    "rsh-enquiries",
-                    JSON.stringify(
-                        existingEnquiries
-                    )
-                );
-
-
+            if (!name || !email || !question) {
                 showFormStatus(
                     inquiryStatus,
-                    "Your enquiry has been saved successfully.",
-                    "success"
+                    "Please complete all required fields.",
+                    "error"
                 );
-
-
-                inquiryForm.reset();
-
-
-                showToast(
-                    "Enquiry Saved",
-                    "Your question has been saved locally."
-                );
-
-
-                setTimeout(() => {
-
-                    closeInquiryModal();
-
-                }, 1800);
+                return;
             }
-        );
-    }
 
+            if (emailInput && !emailInput.checkValidity()) {
+                showFormStatus(
+                    inquiryStatus,
+                    "Please enter a valid email address.",
+                    "error"
+                );
+                emailInput.focus();
+                return;
+            }
 
-    /* =====================================================
-       FORM STATUS HELPER
-    ====================================================== */
-
-    function showFormStatus(
-        element,
-        message,
-        type
-    ) {
-
-        if (!element) return;
-
-        element.textContent = message;
-
-        element.className =
-            "status-message show " +
-            (
-                type === "error"
-                    ? "status-error"
-                    : "status-success"
+            const enquiries = readStoredJSON(
+                "schoolInquiries",
+                readStoredJSON("rsh-enquiries", [])
             );
+
+            if (!Array.isArray(enquiries)) {
+                showFormStatus(
+                    inquiryStatus,
+                    "Saved enquiries could not be read. Please try again.",
+                    "error"
+                );
+                return;
+            }
+
+            enquiries.push({
+                id: `INQ-${Date.now()}`,
+                name,
+                email,
+                question,
+                createdAt: new Date().toISOString()
+            });
+
+            if (!saveStoredJSON("schoolInquiries", enquiries)) {
+                return;
+            }
+
+            showFormStatus(
+                inquiryStatus,
+                "Thank you. Your enquiry has been saved in this browser.",
+                "success"
+            );
+
+            inquiryForm.reset();
+
+            showToast(
+                "Enquiry Saved",
+                "Your enquiry was saved locally."
+            );
+
+            modalCloseTimer = setTimeout(closeInquiryModal, 1800);
+        });
     }
 
 
     /* =====================================================
-       NEWSLETTER
+       15. NEWSLETTER SUBSCRIPTION
+       Saves email addresses locally in this browser.
     ====================================================== */
 
     if (newsletterForm) {
+        newsletterForm.addEventListener("submit", event => {
+            event.preventDefault();
 
-        newsletterForm.addEventListener(
-            "submit",
-            event => {
+            const emailInput =
+                newsletterEmail ||
+                document.getElementById("newsletterEmail");
 
-                event.preventDefault();
+            const email = emailInput
+                ? emailInput.value.trim()
+                : "";
 
-
-                if (!newsletterEmail) {
-                    return;
-                }
-
-
-                const email =
-                    newsletterEmail.value.trim();
-
-
-                if (!email) {
-
-                    showFormStatus(
-                        newsletterStatus,
-                        "Please enter your email address.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                if (
-                    !newsletterEmail.checkValidity()
-                ) {
-
-                    showFormStatus(
-                        newsletterStatus,
-                        "Please enter a valid email address.",
-                        "error"
-                    );
-
-                    newsletterEmail.focus();
-
-                    return;
-                }
-
-
-                const subscribers =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "rsh-newsletter"
-                        )
-                    ) || [];
-
-
-                if (
-                    subscribers.includes(email)
-                ) {
-
-                    showFormStatus(
-                        newsletterStatus,
-                        "This email is already subscribed.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                subscribers.push(email);
-
-
-                localStorage.setItem(
-                    "rsh-newsletter",
-                    JSON.stringify(
-                        subscribers
-                    )
-                );
-
-
+            if (!email) {
                 showFormStatus(
                     newsletterStatus,
-                    "Thank you! You are now subscribed to school updates.",
-                    "success"
+                    "Please enter your email address.",
+                    "error"
                 );
-
-
-                newsletterForm.reset();
-
-
-                showToast(
-                    "Subscription Successful",
-                    "You will receive future school updates."
-                );
+                return;
             }
-        );
+
+            if (emailInput && !emailInput.checkValidity()) {
+                showFormStatus(
+                    newsletterStatus,
+                    "Please enter a valid email address.",
+                    "error"
+                );
+                emailInput.focus();
+                return;
+            }
+
+            const subscribers = readStoredJSON(
+                "schoolNewsletter",
+                readStoredJSON("rsh-newsletter", [])
+            );
+
+            if (!Array.isArray(subscribers)) {
+                showFormStatus(
+                    newsletterStatus,
+                    "Subscription data could not be read. Please try again.",
+                    "error"
+                );
+                return;
+            }
+
+            const existingEmail = subscribers.some(
+                savedEmail =>
+                    savedEmail.toLowerCase() === email.toLowerCase()
+            );
+
+            if (existingEmail) {
+                showFormStatus(
+                    newsletterStatus,
+                    "This email is already subscribed.",
+                    "error"
+                );
+                return;
+            }
+
+            subscribers.push(email);
+
+            if (!saveStoredJSON("schoolNewsletter", subscribers)) {
+                return;
+            }
+
+            showFormStatus(
+                newsletterStatus,
+                "Thank you! Your email has been saved for this demo.",
+                "success"
+            );
+
+            newsletterForm.reset();
+
+            showToast(
+                "Subscription Saved",
+                "Your subscription was saved locally."
+            );
+        });
     }
 
 
     /* =====================================================
-       FOOTER COLOR CUSTOMIZER
+       16. FOOTER COLOR CUSTOMIZER
     ====================================================== */
 
-    const footerSwatches =
-        Array.from(
-            document.querySelectorAll(
-                ".footer-color-swatch"
-            )
-        );
+    const defaultFooterColor = {
+        name: "Forest Gold",
+        primary: "#071A12",
+        secondary: "#0B241B"
+    };
 
+    function isValidHexColor(value) {
+        return typeof value === "string" &&
+            /^#[0-9A-F]{6}$/i.test(value);
+    }
 
-    function applyFooterColor(
-        primary,
-        secondary,
-        name,
-        save = true
-    ) {
-
-        if (!footer) return;
-
-
-        footer.style.setProperty(
-            "--footer-primary",
-            primary
-        );
-
-        footer.style.setProperty(
-            "--footer-secondary",
-            secondary
-        );
-
-
-        if (activeFooterColor) {
-
-            activeFooterColor.textContent =
-                name;
+    function applyFooterColor(data, save = true) {
+        if (
+            !data ||
+            typeof data.name !== "string" ||
+            !isValidHexColor(data.primary) ||
+            !isValidHexColor(data.secondary)
+        ) {
+            data = defaultFooterColor;
         }
 
+        if (footer) {
+            footer.style.setProperty("--footer-primary", data.primary);
+            footer.style.setProperty("--footer-secondary", data.secondary);
+        }
+
+        if (activeFooterColor) {
+            activeFooterColor.textContent = data.name;
+        }
 
         footerSwatches.forEach(swatch => {
-
-            const swatchName =
-                swatch.dataset.footerName;
-
             swatch.classList.toggle(
                 "active",
-                swatchName === name
+                swatch.dataset.footerName === data.name
             );
         });
 
-
         if (save) {
-
-            localStorage.setItem(
-                "rsh-footer-color",
-                JSON.stringify({
-                    name,
-                    primary,
-                    secondary
-                })
-            );
+            saveStoredJSON("footerColor", data);
         }
     }
-
 
     function loadFooterColor() {
+        const saved = readStoredJSON(
+            "footerColor",
+            readStoredJSON("rsh-footer-color", null)
+        );
 
-        const saved =
-            localStorage.getItem(
-                "rsh-footer-color"
-            );
-
-
-        if (!saved) return;
-
-
-        try {
-
-            const color =
-                JSON.parse(saved);
-
-
-            if (
-                color &&
-                color.primary &&
-                color.secondary &&
-                color.name
-            ) {
-
-                applyFooterColor(
-                    color.primary,
-                    color.secondary,
-                    color.name,
-                    false
-                );
-            }
-
-        } catch (error) {
-
-            console.warn(
-                "Could not load saved footer color.",
-                error
-            );
-        }
+        applyFooterColor(
+            saved && typeof saved === "object"
+                ? saved
+                : defaultFooterColor,
+            false
+        );
     }
-
 
     if (footerCustomizerToggle) {
+        footerCustomizerToggle.addEventListener("click", () => {
+            if (!footerColorPanel) return;
 
-        footerCustomizerToggle.addEventListener(
-            "click",
-            () => {
+            const isOpen = footerColorPanel.classList.toggle("open");
 
-                if (!footerColorPanel) {
-                    return;
-                }
-
-
-                const isOpen =
-                    footerColorPanel.classList.toggle(
-                        "open"
-                    );
-
-
-                footerCustomizerToggle.setAttribute(
-                    "aria-expanded",
-                    String(isOpen)
-                );
-            }
-        );
+            footerCustomizerToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+        });
     }
 
-
     footerSwatches.forEach(swatch => {
+        swatch.addEventListener("click", () => {
+            const data = {
+                name: swatch.dataset.footerName,
+                primary: swatch.dataset.footerPrimary,
+                secondary: swatch.dataset.footerSecondary
+            };
 
-        swatch.addEventListener(
-            "click",
-            () => {
-
-                const name =
-                    swatch.dataset.footerName;
-
-                const primary =
-                    swatch.dataset.footerPrimary;
-
-                const secondary =
-                    swatch.dataset.footerSecondary;
-
-
-                if (
-                    !name ||
-                    !primary ||
-                    !secondary
-                ) {
-                    return;
-                }
-
-
-                applyFooterColor(
-                    primary,
-                    secondary,
-                    name
-                );
-
-
+            if (
+                !data.name ||
+                !isValidHexColor(data.primary) ||
+                !isValidHexColor(data.secondary)
+            ) {
                 showToast(
-                    "Footer Updated",
-                    `${name} footer color is now active.`
+                    "Invalid Footer Color",
+                    "Check the color values on this swatch.",
+                    "error"
                 );
+                return;
             }
-        );
-    });
 
+            applyFooterColor(data);
+
+            showToast(
+                "Footer Updated",
+                `${data.name} is now active.`
+            );
+        });
+    });
 
     loadFooterColor();
 
 
     /* =====================================================
-       SOCIAL PLACEHOLDER LINKS
+       17. LANGUAGE BUTTONS
+       Stores the selected language preference.
+       Translation content must be supplied separately.
     ====================================================== */
 
-    document
-        .querySelectorAll(
-            "[data-placeholder-social]"
-        )
-        .forEach(link => {
+    const languageButtons = Array.from(
+        document.querySelectorAll("[data-language]")
+    );
 
-            link.addEventListener(
-                "click",
-                event => {
+    function setLanguage(language, showMessage = false) {
+        if (!["EN", "FR"].includes(language)) return;
 
-                    event.preventDefault();
+        languageButtons.forEach(button => {
+            const isActive = button.dataset.language === language;
 
-
-                    const platform =
-                        link.dataset.placeholderSocial ||
-                        "Social media";
-
-
-                    showToast(
-                        `${platform} Link`,
-                        `Add the official ${platform} URL here.`,
-                        "error"
-                    );
-                }
-            );
+            button.classList.toggle("active", isActive);
+            button.setAttribute("aria-pressed", String(isActive));
         });
 
+        saveStoredValue("schoolLanguage", language);
 
-    /* =====================================================
-       POLICY BUTTONS
-    ====================================================== */
-
-    document
-        .querySelectorAll(
-            "[data-policy]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const policy =
-                        button.dataset.policy;
-
-
-                    showToast(
-                        policy,
-                        `${policy} page can be connected here.`
-                    );
-                }
+        if (showMessage) {
+            showToast(
+                language === "FR" ? "French Selected" : "English Selected",
+                language === "FR"
+                    ? "Connect your French translations to switch the page content."
+                    : "English is selected."
             );
-        });
-
-
-    /* =====================================================
-       ANNOUNCEMENT BAR ACTIONS
-    ====================================================== */
-
-    document
-        .querySelectorAll(
-            '[data-action="virtual-tour"]'
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    showToast(
-                        "Virtual Tour",
-                        "Connect this button to your virtual tour page."
-                    );
-                }
-            );
-        });
-
-
-    document
-        .querySelectorAll(
-            '[data-action="admissions-desk"]'
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                openInquiryModal
-            );
-        });
-
-
-    /* =====================================================
-       LANGUAGE BUTTONS
-    ====================================================== */
-
-    const languageButtons =
-        document.querySelectorAll(
-            "[data-language]"
-        );
-
+        }
+    }
 
     languageButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            setLanguage(button.dataset.language, true);
+        });
+    });
 
-        button.addEventListener(
-            "click",
-            () => {
+    const savedLanguage = readStoredValue("schoolLanguage");
 
-                const language =
-                    button.dataset.language;
-
-
-                languageButtons.forEach(
-                    languageButton => {
-
-                        languageButton.classList.toggle(
-                            "active",
-                            languageButton.dataset.language ===
-                                language
-                        );
-                    }
-                );
+    if (savedLanguage) {
+        setLanguage(savedLanguage);
+    }
 
 
-                if (language === "EN") {
+    /* =====================================================
+       18. VIRTUAL TOUR PLACEHOLDER
+    ====================================================== */
 
-                    showToast(
-                        "Language",
-                        "English is currently selected."
-                    );
+    document.querySelectorAll('[data-action="virtual-tour"]').forEach(button => {
+        button.addEventListener("click", event => {
+            const href = button.getAttribute("href");
 
-                } else if (language === "FR") {
-
-                    showToast(
-                        "Language",
-                        "French interface selected. Translation content can be connected here."
-                    );
-                }
+            if (button.tagName === "A" && href && href !== "#") {
+                return;
             }
-        );
+
+            event.preventDefault();
+
+            showToast(
+                "Virtual Tour",
+                "Connect this button to your virtual-tour page."
+            );
+        });
     });
 
 
     /* =====================================================
-       BACK TO TOP
+       19. SOCIAL MEDIA PLACEHOLDERS
     ====================================================== */
 
-    function updateBackToTop() {
+    document.querySelectorAll("[data-placeholder-social]").forEach(link => {
+        link.addEventListener("click", event => {
+            event.preventDefault();
 
-        if (!backToTop) return;
+            const platform =
+                link.dataset.placeholderSocial || "Social media";
 
-
-        if (window.scrollY > 500) {
-
-            backToTop.classList.add("show");
-
-        } else {
-
-            backToTop.classList.remove("show");
-        }
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        updateBackToTop,
-        { passive: true }
-    );
-
-
-    updateBackToTop();
-
-
-    if (backToTop) {
-
-        backToTop.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            }
-        );
-    }
-
-
-    /* =====================================================
-       SMOOTH SCROLL FOR INTERNAL LINKS
-    ====================================================== */
-
-    document
-        .querySelectorAll('a[href^="#"]')
-        .forEach(link => {
-
-            link.addEventListener(
-                "click",
-                event => {
-
-                    const targetId =
-                        link.getAttribute("href");
-
-
-                    if (
-                        !targetId ||
-                        targetId === "#"
-                    ) {
-                        return;
-                    }
-
-
-                    const target =
-                        document.querySelector(
-                            targetId
-                        );
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-
-                    closeMenu();
-                }
+            showToast(
+                "Social Link",
+                `${platform} has not been configured yet.`
             );
         });
+    });
 
 
     /* =====================================================
-       LUCIDE ICONS
+       20. POLICY PLACEHOLDERS
+    ====================================================== */
+
+    document.querySelectorAll("[data-policy]").forEach(button => {
+        button.addEventListener("click", () => {
+            const policy = button.dataset.policy || "Policy";
+
+            showToast(
+                policy,
+                "Connect this button to the official policy page."
+            );
+        });
+    });
+
+
+    /* =====================================================
+       21. BACK TO TOP
+    ====================================================== */
+
+    if (backToTop) {
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    }
+
+
+    /* =====================================================
+       22. SMOOTH SCROLL FOR INTERNAL LINKS
+    ====================================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener("click", event => {
+            const targetId = link.getAttribute("href");
+
+            if (!targetId || targetId === "#") return;
+
+            let target;
+
+            try {
+                target = document.querySelector(targetId);
+            } catch (error) {
+                return;
+            }
+
+            if (!target) return;
+
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            closeMenu();
+        });
+    });
+
+
+    /* =====================================================
+       23. LUCIDE ICONS
     ====================================================== */
 
     if (
         typeof lucide !== "undefined" &&
         typeof lucide.createIcons === "function"
     ) {
-
         lucide.createIcons();
     }
 
 
     /* =====================================================
-       INITIAL FAQ STATE
+       24. INITIAL FAQ STATE
     ====================================================== */
 
-    showCategory("admissions");
+    if (faqGroups.length > 0) {
+        const initialCategoryExists = faqGroups.some(
+            group => group.dataset.group === activeCategory
+        );
+
+        if (!initialCategoryExists) {
+            activeCategory = faqGroups[0].dataset.group;
+        }
+
+        setActiveCategory(activeCategory);
+    }
 
 
     /* =====================================================
-       INITIAL MESSAGE
+       25. INITIALIZE MODAL ACCESSIBILITY STATE
+    ====================================================== */
+
+    if (inquiryModal) {
+        inquiryModal.setAttribute("aria-hidden", "true");
+    }
+
+    if (menuToggle && navigationMenu) {
+        menuToggle.setAttribute(
+            "aria-expanded",
+            String(navigationMenu.classList.contains("menu-open"))
+        );
+    }
+
+
+    /* =====================================================
+       26. INITIALIZATION COMPLETE
     ====================================================== */
 
     console.log(
         "Rwanda School of Hospitality FAQ JavaScript loaded successfully."
     );
-
-});
-
-
-    /* =========================================================
-       LUCIDE
-    ========================================================== */
-
-    if (
-        typeof lucide !== "undefined"
-    ) {
-
-        lucide.createIcons();
-
-    }
 
 });

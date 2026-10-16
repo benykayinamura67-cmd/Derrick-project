@@ -161,3 +161,72 @@ menuButton.addEventListener("click", () => {
     );
   }
 });
+/* =====================================================
+   EDITORIAL IMAGE CAROUSEL — FIVE SLIDES
+===================================================== */
+
+(() => {
+    const carousel = document.getElementById("heroEditorialCarousel");
+
+    if (!carousel || carousel.dataset.initialized === "true") return;
+
+    const slides = [...carousel.querySelectorAll(".hero-carousel-slide")];
+    const prevButton = carousel.querySelector(".hero-carousel-prev");
+    const nextButton = carousel.querySelector(".hero-carousel-next");
+    const currentCounter = document.getElementById("heroSlideCurrent");
+
+    if (!slides.length || !prevButton || !nextButton) return;
+
+    carousel.dataset.initialized = "true";
+
+    let currentIndex = Math.max(
+        0,
+        slides.findIndex(slide => slide.classList.contains("is-active"))
+    );
+
+    function showSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, i) => {
+            const active = i === currentIndex;
+
+            slide.classList.toggle("is-active", active);
+            slide.setAttribute("aria-hidden", String(!active));
+        });
+
+        if (currentCounter) {
+            currentCounter.textContent = String(currentIndex + 1).padStart(2, "0");
+        }
+    }
+
+    prevButton.addEventListener("click", () => {
+        showSlide(currentIndex - 1);
+    });
+
+    nextButton.addEventListener("click", () => {
+        showSlide(currentIndex + 1);
+    });
+
+    // Support touch swiping on phones and tablets.
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    carousel.addEventListener("touchstart", event => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, { passive: true });
+
+    carousel.addEventListener("touchend", event => {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+        showSlide(currentIndex + (deltaX < 0 ? 1 : -1));
+    }, { passive: true });
+
+    showSlide(currentIndex);
+})();

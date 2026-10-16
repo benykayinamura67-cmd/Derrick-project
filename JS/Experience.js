@@ -1,1794 +1,716 @@
-/* =========================================================
-   NOAH'S ARK INTERNATIONAL SCHOOL
-   PROGRAMS PAGE JAVASCRIPT
-========================================================= */
-
 
 /* =========================================================
-   GLOBAL ELEMENTS
+   NOAH'S ARK — EXPERIENCE / PROGRAMS PAGE JAVASCRIPT
+   Navigation • Theme • Programs • Inquiries • Footer
 ========================================================= */
 
-const body = document.body;
+(() => {
+    "use strict";
 
-const navbar =
-    document.getElementById("navbar");
+    /* =====================================================
+       01. ELEMENT SELECTORS & GLOBAL STATE
+    ===================================================== */
 
-const menuButton =
-    document.getElementById("menuButton");
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-const menuPanel =
-    document.getElementById("menuPanel");
+    const html = document.documentElement;
+    const body = document.body;
+    const navbar = $("#navbar");
+    const menuButton = $("#menuButton");
+    const menuPanel = $("#menuPanel");
 
-const themeToggle =
-    document.getElementById("themeToggle");
+    // Header and footer theme controls share one theme system.
+    const themeButtons = $$(
+        '[data-theme-toggle], #themeToggle, #footerThemeToggle'
+    );
+    const sunIcons = $$(
+        '#sunIcon, #footerSunIcon, [data-theme-icon="sun"]'
+    );
+    const moonIcons = $$(
+        '#moonIcon, #footerMoonIcon, [data-theme-icon="moon"]'
+    );
 
-const sunIcon =
-    document.getElementById("sunIcon");
+    const programModal = $("#programModal");
+    const inquiryModal = $("#inquiryModal");
+    const toast = $("#toast");
 
-const moonIcon =
-    document.getElementById("moonIcon");
+    const footer = $("#siteFooter") || $("#contact") || $("footer");
+    const footerColorToggle = $("#footerColorToggle");
+    const footerColorPanel = $("#footerColorPanel");
 
-const programModal =
-    document.getElementById("programModal");
+    const backToTop = $("#backToTopFloating");
+    const footerBackToTop = $("#footerBackToTop");
 
-const inquiryModal =
-    document.getElementById("inquiryModal");
+    let currentProgram = null;
+    let lastFocusedElement = null;
+    let toastTimer;
+    let activeModal = null;
 
-const toast =
-    document.getElementById("toast");
+    /* =====================================================
+       02. SAFE LOCAL STORAGE
+    ===================================================== */
 
-const footer =
-    document.getElementById("siteFooter");
-
-const footerColorToggle =
-    document.getElementById("footerColorToggle");
-
-const footerColorPanel =
-    document.getElementById("footerColorPanel");
-
-const backToTopFloating =
-    document.getElementById("backToTopFloating");
-
-const footerBackToTop =
-    document.getElementById("footerBackToTop");
-
-
-let currentProgram = null;
-
-let lastFocusedElement = null;
-
-let toastTimer = null;
-
-
-/* =========================================================
-   LUCIDE ICONS
-========================================================= */
-
-function refreshIcons() {
-
-    if (
-        window.lucide &&
-        typeof lucide.createIcons === "function"
-    ) {
-
-        lucide.createIcons();
-
+    function readStorage(key, fallback = null) {
+        try {
+            const value = localStorage.getItem(key);
+            return value === null ? fallback : value;
+        } catch {
+            return fallback;
+        }
     }
 
-}
-
-
-/* =========================================================
-   TOAST MESSAGE
-========================================================= */
-
-function showToast(message) {
-
-    if (!toast) return;
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer = setTimeout(() => {
-
-        toast.classList.remove("show");
-
-    }, 3000);
-
-}
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-function openMenu() {
-
-    if (!menuPanel || !menuButton) return;
-
-    menuButton.setAttribute(
-        "aria-expanded",
-        "true"
-    );
-
-    menuButton.setAttribute(
-        "aria-label",
-        "Close navigation menu"
-    );
-
-    menuPanel.classList.remove(
-        "opacity-0",
-        "scale-95",
-        "pointer-events-none"
-    );
-
-    menuPanel.classList.add(
-        "opacity-100",
-        "scale-100",
-        "pointer-events-auto"
-    );
-
-}
-
-
-function closeMenu() {
-
-    if (!menuPanel || !menuButton) return;
-
-    menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-    );
-
-    menuButton.setAttribute(
-        "aria-label",
-        "Open navigation menu"
-    );
-
-    menuPanel.classList.add(
-        "opacity-0",
-        "scale-95",
-        "pointer-events-none"
-    );
-
-    menuPanel.classList.remove(
-        "opacity-100",
-        "scale-100",
-        "pointer-events-auto"
-    );
-
-}
-
-
-function toggleMenu() {
-
-    const isOpen =
-        menuButton?.getAttribute(
-            "aria-expanded"
-        ) === "true";
-
-
-    if (isOpen) {
-
-        closeMenu();
-
-    } else {
-
-        openMenu();
-
+    function writeStorage(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch {
+            return false;
+        }
     }
 
-}
+    /* =====================================================
+       03. LUCIDE ICON REFRESH
+    ===================================================== */
 
+    function refreshIcons() {
+        if (window.lucide && typeof window.lucide.createIcons === "function") {
+            window.lucide.createIcons();
+        }
+    }
 
-/* Menu button */
+    /* =====================================================
+       04. TOAST NOTIFICATIONS
+    ===================================================== */
 
-menuButton?.addEventListener(
-    "click",
-    event => {
+    function showToast(message) {
+        if (!toast) {
+            console.info(message);
+            return;
+        }
 
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        clearTimeout(toastTimer);
+
+        toastTimer = setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000);
+    }
+
+    /* =====================================================
+       05. MOBILE NAVIGATION
+    ===================================================== */
+
+    function setMenu(open) {
+        if (!menuButton || !menuPanel) return;
+
+        menuButton.setAttribute("aria-expanded", String(open));
+        menuButton.setAttribute(
+            "aria-label",
+            open ? "Close navigation menu" : "Open navigation menu"
+        );
+
+        menuPanel.classList.toggle("opacity-0", !open);
+        menuPanel.classList.toggle("scale-95", !open);
+        menuPanel.classList.toggle("pointer-events-none", !open);
+
+        menuPanel.classList.toggle("opacity-100", open);
+        menuPanel.classList.toggle("scale-100", open);
+        menuPanel.classList.toggle("pointer-events-auto", open);
+    }
+
+    function closeMenu() {
+        setMenu(false);
+    }
+
+    menuButton?.addEventListener("click", event => {
         event.stopPropagation();
 
-        toggleMenu();
+        setMenu(menuButton.getAttribute("aria-expanded") !== "true");
+    });
 
-    }
-);
-
-
-/* Close menu when clicking outside */
-
-document.addEventListener(
-    "click",
-    event => {
-
+    document.addEventListener("click", event => {
         if (
             menuPanel &&
             menuButton &&
             !menuPanel.contains(event.target) &&
             !menuButton.contains(event.target)
         ) {
-
             closeMenu();
-
         }
-
-    }
-);
-
-
-/* Close menu after clicking a link */
-
-menuPanel
-    ?.querySelectorAll("a")
-    .forEach(link => {
-
-        link.addEventListener(
-            "click",
-            closeMenu
-        );
-
     });
 
-
-/* Close menu on desktop */
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        if (window.innerWidth >= 768) {
-
-            closeMenu();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   THEME SYSTEM
-========================================================= */
-
-/*
-   IMPORTANT:
-   There is ONLY ONE theme system in this file.
-*/
-
-
-function applyTheme(theme) {
-
-    const isLight =
-        theme === "light";
-
-
-    /* -----------------------------------------------------
-       Add/remove class from HTML
-    ----------------------------------------------------- */
-
-    document.documentElement.classList.toggle(
-        "light-mode",
-        isLight
-    );
-
-
-    /* -----------------------------------------------------
-       Add/remove class from BODY
-    ----------------------------------------------------- */
-
-    body.classList.toggle(
-        "light-mode",
-        isLight
-    );
-
-
-    /* -----------------------------------------------------
-       Update icons
-    ----------------------------------------------------- */
-
-    if (sunIcon) {
-
-        sunIcon.classList.toggle(
-            "hidden",
-            isLight
-        );
-
-    }
-
-
-    if (moonIcon) {
-
-        moonIcon.classList.toggle(
-            "hidden",
-            !isLight
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       Update button accessibility
-    ----------------------------------------------------- */
-
-    const label =
-        isLight
-            ? "Switch to dark mode"
-            : "Switch to light mode";
-
-
-    themeToggle?.setAttribute(
-        "aria-label",
-        label
-    );
-
-
-    themeToggle?.setAttribute(
-        "title",
-        label
-    );
-
-
-    /* -----------------------------------------------------
-       Save theme
-    ----------------------------------------------------- */
-
-    localStorage.setItem(
-        "schoolTheme",
-        isLight
-            ? "light"
-            : "dark"
-    );
-
-
-    /* -----------------------------------------------------
-       Refresh Lucide icons
-    ----------------------------------------------------- */
-
-    refreshIcons();
-
-}
-
-
-/* ---------------------------------------------------------
-   LOAD SAVED THEME
---------------------------------------------------------- */
-
-const savedTheme =
-    localStorage.getItem(
-        "schoolTheme"
-    );
-
-
-applyTheme(
-    savedTheme === "light"
-        ? "light"
-        : "dark"
-);
-
-
-/* ---------------------------------------------------------
-   THEME BUTTON
---------------------------------------------------------- */
-
-themeToggle?.addEventListener(
-    "click",
-    () => {
-
-        const isLight =
-            document.documentElement.classList.contains(
-                "light-mode"
-            );
-
-
-        applyTheme(
-            isLight
-                ? "dark"
-                : "light"
-        );
-
-    }
-);
-
-
-/* =========================================================
-   PROGRAM DATA
-========================================================= */
-
-const programData = {
-
-    trades: {
-
-        number: "PROGRAM 01",
-
-        title: "Trades Offered",
-
-        description:
-            "Explore practical and professional training areas available through the school's trade programs.",
-
-        items: [
-
-            "Practical hospitality training",
-
-            "Professional workplace skills",
-
-            "Service-oriented learning",
-
-            "Industry-focused preparation"
-
-        ]
-
-    },
-
-
-    service: {
-
-        number: "PROGRAM 02",
-
-        title: "Food & Beverage Service",
-
-        description:
-            "Develop knowledge and practical skills connected to serving food and beverages in hospitality settings.",
-
-        items: [
-
-            "Restaurant service fundamentals",
-
-            "Guest service techniques",
-
-            "Food and beverage presentation",
-
-            "Professional service standards"
-
-        ]
-
-    },
-
-
-    operation: {
-
-        number: "PROGRAM 03",
-
-        title: "Food & Beverage Operation",
-
-        description:
-            "Build an understanding of the operational side of food and beverage within the hospitality industry.",
-
-        items: [
-
-            "Food and beverage operations",
-
-            "Hospitality workflow",
-
-            "Operational planning",
-
-            "Service quality and standards"
-
-        ]
-
-    },
-
-
-    tourism: {
-
-        number: "PROGRAM 04",
-
-        title: "Tourism",
-
-        description:
-            "Discover the tourism field and develop knowledge for learning and working in travel and visitor experiences.",
-
-        items: [
-
-            "Tourism fundamentals",
-
-            "Travel and visitor experiences",
-
-            "Destination awareness",
-
-            "Professional tourism skills"
-
-        ]
-
-    }
-
-};
-
-
-/* =========================================================
-   PROGRAM MODAL
-========================================================= */
-
-function openProgramModal(programId) {
-
-    const program =
-        programData[programId];
-
-
-    if (
-        !program ||
-        !programModal
-    ) {
-
-        return;
-
-    }
-
-
-    currentProgram =
-        programId;
-
-
-    lastFocusedElement =
-        document.activeElement;
-
-
-    const modalProgramNumber =
-        document.getElementById(
-            "modalProgramNumber"
-        );
-
-
-    const programModalTitle =
-        document.getElementById(
-            "programModalTitle"
-        );
-
-
-    const programModalDescription =
-        document.getElementById(
-            "programModalDescription"
-        );
-
-
-    const list =
-        document.getElementById(
-            "programModalList"
-        );
-
-
-    if (modalProgramNumber) {
-
-        modalProgramNumber.textContent =
-            program.number;
-
-    }
-
-
-    if (programModalTitle) {
-
-        programModalTitle.textContent =
-            program.title;
-
-    }
-
-
-    if (programModalDescription) {
-
-        programModalDescription.textContent =
-            program.description;
-
-    }
-
-
-    if (list) {
-
-        list.innerHTML = "";
-
-
-        program.items.forEach(item => {
-
-            const li =
-                document.createElement(
-                    "li"
-                );
-
-
-            li.className =
-                "flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.025] p-3.5 text-sm text-white/65";
-
-
-            li.innerHTML = `
-
-                <span
-                    class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold"
-                >
-
-                    <i
-                        data-lucide="check"
-                        class="h-3.5 w-3.5"
-                    ></i>
-
-                </span>
-
-                <span>
-                    ${item}
-                </span>
-
-            `;
-
-
-            list.appendChild(li);
-
+    $$("#menuPanel a").forEach(link => {
+        link.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) closeMenu();
+    });
+
+    /* =====================================================
+       06. GLOBAL LIGHT / DARK THEME
+       Header and footer controls stay synchronized.
+       Saved preference: schoolTheme
+    ===================================================== */
+
+    function applyTheme(theme) {
+        const isLight = theme === "light";
+        const selectedTheme = isLight ? "light" : "dark";
+
+        // Apply the theme to the entire document.
+        html.classList.toggle("light-mode", isLight);
+        body.classList.toggle("light-mode", isLight);
+
+        // Show the appropriate icon on every theme button.
+        // Sun = switch to light; moon = switch to dark.
+        sunIcons.forEach(icon => {
+            icon.classList.toggle("hidden", isLight);
         });
 
+        moonIcons.forEach(icon => {
+            icon.classList.toggle("hidden", !isLight);
+        });
+
+        // Synchronize every header/footer theme button.
+        themeButtons.forEach(button => {
+            const label = isLight
+                ? "Switch to dark mode"
+                : "Switch to light mode";
+
+            button.setAttribute("aria-label", label);
+            button.setAttribute("title", label);
+            button.setAttribute("aria-pressed", String(isLight));
+        });
+
+        // Remember the preference after refresh.
+        writeStorage("schoolTheme", selectedTheme);
     }
 
+    // Load the previously selected theme.
+    applyTheme(readStorage("schoolTheme", "dark"));
 
-    programModal.classList.add(
-        "active"
-    );
+    // Every theme button controls the same page-wide theme.
+    themeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const isLight = html.classList.contains("light-mode");
 
-
-    programModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-
-    body.classList.add(
-        "modal-open"
-    );
-
-
-    refreshIcons();
-
-
-    setTimeout(() => {
-
-        document
-            .getElementById(
-                "closeProgramModal"
-            )
-            ?.focus();
-
-    }, 50);
-
-}
-
-
-function closeProgramModal() {
-
-    if (!programModal) return;
-
-
-    programModal.classList.remove(
-        "active"
-    );
-
-
-    programModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-    body.classList.remove(
-        "modal-open"
-    );
-
-
-    if (
-        lastFocusedElement &&
-        typeof lastFocusedElement.focus ===
-            "function"
-    ) {
-
-        lastFocusedElement.focus();
-
-    }
-
-}
-
-
-/* Program buttons */
-
-document
-    .querySelectorAll(
-        "[data-open-program]"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                openProgramModal(
-                    button.dataset.openProgram
-                );
-
-            }
-        );
-
+            applyTheme(isLight ? "dark" : "light");
+        });
     });
 
+    /* =====================================================
+       07. PROGRAM DATA
+    ===================================================== */
 
-/* Close buttons */
+    const programData = {
+        trades: {
+            number: "PROGRAM 01",
+            title: "Trades Offered",
+            description:
+                "Explore practical and professional training areas available through the school's trade programs.",
+            items: [
+                "Practical hospitality training",
+                "Professional workplace skills",
+                "Service-oriented learning",
+                "Industry-focused preparation"
+            ]
+        },
 
-document
-    .getElementById(
-        "closeProgramModal"
-    )
-    ?.addEventListener(
-        "click",
-        closeProgramModal
-    );
+        service: {
+            number: "PROGRAM 02",
+            title: "Food & Beverage Service",
+            description:
+                "Develop knowledge and practical skills connected to serving food and beverages in hospitality settings.",
+            items: [
+                "Restaurant service fundamentals",
+                "Guest service techniques",
+                "Food and beverage presentation",
+                "Professional service standards"
+            ]
+        },
 
+        operation: {
+            number: "PROGRAM 03",
+            title: "Food & Beverage Operation",
+            description:
+                "Build an understanding of food and beverage operations within the hospitality industry.",
+            items: [
+                "Food and beverage operations",
+                "Hospitality workflow",
+                "Operational planning",
+                "Service quality and standards"
+            ]
+        },
 
-document
-    .getElementById(
-        "modalCloseSecondary"
-    )
-    ?.addEventListener(
-        "click",
-        closeProgramModal
-    );
-
-
-/* Close by clicking backdrop */
-
-programModal?.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            programModal
-        ) {
-
-            closeProgramModal();
-
+        tourism: {
+            number: "PROGRAM 04",
+            title: "Tourism",
+            description:
+                "Discover tourism and develop knowledge related to travel and visitor experiences.",
+            items: [
+                "Tourism fundamentals",
+                "Travel and visitor experiences",
+                "Destination awareness",
+                "Professional tourism skills"
+            ]
         }
+    };
 
-    }
-);
+    /* =====================================================
+       08. MODAL UTILITIES
+    ===================================================== */
 
-
-/* =========================================================
-   INQUIRY MODAL
-========================================================= */
-
-function openInquiryModal(
-    selectedProgram = "General inquiry"
-) {
-
-    lastFocusedElement =
-        document.activeElement;
-
-
-    const select =
-        document.getElementById(
-            "inquiryProgram"
+    function syncModalLock() {
+        const hasOpenModal = [programModal, inquiryModal].some(modal =>
+            modal?.classList.contains("active")
         );
 
+        body.classList.toggle("modal-open", hasOpenModal);
+    }
 
-    if (select) {
+    function openModal(modal) {
+        if (!modal) return;
 
-        const exists =
-            [...select.options].some(
-                option =>
-                    option.value ===
-                    selectedProgram
-            );
+        if (!activeModal) {
+            lastFocusedElement = document.activeElement;
+        }
 
+        activeModal = modal;
+        modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
 
-        select.value =
-            exists
+        syncModalLock();
+    }
+
+    function closeModal(modal) {
+        if (!modal) return;
+
+        modal.classList.remove("active");
+        modal.setAttribute("aria-hidden", "true");
+
+        if (activeModal === modal) {
+            activeModal = null;
+        }
+
+        syncModalLock();
+
+        if (
+            lastFocusedElement?.isConnected &&
+            typeof lastFocusedElement.focus === "function"
+        ) {
+            lastFocusedElement.focus();
+        }
+    }
+
+    /* =====================================================
+       09. PROGRAM DETAILS MODAL
+    ===================================================== */
+
+    function openProgramModal(programId) {
+        const program = programData[programId];
+
+        if (!program || !programModal) return;
+
+        currentProgram = programId;
+
+        const number = $("#modalProgramNumber");
+        const title = $("#programModalTitle");
+        const description = $("#programModalDescription");
+        const list = $("#programModalList");
+
+        if (number) number.textContent = program.number;
+        if (title) title.textContent = program.title;
+        if (description) description.textContent = program.description;
+
+        if (list) {
+            list.replaceChildren();
+
+            program.items.forEach(item => {
+                const li = document.createElement("li");
+
+                li.className =
+                    "flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.025] p-3.5 text-sm text-white/65";
+
+                const iconWrap = document.createElement("span");
+
+                iconWrap.className =
+                    "mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold";
+
+                const icon = document.createElement("i");
+
+                icon.setAttribute("data-lucide", "check");
+                icon.className = "h-3.5 w-3.5";
+                iconWrap.appendChild(icon);
+
+                const text = document.createElement("span");
+                text.textContent = item;
+
+                li.append(iconWrap, text);
+                list.appendChild(li);
+            });
+        }
+
+        openModal(programModal);
+        refreshIcons();
+        $("#closeProgramModal")?.focus();
+    }
+
+    function closeProgramModal() {
+        closeModal(programModal);
+    }
+
+    $$("[data-open-program]").forEach(button => {
+        button.addEventListener("click", () => {
+            openProgramModal(button.dataset.openProgram);
+        });
+    });
+
+    $("#closeProgramModal")?.addEventListener("click", closeProgramModal);
+    $("#modalCloseSecondary")?.addEventListener("click", closeProgramModal);
+
+    programModal?.addEventListener("click", event => {
+        if (event.target === programModal) closeProgramModal();
+    });
+
+    /* =====================================================
+       10. INQUIRY MODAL
+    ===================================================== */
+
+    function openInquiryModal(selectedProgram = "General inquiry") {
+        if (!inquiryModal) {
+            showToast("The inquiry form is not available on this page.");
+            return;
+        }
+
+        const select = $("#inquiryProgram");
+
+        if (select) {
+            select.value = [...select.options].some(option =>
+                option.value === selectedProgram
+            )
                 ? selectedProgram
                 : "General inquiry";
-
-    }
-
-
-    document
-        .getElementById(
-            "inquirySuccess"
-        )
-        ?.classList.add(
-            "hidden"
-        );
-
-
-    inquiryModal?.classList.add(
-        "active"
-    );
-
-
-    inquiryModal?.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-
-    body.classList.add(
-        "modal-open"
-    );
-
-
-    setTimeout(() => {
-
-        document
-            .getElementById(
-                "inquiryName"
-            )
-            ?.focus();
-
-    }, 50);
-
-}
-
-
-function closeInquiryModal() {
-
-    inquiryModal?.classList.remove(
-        "active"
-    );
-
-
-    inquiryModal?.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-    body.classList.remove(
-        "modal-open"
-    );
-
-
-    if (
-        lastFocusedElement &&
-        typeof lastFocusedElement.focus ===
-            "function"
-    ) {
-
-        lastFocusedElement.focus();
-
-    }
-
-}
-
-
-/* Close inquiry modal */
-
-document
-    .getElementById(
-        "closeInquiryModal"
-    )
-    ?.addEventListener(
-        "click",
-        closeInquiryModal
-    );
-
-
-/* Close by clicking backdrop */
-
-inquiryModal?.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            inquiryModal
-        ) {
-
-            closeInquiryModal();
-
         }
 
+        $("#inquirySuccess")?.classList.add("hidden");
+
+        openModal(inquiryModal);
+        $("#inquiryName")?.focus();
     }
-);
 
+    function closeInquiryModal() {
+        closeModal(inquiryModal);
+    }
 
-/* =========================================================
-   INQUIRY BUTTONS
-========================================================= */
+    $("#closeInquiryModal")?.addEventListener("click", closeInquiryModal);
 
-document
-    .querySelectorAll(
-        "[data-open-inquiry]"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                closeMenu();
-
-                openInquiryModal();
-
-            }
-        );
-
+    inquiryModal?.addEventListener("click", event => {
+        if (event.target === inquiryModal) closeInquiryModal();
     });
 
-
-/* Main CTA */
-
-document
-    .getElementById(
-        "ctaEnquire"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
-
-            openInquiryModal();
-
-        }
-    );
-
-
-/* Mobile enquiry */
-
-document
-    .getElementById(
-        "mobileEnquireButton"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
-
+    $$("[data-open-inquiry]").forEach(button => {
+        button.addEventListener("click", () => {
             closeMenu();
-
             openInquiryModal();
-
-        }
-    );
-
-
-/* Enquire from program modal */
-
-document
-    .getElementById(
-        "modalEnquireButton"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
-
-            const program =
-                programData[
-                    currentProgram
-                ];
-
-
-            closeProgramModal();
-
-
-            setTimeout(() => {
-
-                openInquiryModal(
-                    program
-                        ? program.title
-                        : "General inquiry"
-                );
-
-            }, 250);
-
-        }
-    );
-
-
-/* =========================================================
-   FOOTER PROGRAM BUTTONS
-========================================================= */
-
-document
-    .querySelectorAll(
-        "[data-footer-program]"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                openProgramModal(
-                    button.dataset.footerProgram
-                );
-
-            }
-        );
-
+        });
     });
 
-
-/* =========================================================
-   INQUIRY FORM
-========================================================= */
-
-document
-    .getElementById(
-        "inquiryForm"
-    )
-    ?.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            const name =
-                document
-                    .getElementById(
-                        "inquiryName"
-                    )
-                    ?.value
-                    .trim();
-
-
-            const email =
-                document
-                    .getElementById(
-                        "inquiryEmail"
-                    )
-                    ?.value
-                    .trim();
-
-
-            const program =
-                document
-                    .getElementById(
-                        "inquiryProgram"
-                    )
-                    ?.value;
-
-
-            const message =
-                document
-                    .getElementById(
-                        "inquiryMessage"
-                    )
-                    ?.value
-                    .trim();
-
-
-            if (
-                !name ||
-                !email ||
-                !program ||
-                !message
-            ) {
-
-                showToast(
-                    "Please complete all required fields."
-                );
-
-                return;
-
-            }
-
-
-            const inquiry = {
-
-                name,
-
-                email,
-
-                program,
-
-                message,
-
-                submittedAt:
-                    new Date()
-                        .toISOString()
-
-            };
-
-
-            let existing = [];
-
-
-            try {
-
-                existing =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "schoolInquiries"
-                        ) || "[]"
-                    );
-
-
-                if (
-                    !Array.isArray(
-                        existing
-                    )
-                ) {
-
-                    existing = [];
-
-                }
-
-            } catch {
-
-                existing = [];
-
-            }
-
-
-            existing.push(
-                inquiry
-            );
-
-
-            localStorage.setItem(
-                "schoolInquiries",
-                JSON.stringify(
-                    existing
-                )
-            );
-
-
-            document
-                .getElementById(
-                    "inquirySuccess"
-                )
-                ?.classList.remove(
-                    "hidden"
-                );
-
-
-            event.target.reset();
-
-
-            showToast(
-                "Your inquiry has been recorded."
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   PROGRAM FILTER
-========================================================= */
-
-const cards = [
-    ...document.querySelectorAll(
-        ".program-card"
-    )
-];
-
-
-const filterButtons = [
-    ...document.querySelectorAll(
-        ".filter-button"
-    )
-];
-
-
-const searchInput =
-    document.getElementById(
-        "programSearch"
-    );
-
-
-const emptyState =
-    document.getElementById(
-        "emptyState"
-    );
-
-
-const resultMessage =
-    document.getElementById(
-        "programResultMessage"
-    );
-
-
-let activeFilter = "all";
-
-
-function filterPrograms() {
-
-    const search =
-        searchInput
-            ?.value
-            .trim()
-            .toLowerCase() || "";
-
-
-    let visibleCount = 0;
-
-
-    cards.forEach(card => {
-
-        const category =
-            card.dataset.category ||
-            "";
-
-
-        const searchable =
-            (
-                card.dataset.search ||
-                ""
-            ).toLowerCase();
-
-
-        const categoryMatch =
-            activeFilter === "all" ||
-            category === activeFilter;
-
-
-        const searchMatch =
-            !search ||
-            searchable.includes(search);
-
-
-        const visible =
-            categoryMatch &&
-            searchMatch;
-
-
-        card.classList.toggle(
-            "hidden",
-            !visible
-        );
-
-
-        if (visible) {
-
-            visibleCount++;
-
-        }
-
+    $("#ctaEnquire")?.addEventListener("click", () => {
+        openInquiryModal();
     });
 
+    $("#mobileEnquireButton")?.addEventListener("click", () => {
+        closeMenu();
+        openInquiryModal();
+    });
 
-    if (visibleCount === 0) {
+    $("#modalEnquireButton")?.addEventListener("click", () => {
+        const program = programData[currentProgram];
 
-        emptyState?.classList.remove(
-            "hidden"
-        );
+        closeProgramModal();
+        openInquiryModal(program?.title || "General inquiry");
+    });
 
-        resultMessage?.classList.add(
-            "hidden"
-        );
+    /* =====================================================
+       11. FOOTER PROGRAM LINKS
+    ===================================================== */
 
-        return;
+    $$("[data-footer-program]").forEach(button => {
+        button.addEventListener("click", () => {
+            openProgramModal(button.dataset.footerProgram);
+        });
+    });
 
-    }
+    /* =====================================================
+       12. INQUIRY FORM & BROWSER STORAGE
+       Note: this saves inquiries locally; it does not email them.
+    ===================================================== */
 
+    $("#inquiryForm")?.addEventListener("submit", event => {
+        event.preventDefault();
 
-    emptyState?.classList.add(
-        "hidden"
-    );
+        const name = $("#inquiryName")?.value.trim() || "";
+        const email = $("#inquiryEmail")?.value.trim() || "";
+        const program = $("#inquiryProgram")?.value || "";
+        const message = $("#inquiryMessage")?.value.trim() || "";
 
+        if (!name || !email || !program || !message) {
+            showToast("Please complete all required fields.");
+            return;
+        }
 
-    if (
-        search ||
-        activeFilter !== "all"
-    ) {
+        const inquiry = {
+            name,
+            email,
+            program,
+            message,
+            submittedAt: new Date().toISOString()
+        };
+
+        let inquiries = [];
+
+        try {
+            const stored = JSON.parse(
+                readStorage("schoolInquiries", "[]")
+            );
+
+            inquiries = Array.isArray(stored) ? stored : [];
+        } catch {
+            inquiries = [];
+        }
+
+        inquiries.push(inquiry);
+
+        if (!writeStorage("schoolInquiries", JSON.stringify(inquiries))) {
+            showToast("Unable to save this inquiry in your browser.");
+            return;
+        }
+
+        $("#inquirySuccess")?.classList.remove("hidden");
+        event.target.reset();
+
+        showToast("Inquiry saved in this browser. It has not been emailed.");
+    });
+
+    /* =====================================================
+       13. PROGRAM SEARCH & FILTERS
+    ===================================================== */
+
+    const cards = $$(".program-card");
+    const filterButtons = $$(".filter-button");
+    const searchInput = $("#programSearch");
+    const emptyState = $("#emptyState");
+    const resultMessage = $("#programResultMessage");
+
+    let activeFilter = "all";
+
+    function filterPrograms() {
+        const search = searchInput?.value.trim().toLowerCase() || "";
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const category = card.dataset.category || "";
+            const searchable =
+                `${card.dataset.search || ""} ${card.textContent || ""}`
+                    .toLowerCase();
+
+            const visible =
+                (activeFilter === "all" || category === activeFilter) &&
+                searchable.includes(search);
+
+            card.classList.toggle("hidden", !visible);
+
+            if (visible) visibleCount++;
+        });
+
+        emptyState?.classList.toggle("hidden", visibleCount !== 0);
 
         if (resultMessage) {
+            const showResults = Boolean(search || activeFilter !== "all");
 
             resultMessage.textContent =
-                `${visibleCount} program${
-                    visibleCount !== 1
-                        ? "s"
-                        : ""
-                } found`;
+                `${visibleCount} program${visibleCount === 1 ? "" : "s"} found`;
 
-
-            resultMessage.classList.remove(
-                "hidden"
-            );
-
+            resultMessage.classList.toggle("hidden", !showResults);
         }
-
-    } else {
-
-        resultMessage?.classList.add(
-            "hidden"
-        );
-
     }
 
-}
+    filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            activeFilter = button.dataset.filter || "all";
 
+            filterButtons.forEach(item => {
+                const selected = item === button;
 
-/* Filter buttons */
-
-filterButtons.forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                activeFilter =
-                    button.dataset.filter ||
-                    "all";
-
-
-                filterButtons.forEach(
-                    item => {
-
-                        item.classList.toggle(
-                            "active",
-                            item === button
-                        );
-
-                    }
-                );
-
-
-                filterPrograms();
-
-            }
-        );
-
-    }
-);
-
-
-/* Search */
-
-searchInput?.addEventListener(
-    "input",
-    filterPrograms
-);
-
-
-/* Clear search */
-
-document
-    .getElementById(
-        "clearSearch"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
-
-            if (searchInput) {
-
-                searchInput.value = "";
-
-            }
-
-
-            activeFilter = "all";
-
-
-            filterButtons.forEach(
-                button => {
-
-                    button.classList.toggle(
-                        "active",
-                        button.dataset.filter ===
-                            "all"
-                    );
-
-                }
-            );
-
+                item.classList.toggle("active", selected);
+                item.setAttribute("aria-pressed", String(selected));
+            });
 
             filterPrograms();
-
-        }
-    );
-
-
-/* =========================================================
-   LANGUAGE BUTTONS
-========================================================= */
-
-document
-    .getElementById(
-        "englishButton"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "English interface selected."
-            );
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "frenchButton"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "French interface is being prepared."
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   NAVBAR SCROLL EFFECT
-========================================================= */
-
-function updateNavbar() {
-
-    if (!navbar) return;
-
-
-    navbar.classList.toggle(
-        "translate-y-[-3px]",
-        window.scrollY > 35
-    );
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    updateNavbar,
-    {
-        passive: true
-    }
-);
-
-
-updateNavbar();
-
-
-/* =========================================================
-   BACK TO TOP
-========================================================= */
-
-function updateBackToTop() {
-
-    backToTopFloating?.classList.toggle(
-        "visible",
-        window.scrollY > 500
-    );
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    updateBackToTop,
-    {
-        passive: true
-    }
-);
-
-
-/* Floating back-to-top */
-
-backToTopFloating?.addEventListener(
-    "click",
-    () => {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
         });
-
-    }
-);
-
-
-/* Footer back-to-top */
-
-footerBackToTop?.addEventListener(
-    "click",
-    () => {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
-
-    }
-);
-
-
-updateBackToTop();
-
-
-/* =========================================================
-   FOOTER COLOR SYSTEM
-========================================================= */
-
-const footerThemes = [
-
-    "gold",
-
-    "emerald",
-
-    "black",
-
-    "burgundy",
-
-    "navy"
-
-];
-
-
-function applyFooterTheme(theme) {
-
-    if (
-        !footer ||
-        !footerThemes.includes(theme)
-    ) {
-
-        return;
-
-    }
-
-
-    /* Remove previous themes */
-
-    footerThemes.forEach(
-        themeName => {
-
-            footer.classList.remove(
-                `footer-${themeName}`
-            );
-
-        }
-    );
-
-
-    /* Add selected theme */
-
-    footer.classList.add(
-        `footer-${theme}`
-    );
-
-
-    /* Save preference */
-
-    localStorage.setItem(
-        "schoolFooterTheme",
-        theme
-    );
-
-
-    /* Update selected button */
-
-    document
-        .querySelectorAll(
-            "[data-footer-theme]"
-        )
-        .forEach(button => {
-
-            const selected =
-                button.dataset.footerTheme ===
-                theme;
-
-
-            button.classList.toggle(
-                "ring-2",
-                selected
-            );
-
-
-            button.classList.toggle(
-                "ring-gold",
-                selected
-            );
-
-        });
-
-}
-
-
-/* Load saved footer theme */
-
-const savedFooterTheme =
-    localStorage.getItem(
-        "schoolFooterTheme"
-    ) || "gold";
-
-
-applyFooterTheme(
-    savedFooterTheme
-);
-
-
-/* Footer color toggle */
-
-footerColorToggle?.addEventListener(
-    "click",
-    event => {
-
-        event.stopPropagation();
-
-
-        const isOpen =
-            !footerColorPanel?.classList.contains(
-                "hidden"
-            );
-
-
-        footerColorPanel?.classList.toggle(
-            "hidden",
-            isOpen
-        );
-
-
-        footerColorToggle.setAttribute(
-            "aria-expanded",
-            String(!isOpen)
-        );
-
-    }
-);
-
-
-/* Footer theme buttons */
-
-document
-    .querySelectorAll(
-        "[data-footer-theme]"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                applyFooterTheme(
-                    button.dataset.footerTheme
-                );
-
-
-                footerColorPanel?.classList.add(
-                    "hidden"
-                );
-
-
-                footerColorToggle?.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-
-                showToast(
-                    "Footer color updated."
-                );
-
-            }
-        );
-
     });
 
+    searchInput?.addEventListener("input", filterPrograms);
 
-/* Close footer panel outside */
+    $("#clearSearch")?.addEventListener("click", () => {
+        if (searchInput) searchInput.value = "";
 
-document.addEventListener(
-    "click",
-    event => {
+        activeFilter = "all";
 
+        filterButtons.forEach(button => {
+            const selected = button.dataset.filter === "all";
+
+            button.classList.toggle("active", selected);
+            button.setAttribute("aria-pressed", String(selected));
+        });
+
+        filterPrograms();
+    });
+
+    /* =====================================================
+       14. LANGUAGE BUTTONS
+    ===================================================== */
+
+    $("#englishButton")?.addEventListener("click", () => {
+        showToast("English interface selected.");
+    });
+
+    $("#frenchButton")?.addEventListener("click", () => {
+        showToast("French interface is not yet translated.");
+    });
+
+    /* =====================================================
+       15. NAVBAR SCROLL EFFECT
+    ===================================================== */
+
+    function updateNavbar() {
+        navbar?.classList.toggle(
+            "translate-y-[-3px]",
+            window.scrollY > 35
+        );
+    }
+
+    window.addEventListener("scroll", updateNavbar, { passive: true });
+    updateNavbar();
+
+    /* =====================================================
+       16. BACK-TO-TOP BUTTONS
+    ===================================================== */
+
+    function updateBackToTop() {
+        backToTop?.classList.toggle("visible", window.scrollY > 500);
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    backToTop?.addEventListener("click", scrollToTop);
+    footerBackToTop?.addEventListener("click", scrollToTop);
+
+    window.addEventListener("scroll", updateBackToTop, { passive: true });
+    updateBackToTop();
+
+    /* =====================================================
+       17. FOOTER COLOR CUSTOMIZER
+       Separate from the light/dark theme toggle.
+    ===================================================== */
+
+    const footerThemes = ["gold", "emerald", "black", "burgundy", "navy"];
+
+    function applyFooterTheme(theme) {
+        if (!footer || !footerThemes.includes(theme)) return;
+
+        footerThemes.forEach(name => {
+            footer.classList.remove(`footer-${name}`);
+        });
+
+        footer.classList.add(`footer-${theme}`);
+        writeStorage("schoolFooterTheme", theme);
+
+        $$("[data-footer-theme]").forEach(button => {
+            const selected = button.dataset.footerTheme === theme;
+
+            button.classList.toggle("ring-2", selected);
+            button.classList.toggle("ring-gold", selected);
+            button.setAttribute("aria-pressed", String(selected));
+        });
+    }
+
+    applyFooterTheme(readStorage("schoolFooterTheme", "gold"));
+
+    footerColorToggle?.addEventListener("click", event => {
+        event.stopPropagation();
+
+        if (!footerColorPanel) return;
+
+        const open = footerColorPanel.classList.contains("hidden");
+
+        footerColorPanel.classList.toggle("hidden", !open);
+        footerColorToggle.setAttribute("aria-expanded", String(open));
+    });
+
+    $$("[data-footer-theme]").forEach(button => {
+        button.addEventListener("click", () => {
+            applyFooterTheme(button.dataset.footerTheme);
+
+            footerColorPanel?.classList.add("hidden");
+            footerColorToggle?.setAttribute("aria-expanded", "false");
+
+            showToast("Footer color updated.");
+        });
+    });
+
+    document.addEventListener("click", event => {
         if (
             footerColorPanel &&
             footerColorToggle &&
-            !footerColorPanel.contains(
-                event.target
-            ) &&
-            !footerColorToggle.contains(
-                event.target
-            )
+            !footerColorPanel.contains(event.target) &&
+            !footerColorToggle.contains(event.target)
         ) {
-
-            footerColorPanel.classList.add(
-                "hidden"
-            );
-
-
-            footerColorToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
+            footerColorPanel.classList.add("hidden");
+            footerColorToggle.setAttribute("aria-expanded", "false");
         }
+    });
 
+    /* =====================================================
+       18. AUTOMATIC FOOTER COPYRIGHT YEAR
+    ===================================================== */
+
+    const footerYear = $("#footerYear");
+
+    if (footerYear) {
+        footerYear.textContent = new Date().getFullYear();
     }
-);
 
+    /* =====================================================
+       19. ESCAPE KEY CONTROLS
+    ===================================================== */
 
-/* =========================================================
-   FOOTER YEAR
-========================================================= */
+    document.addEventListener("keydown", event => {
+        if (event.key !== "Escape") return;
 
-const footerYear =
-    document.getElementById(
-        "footerYear"
-    );
-
-
-if (footerYear) {
-
-    footerYear.textContent =
-        new Date().getFullYear();
-
-}
-
-
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key !== "Escape") {
-
-            return;
-
-        }
-
-
-        /* Close program modal */
-
-        if (
-            programModal?.classList.contains(
-                "active"
-            )
-        ) {
-
+        if (programModal?.classList.contains("active")) {
             closeProgramModal();
-
-            return;
-
-        }
-
-
-        /* Close inquiry modal */
-
-        if (
-            inquiryModal?.classList.contains(
-                "active"
-            )
-        ) {
-
+        } else if (inquiryModal?.classList.contains("active")) {
             closeInquiryModal();
+        } else {
+            closeMenu();
 
-            return;
-
+            footerColorPanel?.classList.add("hidden");
+            footerColorToggle?.setAttribute("aria-expanded", "false");
         }
+    });
 
+    /* =====================================================
+       20. INITIALIZE PAGE FEATURES
+    ===================================================== */
 
-        /* Close mobile menu */
+    setMenu(false);
+    filterPrograms();
+    refreshIcons();
 
-        closeMenu();
-
-
-        /* Close footer panel */
-
-        footerColorPanel?.classList.add(
-            "hidden"
-        );
-
-
-        footerColorToggle?.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-    }
-);
-
-
-/* =========================================================
-   FINAL INITIALIZATION
-========================================================= */
-
-filterPrograms();
-
-refreshIcons();
+})();
