@@ -1,4 +1,4 @@
-﻿# Environment variables and secrets
+# Environment variables and secrets
 .env
 .env.*
 **/.env
@@ -28,3 +28,8 @@ BACKEND/uploads/
 
 # OneDrive cloud placeholder - keep out of Git
 BACKEND/utils
+
+# Local database inspection scripts
+BACKEND/check-constraints.js
+BACKEND/check-index.js
+BACKEND/check-relationships.js
