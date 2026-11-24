@@ -117,168 +117,332 @@ button{cursor:pointer}
     border-color:rgba(214,181,106,.42);
     box-shadow:0 20px 50px rgba(0,0,0,.20);
 }
-
 /* =====================================================
    06. MAIN NAVIGATION
 ===================================================== */
-#navbar{
-    background:rgba(7,16,13,.96);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(214,181,106,.12);
-    box-shadow:0 8px 35px rgba(0,0,0,.16);
-    transition:background-color .5s ease,box-shadow .5s ease,border-color .5s ease,backdrop-filter .5s ease;
-}
 
-#navbar.nav-scrolled{
-    background:rgba(7,16,13,.985);
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-    border-bottom-color:rgba(214,181,106,.2);
-    box-shadow:0 14px 45px rgba(0,0,0,.28);
-}
+#navbar{background:rgba(7,16,13,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(214,181,106,.12);box-shadow:0 8px 35px rgba(0,0,0,.16);transition:background-color 500ms ease,box-shadow 500ms ease,border-color 500ms ease,backdrop-filter 500ms ease}
+#navbar.nav-scrolled{background:rgba(7,16,13,.985);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom-color:rgba(214,181,106,.2);box-shadow:0 14px 45px rgba(0,0,0,.28)}
+#navbar nav{border-bottom:1px solid transparent;transition:border-color 500ms ease}
+#navbar.nav-scrolled nav{border-bottom-color:rgba(214,181,106,.12)}
 
-#navbar nav{
-    border-bottom:1px solid transparent;
-    transition:border-color .5s ease;
-}
-
-#navbar.nav-scrolled nav{
-    border-bottom-color:rgba(214,181,106,.12);
-}
+html.light-theme #navbar{background:rgba(249,250,250,.97);border-bottom-color:rgba(166,124,40,.16);box-shadow:0 8px 35px rgba(11,36,27,.08)}
+html.light-theme #navbar.nav-scrolled{background:rgba(249,250,250,.99);border-bottom-color:rgba(166,124,40,.24);box-shadow:0 14px 45px rgba(11,36,27,.12)}
 
 /* =====================================================
    07. DESKTOP NAVIGATION LINKS
 ===================================================== */
-.premium-nav-link{
-    position:relative;
-    display:flex;
-    align-items:center;
-    height:88px;
-    padding:0 18px;
-    color:rgba(255,255,255,.82);
-    font-size:12px;
-    font-weight:500;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    white-space:nowrap;
-    transition:color .3s ease,background-color .3s ease;
-}
 
-.premium-nav-link:not(:last-child)::before{
-    content:"";
-    position:absolute;
-    right:0;
-    top:50%;
-    width:3px;
-    height:3px;
-    border-radius:999px;
-    background:rgba(214,181,106,.65);
-    transform:translateY(-50%) rotate(45deg);
-}
-
-.premium-nav-link::after{
-    content:"";
-    position:absolute;
-    left:18px;
-    right:18px;
-    bottom:25px;
-    height:1px;
-    background:var(--gold);
-    transform:scaleX(0);
-    transform-origin:center;
-    transition:transform 350ms cubic-bezier(.4,0,.2,1);
-}
-
+.premium-nav-link{position:relative;display:flex;align-items:center;height:88px;padding:0 18px;color:rgba(255,255,255,.82);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;transition:color 300ms ease,background-color 300ms ease}
+.premium-nav-link:not(:last-child)::before{content:"";position:absolute;right:0;top:50%;width:3px;height:3px;border-radius:999px;background:rgba(214,181,106,.65);transform:translateY(-50%) rotate(45deg)}
+.premium-nav-link::after{content:"";position:absolute;left:18px;right:18px;bottom:25px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:center;transition:transform 350ms cubic-bezier(.4,0,.2,1)}
 .premium-nav-link:hover{color:var(--gold)}
-
 .premium-nav-link:hover::after{transform:scaleX(1)}
-
 .premium-nav-apply{color:var(--gold)}
 
-/* =====================================================
-   08. LOGO AND THEME TOGGLE
-===================================================== */
-#navbar a img{
-    transition:transform 400ms cubic-bezier(.16,1,.3,1);
-}
+html.light-theme .premium-nav-link{color:rgba(5,7,6,.78)}
+html.light-theme .premium-nav-link:hover{color:var(--gold-dark)}
+html.light-theme .premium-nav-link::after{background:var(--gold-dark)}
+html.light-theme .premium-nav-apply{color:var(--gold-dark)}
 
-#navbar a:hover img{transform:scale(1.04)}
 
-#themeToggle{
-    transition:transform .3s ease,background-color .3s ease,border-color .3s ease,color .3s ease;
-}
 
-#themeToggle:hover{transform:scale(1.06)}
+
 
 /* =====================================================
-   09. MOBILE NAVIGATION
+   08. NAVIGATION, THEME TOGGLE & MOBILE MENU
+   File: faq.css
+
+   FEATURES
+   1. Navigation logo animation
+   2. Light / dark theme toggle styling
+   3. Sun and moon icon visibility
+   4. Responsive mobile navigation panel
+   5. Hamburger-to-close animation
+   6. Light-theme navigation colors
+   7. Keyboard accessibility
+   8. Reduced-motion accessibility
 ===================================================== */
-#menuButton{
-    transition:border-color .3s ease,background-color .3s ease,transform .3s ease;
+
+
+
+/* =====================================================
+   08. NAVIGATION, THEME TOGGLE & MOBILE MENU
+===================================================== */
+
+#navbar a img {
+  transition: transform 400ms cubic-bezier(.16,1,.3,1);
+}
+#navbar a:hover img { transform: scale(1.04); }
+
+#navbar nav { position: relative; }
+
+#themeToggle, #menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
 
-#menuButton:hover{
-    border-color:var(--gold);
-    background:rgba(214,181,106,.06);
+#themeToggle {
+  position: relative;
+  line-height: 0;
+  overflow: hidden;
+  transition: transform 300ms ease, background-color 300ms ease,
+    border-color 300ms ease, color 300ms ease;
+}
+#themeToggle:hover { transform: scale(1.05); }
+
+#themeToggle.theme-toggle svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  pointer-events: none;
 }
 
-.menu-line{
-    transform-origin:center;
-    transition:transform .3s ease,opacity .3s ease;
+#themeToggle #sunIcon { visibility: visible; opacity: 1; }
+#themeToggle #moonIcon { visibility: hidden; opacity: 0; }
+
+html.light-theme #themeToggle {
+  background: #EDE9DE;
+  color: #8A6828;
+  border-color: #B9974F;
+}
+html.light-theme #themeToggle:hover { background: #F2EEE4; }
+html.light-theme #themeToggle #sunIcon { visibility: hidden; opacity: 0; }
+html.light-theme #themeToggle #moonIcon { visibility: visible; opacity: 1; }
+
+/* =====================================================
+   01. MOBILE MENU BUTTON
+===================================================== */
+
+#menuButton {
+    background: transparent;
+    transition:
+        border-color 300ms ease,
+        background-color 300ms ease,
+        transform 300ms ease;
 }
 
-#menuPanel{
-    border-radius:0;
-    overflow:hidden;
-    transform-origin:top right;
-    transition:opacity .25s ease,transform .25s ease;
+#menuButton:hover {
+    border-color: var(--gold);
+    background: rgba(214, 181, 106, 0.06);
 }
 
-#menuPanel.menu-open{
-    opacity:1;
-    transform:translateY(0) scale(1);
-    pointer-events:auto;
+#menuButton .menu-line {
+    transform-origin: center;
+    transition:
+        transform 300ms ease,
+        opacity 200ms ease;
 }
 
-#menuPanel:not(.menu-open){
-    opacity:0;
-    transform:translateY(8px) scale(.97);
-    pointer-events:none;
+
+/* =====================================================
+   02. MOBILE NAVIGATION PANEL
+===================================================== */
+
+#menuPanel {
+    position: absolute;
+    z-index: 60;
+    top: calc(100% + 12px);
+    right: 0;
+
+    border-radius: 0;
+    transform-origin: top right;
+
+    /* Closed state */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.97);
+
+    /* Smooth opening and closing */
+    transition:
+        opacity 250ms ease,
+        transform 250ms ease,
+        visibility 250ms ease;
 }
 
-.mobile-nav-link{
-    position:relative;
-    display:block;
-    padding:14px 16px;
-    color:rgba(255,255,255,.82);
-    font-size:11px;
-    font-weight:500;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    transition:color .25s ease,background-color .25s ease,padding-left .25s ease;
+/* Open state */
+#menuPanel.menu-open {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
 }
 
-.mobile-nav-link:hover{
-    color:var(--gold);
-    background:rgba(214,181,106,.06);
-    padding-left:21px;
+/* =====================================================
+   CURRENT PAGE INDICATOR
+   Visible on desktop, tablet and mobile
+===================================================== */
+
+#currentPageIndicator {
+    position: fixed;
+    top: 105px;
+    left: 20px;
+    z-index: 1000;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px 17px;
+
+    background: rgba(7, 26, 18, 0.96);
+    color: #D6B56A;
+
+    border: 1px solid rgba(214, 181, 106, 0.55);
+    border-radius: 5px;
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    pointer-events: none;
+
+    transition: all 300ms ease;
 }
 
-.mobile-nav-link::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    width:1px;
-    background:var(--gold);
-    transform:scaleY(0);
-    transition:transform .25s ease;
+/* Small decorative gold dot */
+.page-indicator-dot {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    background: #D6B56A;
+    border-radius: 50%;
+
+    box-shadow: 0 0 10px rgba(214, 181, 106, 0.7);
 }
 
-.mobile-nav-link:hover::before{transform:scaleY(1)}
+/* Tablet */
+@media (max-width: 1024px) {
+    #currentPageIndicator {
+        top: 95px;
+        left: 15px;
+    }
+}
 
+/* Mobile */
+@media (max-width: 640px) {
+    #currentPageIndicator {
+        top: 85px;
+        left: 12px;
+
+        padding: 9px 12px;
+        font-size: 9px;
+        letter-spacing: 1.2px;
+        gap: 8px;
+    }
+
+    .page-indicator-dot {
+        width: 6px;
+        height: 6px;
+    }
+}
+/* =====================================================
+   03. MOBILE NAVIGATION LINKS
+===================================================== */
+
+.mobile-nav-link {
+    position: relative;
+    display: block;
+    padding: 14px 16px;
+
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    transition:
+        color 250ms ease,
+        background-color 250ms ease,
+        padding-left 250ms ease;
+}
+
+.mobile-nav-link:hover {
+    color: var(--gold);
+    background: rgba(214, 181, 106, 0.06);
+    padding-left: 21px;
+}
+
+.mobile-nav-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 1px;
+    background: var(--gold);
+
+    transform: scaleY(0);
+    transform-origin: center;
+
+    transition: transform 250ms ease;
+}
+
+.mobile-nav-link:hover::before {
+    transform: scaleY(1);
+}
+
+
+/* =====================================================
+   04. LIGHT THEME
+===================================================== */
+
+html.light-theme #menuPanel {
+    background: rgba(255, 255, 255, 0.97);
+    border-color: rgba(166, 124, 40, 0.25);
+    box-shadow: 0 20px 50px rgba(11, 36, 27, 0.12);
+}
+
+html.light-theme .mobile-nav-link {
+    color: rgba(5, 7, 6, 0.78);
+}
+
+html.light-theme .mobile-nav-link:hover {
+    color: var(--gold-dark);
+    background: rgba(166, 124, 40, 0.06);
+}
+
+html.light-theme #menuButton:hover {
+    background: rgba(166, 124, 40, 0.08);
+}
+
+
+/* =====================================================
+   05. ACCESSIBILITY & REDUCED MOTION
+===================================================== */
+
+#menuButton:focus-visible,
+.mobile-nav-link:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #menuButton,
+    #menuButton .menu-line,
+    #menuPanel,
+    .mobile-nav-link,
+    .mobile-nav-link::before {
+        transition: none;
+    }
+}
 /* =====================================================
    10. FAQ HERO
 ===================================================== */
@@ -787,7 +951,8 @@ html.light-theme .faq-background{
     background:
         radial-gradient(circle at 10% 20%,rgba(214,181,106,.15),transparent 30%),
         radial-gradient(circle at 90% 80%,rgba(22,74,54,.07),transparent 35%),
-        linear-gradient(135deg,#F8F7F2,#EDEBE2);
+        linear-gradient(135deg,#fdfcfc,#989689);
+        text-color:var(--light-text);
     color:var(--light-text);
 }
 
@@ -845,7 +1010,7 @@ html.light-theme .faq-group-title::after{background:var(--gold-dark)}
    26. LIGHT THEME — FAQ ACCORDION
 ===================================================== */
 html.light-theme .faq-item{
-    background:rgba(255,255,255,.82);
+    background:rgba(255, 255, 255, 0.82);
     border-color:rgba(16,21,18,.12);
     box-shadow:0 8px 25px rgba(11,36,27,.035);
 }
@@ -977,64 +1142,547 @@ html.light-theme .border-white\/20{
 html.light-theme .border-white\/30{
     border-color:rgba(5,7,6,.25)!important;
 }
-
 /* =====================================================
-   30. LIGHT THEME — FOOTER
+   ADMISSIONS INQUIRY PANEL
+   THEME-AWARE DESIGN SYSTEM
 ===================================================== */
-html.light-theme .luxury-footer,
-html.light-theme #siteFooter{
-    background:linear-gradient(135deg,#F8F7F2,#F0F2ED)!important;
-    color:#26352D!important;
-    border-top-color:rgba(166,124,40,.25)!important;
+
+/* -----------------------------------------------------
+   01. DARK THEME — DEFAULT
+----------------------------------------------------- */
+
+.inquiry-panel {
+    --inquiry-bg: #071A12;
+    --inquiry-surface: rgba(255, 255, 255, 0.045);
+    --inquiry-text: #f8ecef;
+    --inquiry-muted: rgba(255, 255, 255, 0.48);
+    --inquiry-label: rgba(255, 255, 255, 0.72);
+    --inquiry-border: rgba(255, 255, 255, 0.12);
+    --inquiry-gold: #D6B56A;
+    --inquiry-placeholder: rgba(255, 255, 255, 0.3);
+    --inquiry-shadow: rgba(0, 0, 0, 0.35);
+
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: min(100%, 460px);
+    height: 100vh;
+    height: 100dvh;
+
+    z-index: 999;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    background: var(--inquiry-bg);
+    color: var(--inquiry-text);
+
+    border-left: 1px solid rgba(214, 181, 106, 0.25);
+
+    box-shadow: -20px 0 70px var(--inquiry-shadow);
+
+    transform: translateX(105%);
+    visibility: hidden;
+
+    transition:
+        transform 450ms cubic-bezier(.16, 1, .3, 1),
+        visibility 450ms ease,
+        background-color 350ms ease,
+        color 350ms ease;
 }
 
+
+/* -----------------------------------------------------
+   02. LIGHT THEME
+----------------------------------------------------- */
+
+:root.light-theme .inquiry-panel,
+body.light-theme .inquiry-panel {
+
+    --inquiry-bg: #7a7d7f;
+    --inquiry-surface: #a91d1d;
+    --inquiry-text: lch(99.85% 0.7 200.31);
+    --inquiry-muted: #333333;
+    --inquiry-label: oklch(39.947% 0.01226 17.474);
+    --inquiry-border: rgba(7, 26, 18, 0.14);
+    --inquiry-gold: #A9853E;
+    --inquiry-placeholder: #687168;
+    --inquiry-shadow: rgba(0, 0, 0, 0.15);
+
+    background: var(--inquiry-bg);
+    color: var(--inquiry-text);
+
+    border-left: 1px solid rgba(169, 133, 62, 0.3);
+}
+
+/* FIXED LABELS — BLACK IN LIGHT MODE */
+:root.light-theme .inquiry-panel label,
+body.light-theme .inquiry-panel label,
+:root.light-theme .inquiry-panel .form-label,
+body.light-theme .inquiry-panel .form-label {
+    color: lch(100% 0.01 296.81) !important;
+}
+/* -----------------------------------------------------
+   03. OVERLAY
+----------------------------------------------------- */
+
+.inquiry-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 998;
+
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 350ms ease,
+        visibility 350ms ease;
+}
+
+:root.light-theme .inquiry-overlay,
+body.light-theme .inquiry-overlay {
+    background: rgba(15, 25, 18, 0.28);
+}
+
+
+/* -----------------------------------------------------
+   04. OPEN STATE
+----------------------------------------------------- */
+
+.inquiry-panel.active {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.inquiry-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.inquiry-open {
+    overflow: hidden;
+}
+
+
+/* -----------------------------------------------------
+   05. PANEL HEADER
+----------------------------------------------------- */
+
+.inquiry-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 30px 28px 25px;
+
+    border-bottom: 1px solid var(--inquiry-border);
+}
+
+.inquiry-eyebrow {
+    color: var(--inquiry-gold);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.inquiry-header h2 {
+    margin-top: 12px;
+
+    color: var(--inquiry-text);
+
+    font-family: 'Playfair Display', serif;
+    font-size: 29px;
+    line-height: 1.3;
+}
+
+.inquiry-subtitle {
+    margin-top: 8px;
+
+    color: var(--inquiry-muted);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* -----------------------------------------------------
+   06. CLOSE BUTTON
+----------------------------------------------------- */
+
+.inquiry-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 42px;
+    height: 42px;
+
+    color: var(--inquiry-muted);
+
+    background: var(--inquiry-surface);
+
+    border: 1px solid var(--inquiry-border);
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition: 300ms ease;
+}
+
+.inquiry-close:hover {
+    color: var(--inquiry-gold);
+    border-color: var(--inquiry-gold);
+
+    transform: rotate(90deg);
+}
+
+
+/* -----------------------------------------------------
+   07. FORM LAYOUT
+----------------------------------------------------- */
+
+.inquiry-form {
+    padding: 28px;
+}
+
+.inquiry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+.inquiry-field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.inquiry-field label {
+    color: var(--inquiry-label);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+/* -----------------------------------------------------
+   08. INPUTS AND TEXTAREA
+----------------------------------------------------- */
+
+.inquiry-field input,
+.inquiry-field textarea {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    color: var(--inquiry-text);
+    background: var(--inquiry-surface);
+
+    border: 1px solid var(--inquiry-border);
+    border-radius: 11px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    transition:
+        border-color 250ms ease,
+        background-color 250ms ease,
+        color 250ms ease,
+        box-shadow 250ms ease;
+}
+
+.inquiry-field input {
+    min-width: 0;
+}
+
+.inquiry-field textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.inquiry-field input::placeholder,
+.inquiry-field textarea::placeholder {
+    color: var(--inquiry-placeholder);
+}
+
+
+/* INPUT FOCUS */
+
+.inquiry-field input:focus,
+.inquiry-field textarea:focus {
+    border-color: var(--inquiry-gold);
+
+    box-shadow:
+        0 0 0 3px rgba(214, 181, 106, 0.12);
+}
+
+
+/* LIGHT MODE INPUT FOCUS */
+
+:root.light-theme .inquiry-field input:focus,
+:root.light-theme .inquiry-field textarea:focus,
+body.light-theme .inquiry-field input:focus,
+body.light-theme .inquiry-field textarea:focus {
+
+    background: #FFFFFF;
+    color: var(--black);
+}
+
+
+/* -----------------------------------------------------
+   09. QUESTION FIELD
+----------------------------------------------------- */
+
+.inquiry-question {
+    margin-top: 22px;
+}
+/* -----------------------------------------------------
+   10. SUBMIT BUTTON
+----------------------------------------------------- */
+
+.inquiry-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: 22px;
+    padding: 15px;
+}
+
+
+/* -----------------------------------------------------
+   11. STATUS MESSAGE
+----------------------------------------------------- */
+
+.inquiry-status {
+    margin-top: 15px;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.inquiry-status.success {
+    color: #4CAF70;
+}
+
+.inquiry-status.error {
+    color: #D9534F;
+}
+
+/* -----------------------------------------------------
+   12. FOOTER NOTE
+----------------------------------------------------- */
+
+.inquiry-note {
+    margin-top: 17px;
+
+    color: var(--inquiry-muted);
+
+    font-size: 10px;
+    line-height: 1.7;
+
+    text-align: center;
+}
+
+
+/* -----------------------------------------------------
+   13. RESPONSIVE DESIGN
+----------------------------------------------------- */
+
+@media (max-width: 520px) {
+
+    .inquiry-panel {
+        width: 100%;
+        border-left: none;
+    }
+
+    .inquiry-header {
+        padding: 24px 20px;
+    }
+
+    .inquiry-form {
+        padding: 23px 20px;
+    }
+
+    .inquiry-grid {
+        grid-template-columns: 1fr;
+        gap: 19px;
+    }
+
+    .inquiry-header h2 {
+        font-size: 25px;
+    }
+
+}
+/* -----------------------------------------------------
+   14. REDUCED MOTION
+----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .inquiry-panel,
+    .inquiry-overlay,
+    .inquiry-close {
+        transition: none;
+    }
+
+}
+/* =====================================================
+   30. FOOTER THEME — LIGHT MODE
+   All footer text: black
+===================================================== */
+
+html.light-theme .luxury-footer,
+html.light-theme #siteFooter {
+  background: linear-gradient(135deg, #E8EAE8, #F8F9F9) !important;
+  color: #000000 !important;
+  border-top-color: rgba(166, 124, 40, 0.25) !important;
+}
+
+/* Footer decorative lighting */
 html.light-theme .luxury-footer::before,
-html.light-theme #siteFooter::before{
-    background:radial-gradient(circle,rgba(214,181,106,.12),transparent 70%);
+html.light-theme #siteFooter::before {
+  background: radial-gradient(
+    circle,
+    rgba(214, 181, 106, 0.12),
+    transparent 70%
+  );
 }
 
 html.light-theme .luxury-footer::after,
-html.light-theme #siteFooter::after{
-    background:radial-gradient(circle,rgba(22,74,54,.07),transparent 70%);
+html.light-theme #siteFooter::after {
+  background: radial-gradient(
+    circle,
+    rgba(22, 74, 54, 0.07),
+    transparent 70%
+  );
 }
 
+/* All footer text elements */
+html.light-theme .luxury-footer h1,
+html.light-theme .luxury-footer h2,
+html.light-theme .luxury-footer h3,
+html.light-theme .luxury-footer h4,
+html.light-theme .luxury-footer h5,
+html.light-theme .luxury-footer h6,
+html.light-theme .luxury-footer p,
+html.light-theme .luxury-footer span,
+html.light-theme .luxury-footer li,
+html.light-theme .luxury-footer label,
+html.light-theme .luxury-footer small,
+html.light-theme #siteFooter h1,
 html.light-theme #siteFooter h2,
 html.light-theme #siteFooter h3,
-html.light-theme #siteFooter h4{
-    color:#10291E!important;
+html.light-theme #siteFooter h4,
+html.light-theme #siteFooter h5,
+html.light-theme #siteFooter h6,
+html.light-theme #siteFooter p,
+html.light-theme #siteFooter span,
+html.light-theme #siteFooter li,
+html.light-theme #siteFooter label,
+html.light-theme #siteFooter small {
+  color: #000000 !important;
 }
 
-html.light-theme #siteFooter p{color:#59665E!important}
-
-html.light-theme .luxury-footer .footer-link,
-html.light-theme #siteFooter .footer-link{
-    color:#46564C!important;
+/* Footer links */
+html.light-theme .luxury-footer a,
+html.light-theme #siteFooter a {
+  color: #000000 !important;
 }
 
-html.light-theme .luxury-footer .footer-link:hover,
-html.light-theme #siteFooter .footer-link:hover{
-    color:#A67C28!important;
+html.light-theme .luxury-footer a:hover,
+html.light-theme #siteFooter a:hover {
+  color: #A67C28 !important;
 }
 
-html.light-theme .footer-social{
-    color:#46564C;
-    border-color:rgba(166,124,40,.25);
+/* Social icons */
+html.light-theme .luxury-footer .footer-social,
+html.light-theme #siteFooter .footer-social {
+  color: #000000 !important;
+  border-color: rgba(166, 124, 40, 0.35);
 }
 
-html.light-theme .footer-social:hover{
-    color:#FFFFFF;
-    background:var(--gold-dark);
-    border-color:var(--gold-dark);
+html.light-theme .footer-color-swatch {
+  border-color: rgba(0, 0, 0, 0.20);
 }
 
-html.light-theme .footer-color-swatch{
-    border-color:rgba(16,21,18,.20);
+html.light-theme .footer-color-swatch.active {
+  border-color: var(--gold-dark);
 }
 
-html.light-theme .footer-color-swatch.active{
-    border-color:var(--gold-dark);
+
+/* =====================================================
+   16. FOOTER — RESPONSIVE COLUMN GRID
+   Requires .footer-main-grid on the main footer wrapper
+===================================================== */
+#siteFooter .footer-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  align-items: start;
+  gap: 2.5rem;
 }
 
+/* Desktop: brand + three navigation columns */
+@media (min-width: 1024px) {
+  #siteFooter .footer-main-grid {
+    grid-template-columns: minmax(0,1.7fr) repeat(3,minmax(0,1fr));
+    column-gap: 32px;
+    row-gap: 40px;
+  }
+}
+
+/* Tablet: brand full width, then navigation columns */
+@media (min-width: 641px) and (max-width: 1023px) {
+  #siteFooter .footer-main-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 36px 28px; }
+  #siteFooter .footer-main-grid > .brand-column { grid-column: 1 / -1; }
+}
+
+/* Mobile: stack sections */
+@media (max-width: 640px) {
+  #siteFooter .footer-main-grid { grid-template-columns: minmax(0,1fr); gap: 30px; }
+  #siteFooter .footer-main-grid > nav { padding-top: 22px; border-top: 1px solid rgba(255,255,255,.09); }
+}
+
+/* Footer navigation lists */
+#siteFooter .footer-nav-list,
+#siteFooter nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+#siteFooter nav ul.space-y-4 > li + li { margin-top: 0; }
+
+#siteFooter .footer-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
 /* =====================================================
    31. REDUCED MOTION ACCESSIBILITY
 ===================================================== */
@@ -1075,4 +1723,303 @@ html.light-theme .footer-color-swatch.active{
         bottom:15px;
         max-width:none;
     }
+}
+/* =========================================
+   ADMISSIONS INQUIRY SIDE PANEL
+========================================= */
+
+.inquiry-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 350ms ease,
+        visibility 350ms ease;
+}
+
+
+/* PANEL */
+
+.inquiry-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: min(100%, 460px);
+    height: 100vh;
+    height: 100dvh;
+
+    z-index: 999;
+
+    overflow-y: auto;
+
+    background: #071A12;
+    border-left: 1px solid rgba(214, 181, 106, 0.25);
+
+    box-shadow: -20px 0 70px rgba(0, 0, 0, 0.35);
+
+    transform: translateX(105%);
+    visibility: hidden;
+
+    transition:
+        transform 450ms cubic-bezier(.16, 1, .3, 1),
+        visibility 450ms ease;
+
+    overscroll-behavior: contain;
+}
+
+
+/* OPEN STATE */
+
+.inquiry-panel.active {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.inquiry-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* HEADER */
+
+.inquiry-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 30px 28px 25px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.inquiry-eyebrow {
+    color: #D6B56A;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.inquiry-header h2 {
+    margin-top: 12px;
+
+    color: #F8F5EC;
+
+    font-family: 'Playfair Display', serif;
+    font-size: 29px;
+}
+
+.inquiry-subtitle {
+    margin-top: 8px;
+
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* CLOSE BUTTON */
+
+.inquiry-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+
+    color: rgba(255, 255, 255, 0.7);
+
+    transition: 300ms ease;
+}
+
+.inquiry-close:hover {
+    color: #D6B56A;
+    border-color: #D6B56A;
+    transform: rotate(90deg);
+}
+
+
+/* FORM */
+
+.inquiry-form {
+    padding: 28px;
+}
+
+.inquiry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.inquiry-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.inquiry-field label {
+    color: rgba(255, 255, 255, 0.7);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.inquiry-field input,
+.inquiry-field textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    color: #F8F5EC;
+    background: rgba(255, 255, 255, 0.045);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 11px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    transition: 250ms ease;
+}
+
+.inquiry-field input {
+    min-width: 0;
+}
+
+.inquiry-field textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.inquiry-field input::placeholder,
+.inquiry-field textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.inquiry-field input:focus,
+.inquiry-field textarea:focus {
+    border-color: #D6B56A;
+    background: rgba(214, 181, 106, 0.045);
+    box-shadow: 0 0 0 3px rgba(214, 181, 106, 0.08);
+}
+
+
+/* QUESTION */
+
+.inquiry-question {
+    margin-top: 22px;
+}
+
+
+/* SUBMIT BUTTON */
+
+.inquiry-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: 22px;
+    padding: 15px;
+}
+
+
+/* STATUS */
+
+.inquiry-status {
+    margin-top: 15px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.inquiry-status.success {
+    color: #8DDAA5;
+}
+
+.inquiry-status.error {
+    color: #FF9292;
+}
+
+
+/* NOTE */
+
+.inquiry-note {
+    margin-top: 17px;
+
+    color: rgba(255, 255, 255, 0.35);
+
+    font-size: 10px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+
+/* PREVENT BACKGROUND SCROLL */
+
+body.inquiry-open {
+    overflow: hidden;
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 520px) {
+
+    .inquiry-panel {
+        width: 100%;
+        border-left: none;
+    }
+
+    .inquiry-header {
+        padding: 24px 20px;
+    }
+
+    .inquiry-form {
+        padding: 23px 20px;
+    }
+
+    .inquiry-grid {
+        grid-template-columns: 1fr;
+        gap: 19px;
+    }
+
+    .inquiry-header h2 {
+        font-size: 25px;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .inquiry-panel,
+    .inquiry-overlay,
+    .inquiry-close {
+        transition: none;
+    }
+
 }

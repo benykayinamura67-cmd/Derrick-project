@@ -31,52 +31,74 @@
   <!-- =====================================================
        05. CUSTOM STYLESHEET
   ====================================================== -->
-  <link rel="stylesheet" href="../CSS/index.css">
+ <link rel="stylesheet" href="../CSS/index.css">
 </head>
 
 <body class="bg-[#0B241B] text-[#FAF8F2] antialiased">
 
-
+<!-- CURRENT PAGE INDICATOR -->
+<div id="currentPageIndicator" aria-label="Current page">
+    <span class="page-indicator-dot"></span>
+    <span id="currentPageName"></span>
+</div>
 <!-- =====================================================
      06. MAIN HEADER AND NAVIGATION
 ===================================================== -->
 <header id="navbar"
   class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-500">
 
-  <div class="w-full px-4 sm:px-8 lg:px-12">
+ <div class="w-full px-3 sm:px-8 lg:px-12">
 
     <nav class="flex h-[88px] items-center border-b border-white/10">
 
-      <!-- SCHOOL LOGO -->
-      <a href="index.html"
-        class="group flex shrink-0 items-center gap-3">
 
-        <div class="flex h-10 w-10 items-center justify-center
-          overflow-hidden border border-[#D6B56A]/50 bg-[#0B241B]
-          transition-all duration-300 group-hover:border-[#D6B56A]">
+<!-- SCHOOL LOGO + SCHOOL NAME -->
+<a href="index.html"
+  aria-label="Noah's Ark International School homepage"
+  class="group flex min-w-0 shrink items-center gap-2 sm:gap-3">
 
-          <img src="../IMAGES/logo.png"
-            alt="Noah's Ark logo"
-            class="h-full w-full object-contain p-1">
-        </div>
+  <!-- LOGO IMAGE -->
+  <div class="flex h-9 w-9 shrink-0 items-center justify-center
+    overflow-hidden border border-[#D6B56A]/50 bg-[#0B241B]
+    transition-all duration-300
+    group-hover:border-[#D6B56A]
+    sm:h-10 sm:w-10">
 
-        <div class="hidden sm:block">
-          <div class="font-bold text-[10px] tracking-[0.24em] text-white/90">
-            NOAH’S ARK
-          </div>
-          <div class="font-semibold text-[9px] tracking-[0.20em] text-[#D6B56A]">
-            INTERNATIONAL SCHOOL
-          </div>
-        </div>
+    <img src="../IMAGES/logo.png"
+      alt="Noah's Ark logo"
+      class="h-full w-full object-contain p-1">
+  </div>
 
-      </a>
+  <!-- SCHOOL NAME: VISIBLE ON ALL SCREEN SIZES -->
+  <div class="block min-w-0 leading-tight">
+
+    <div class="whitespace-nowrap font-bold
+      text-[9px] tracking-[0.12em] text-white/90
+      sm:text-[10px] sm:tracking-[0.24em]">
+
+      NOAH’S ARK
+
+    </div>
+
+    <div class="mt-1 whitespace-nowrap font-semibold
+      text-[7px] tracking-[0.08em] text-[#D6B56A]
+      sm:text-[9px] sm:tracking-[0.20em]">
+
+      INTERNATIONAL SCHOOL
+
+    </div>
+
+  </div>
+
+</a>
+
 
       <!-- DESKTOP NAVIGATION -->
       <div class="ml-auto hidden items-center lg:flex">
         <a href="index.html" class="premium-nav-link">Home</a>
         <a href="programs.html" class="premium-nav-link">Our Programs</a>
         <a href="experience.html" class="premium-nav-link">Experience</a>
-        <a href="campus.html" class="premium-nav-link">Explore our Campus</a>
+        <a href="mvv.html" class="premium-nav-link">MVV</a>
         <a href="faq.html" class="premium-nav-link">FAQ</a>
         <a href="ApplyNow.html" class="premium-nav-link premium-nav-apply">
           Apply Now
@@ -157,8 +179,7 @@
           </button>
 
           <!-- MOBILE DROPDOWN MENU -->
-          <div
-            id="menuPanel"
+          <div id="menuPanel" aria-hidden="true"
             class="absolute right-0 top-full mt-3 w-64
               border border-[#D6B56A]/20
               bg-[#07100d]/95 shadow-2xl backdrop-blur-xl"
@@ -168,7 +189,7 @@
               <a href="index.html" class="mobile-nav-link">Home</a>
               <a href="programs.html" class="mobile-nav-link">Our Programs</a>
               <a href="experience.html" class="mobile-nav-link">Experience</a>
-              <a href="campus.html" class="mobile-nav-link">Explore our Campus</a>
+              <a href="mvv.html" class="mobile-nav-link">MVV</a>
               <a href="faq.html" class="mobile-nav-link">FAQ</a>
               <a href="ApplyNow.html" class="mobile-nav-link">Apply Now</a>
             </div>
@@ -183,7 +204,6 @@
 
   </div>
 </header>
-
 <!-- =====================================================
      07. HERO SECTION
      Animated headlines, statistics and responsive carousel.
@@ -203,7 +223,7 @@
 
         <div class="flex items-center gap-4 mb-7 reveal">
           <span class="hero-accent-line w-10 h-px"></span>
-          <span class="hero-accent text-xs uppercase tracking-[0.32em] font-bold">Kigali, Rwanda</span>
+          <span class="hero-accent text-xs uppercase tracking-[0.32em] font-bold">Rwanda, Nyagatare</span>
         </div>
 
         <!-- Animated Headlines -->
@@ -243,20 +263,20 @@
           <div class="absolute left-0 bottom-0 flex items-center gap-3 z-20">
             <span id="heroSlideNumber" class="font-serif text-sm hero-accent">01</span>
             <span class="w-10 h-px hero-indicator-line"></span>
-            <span class="text-[10px] uppercase tracking-[0.25em] hero-slide-label">Our philosophy</span>
+            <span class="text-[10px] uppercase tracking-[0.25em] hero-slide-label">That's Our philosophy</span>
           </div>
         </div>
 
         <!-- Calls to Action -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-9 reveal">
           <a href="ApplyNow.html" class="group inline-flex items-center gap-4 px-7 py-4 hero-primary-btn text-sm font-semibold tracking-wide border transition-all duration-500 hover:-translate-y-1">
-            <span>Begin Your Journey</span>
+            <span>Begin Your Journey now</span>
             <svg class="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14m-6-6 6 6-6 6"/>
             </svg>
           </a>
           <a href="#about" class="hero-secondary-btn inline-flex items-center gap-3 px-7 py-4 border text-sm font-semibold tracking-wide transition-all duration-500">
-            Discover Our Institution
+            Explore Our Institution
           </a>
         </div>
 
@@ -264,17 +284,17 @@
         <div class="mt-8 pt-6 border-t hero-stats-border max-w-xl reveal">
           <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
             <div>
-              <div class="serif text-2xl hero-stat-number">25+</div>
+              <div class="serif text-2xl hero-stat-number">15+</div>
               <div class="mt-1 text-[10px] uppercase tracking-[0.18em] hero-stat-label">Global Partners</div>
             </div>
             <div class="w-px h-10 hero-stat-divider"></div>
             <div>
-              <div class="serif text-2xl hero-stat-number">1,400+</div>
+              <div class="serif text-2xl hero-stat-number">1500+</div>
               <div class="mt-1 text-[10px] uppercase tracking-[0.18em] hero-stat-label">Alumni Network</div>
             </div>
             <div class="w-px h-10 hero-stat-divider"></div>
             <div>
-              <div class="serif text-2xl hero-stat-number">14</div>
+              <div class="serif text-2xl hero-stat-number">10+</div>
               <div class="mt-1 text-[10px] uppercase tracking-[0.18em] hero-stat-label">Nationalities</div>
             </div>
           </div>
@@ -449,234 +469,499 @@
        09. ADMISSIONS AND PROSPECTUS
        View or download the 2026 school prospectus.
   ====================================================== -->
-  <section id="apply" class="relative py-28 md:py-36 overflow-hidden text-white">
 
-    <!-- Admissions Background -->
-    <div class="absolute inset-0 z-0">
-      <img src="../IMAGES/12.png" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center scale-[1.02]">
-      <div class="absolute inset-0 bg-white/[0.04] backdrop-blur-[1px] pointer-events-none"></div>
+<section id="apply"
+  class="relative isolate overflow-hidden py-16 text-white
+         sm:py-24 md:py-32 lg:py-36">
+
+  <!-- ADMISSIONS BACKGROUND -->
+  <div class="absolute inset-0 -z-20">
+    <img
+      src="../IMAGES/13.png"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      class="h-full w-full object-cover object-center"
+    >
+  </div>
+
+  <!-- BACKGROUND OVERLAY -->
+  <div class="absolute inset-0 -z-10
+              bg-[#071A12]/75
+              pointer-events-none"></div>
+
+  <!-- DECORATIVE LIGHTING -->
+  <div
+    class="absolute -top-32 -right-32 -z-10
+           h-64 w-64 rounded-full
+           bg-[#D6B56A]/15 blur-3xl
+           pointer-events-none
+           sm:h-96 sm:w-96">
+  </div>
+
+  <div
+    class="absolute -bottom-32 -left-32 -z-10
+           h-72 w-72 rounded-full
+           bg-[#164A36]/50 blur-3xl
+           pointer-events-none
+           sm:h-[32rem] sm:w-[32rem]">
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div
+    class="relative mx-auto w-full max-w-5xl
+           px-4 text-center
+           sm:px-6 lg:px-8">
+
+    <!-- ADMISSIONS ANNOUNCEMENT -->
+    <div
+      class="reveal mb-6 flex flex-wrap items-center
+             justify-center gap-2
+             text-[9px] font-bold uppercase
+             tracking-[0.16em] !text-white
+             sm:mb-8 sm:gap-3
+             sm:text-xs sm:tracking-[0.25em]">
+
+      <span class="h-px w-5 shrink-0 bg-[#D6B56A] sm:w-8"></span>
+
+      <span>Admissions 2026 Are Open</span>
+
+      <span class="h-px w-5 shrink-0 bg-[#D6B56A] sm:w-8"></span>
+
     </div>
 
-    <!-- Decorative Lighting -->
-    <div class="absolute -top-40 -right-40 z-[3] w-[30rem] h-[30rem] rounded-full bg-[#D6B56A]/15 blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-48 -left-48 z-[3] w-[32rem] h-[32rem] rounded-full bg-[#164A36]/40 blur-3xl pointer-events-none"></div>
+    <!-- RESPONSIVE HEADLINE -->
+    <h2
+      class="serif reveal mx-auto max-w-4xl
+             text-4xl font-medium leading-[1.08]
+             tracking-[-0.035em] text-white
+             sm:text-5xl sm:leading-[1.02]
+             md:text-6xl
+             lg:text-7xl xl:text-[5.5rem]">
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      Your luxury hospitality
 
-      <!-- Admissions Announcement -->
-      <div class="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.25em] text-[#F1E4C3] mb-7 reveal">
-        <span class="w-8 h-px bg-[#D6B56A]"></span>
-        <span>Admissions 2026 Are Open</span>
-        <span class="w-8 h-px bg-[#D6B56A]"></span>
-      </div>
+      <span
+        class="mt-1 block font-normal italic
+               text-[#D6B56A]">
 
-      <!-- Admissions Headline -->
-      <h5 class="serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[0.95] tracking-[-0.04em] font-medium text-white reveal">
-        Your luxury hospitality<br>
-        <span class="italic font-normal text-[#D6B56A]">journey starts here.</span>
-      </h5>
+        journey starts here.
 
-      <!-- Prospectus Actions -->
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-10 reveal">
+      </span>
 
-        <a href="../ASSETS/Documents/School-Prospectus-2026.pdf" target="_blank" rel="noopener noreferrer" class="group premium-hover relative inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl overflow-hidden bg-[#0B241B] text-white font-semibold text-sm tracking-wide border border-[#D6B56A]/40 shadow-[0_12px_35px_rgba(0,0,0,0.28)] transition-all duration-500 hover:border-[#D6B56A] hover:bg-[#10382A]">
-          <span class="premium-shine absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"></span>
-          <svg class="relative w-5 h-5 text-[#D6B56A] transition-transform duration-700 ease-out group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12H3m0 0l4-4m-4 4l4 4 M21 5v14a2 2 0 01-2 2H9a2 2 0 01-2-2v-1"/>
-          </svg>
-          <span class="relative">View BABYEYI Prospectus</span>
-        </a>
+    </h2>
 
-        <a href="../ASSETS/Documents/School-Prospectus-2026.pdf" download class="group premium-hover relative inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl overflow-hidden bg-[#D6B56A] text-[#0B241B] font-bold text-sm tracking-wide border border-[#F1E4C3] shadow-[0_12px_35px_rgba(214,181,106,0.22)] transition-all duration-500 hover:bg-[#F1E4C3]">
-          <span class="premium-shine absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"></span>
-          <svg class="relative w-5 h-5 transition-transform duration-700 ease-out group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/>
-          </svg>
-          <span class="relative">Download BABYEYI</span>
-        </a>
+    <!-- SUPPORTING DESCRIPTION -->
+<p
+  class="reveal mx-auto mt-5 max-w-xl
+         !text-white
+         text-lg leading-6
+         sm:mt-6 sm:text-base sm:leading-7">
 
-      </div>
+  Discover your future in hospitality and tourism with Noah's Ark International School.
 
-      <!-- Campus Location -->
-      <div class="mt-12 flex items-center justify-center gap-4 reveal">
-        <span class="w-16 h-px bg-[#D6B56A]/50"></span>
-        <span class="text-[10px] uppercase tracking-[0.3em] text-white/50">Kigali · Rwanda</span>
-        <span class="w-16 h-px bg-[#D6B56A]/50"></span>
-      </div>
+</p>
+
+    <!-- PROSPECTUS ACTIONS -->
+    <div
+      class="reveal mx-auto mt-8 flex w-full max-w-md
+             flex-col items-stretch justify-center gap-3
+             sm:mt-10 sm:max-w-none sm:flex-row
+             sm:items-center sm:gap-4">
+
+      <!-- VIEW PROSPECTUS -->
+      <a
+        href="../ASSETS/Documents/School-Prospectus-2026.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View the 2026 school prospectus"
+        class="group relative inline-flex min-h-12
+               w-full min-w-0 items-center
+               justify-center gap-2.5
+               overflow-hidden rounded-xl
+               border border-[#D6B56A]/50
+               bg-[#0B241B] px-4 py-3.5
+               text-center text-sm font-semibold
+               leading-5 text-white
+               shadow-[0_12px_35px_rgba(0,0,0,0.28)]
+               transition-all duration-300
+               hover:border-[#D6B56A]
+               hover:bg-[#10382A]
+               focus-visible:outline-none
+               focus-visible:ring-2
+               focus-visible:ring-[#D6B56A]
+               focus-visible:ring-offset-2
+               focus-visible:ring-offset-[#071A12]
+               sm:w-auto sm:min-w-[220px]
+               sm:px-6 sm:py-4">
+
+        <span
+          class="premium-shine pointer-events-none
+                 absolute inset-0
+                 bg-gradient-to-r from-transparent
+                 via-white/10 to-transparent">
+        </span>
+
+        <svg
+          class="relative h-5 w-5 shrink-0
+                 text-[#D6B56A]
+                 transition-transform duration-300
+                 group-hover:translate-x-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            d="M15 12H3m0 0l4-4m-4 4l4 4
+               M21 5v14a2 2 0 01-2 2H9a2 2 0
+               01-2-2v-1"/>
+
+        </svg>
+
+        <span class="relative">View School BABYEYI(Prospectus)</span>
+
+      </a>
+
+      <!-- DOWNLOAD PROSPECTUS -->
+      <a
+        href="../ASSETS/Documents/School-Prospectus-2026.pdf"
+        download="Noahs-Ark-Prospectus-2026.pdf"
+        aria-label="Download the 2026 school prospectus"
+        class="group relative inline-flex min-h-12
+               w-full min-w-0 items-center
+               justify-center gap-2.5
+               overflow-hidden rounded-xl
+               border border-[#F1E4C3]
+               bg-[#D6B56A] px-4 py-3.5
+               text-center text-sm font-bold
+               leading-5 text-[#0B241B]
+               shadow-[0_12px_35px_rgba(214,181,106,0.22)]
+               transition-all duration-300
+               hover:bg-[#F1E4C3]
+               focus-visible:outline-none
+               focus-visible:ring-2
+               focus-visible:ring-white
+               focus-visible:ring-offset-2
+               focus-visible:ring-offset-[#071A12]
+               sm:w-auto sm:min-w-[220px]
+               sm:px-6 sm:py-4">
+
+        <span
+          class="premium-shine pointer-events-none
+                 absolute inset-0
+                 bg-gradient-to-r from-transparent
+                 via-white/30 to-transparent">
+        </span>
+
+        <svg
+          class="relative h-5 w-5 shrink-0
+                 transition-transform duration-300
+                 group-hover:translate-y-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            d="M12 3v12m0 0l-4-4m4 4l4-4
+               M5 21h14"/>
+
+        </svg>
+
+        <span class="relative">Download BABYEYI(Prospectus)</span>
+
+      </a>
 
     </div>
-  </section>
 
-  <!-- =====================================================
-       10. FOOTER
-       School information, academic links and admissions.
-  ====================================================== -->
-  <footer id="siteFooter" class="relative overflow-hidden bg-[#04120D] text-white/70 border-t border-[#D6B56A]/20">
+    <!-- CAMPUS LOCATION -->
+    <div
+      class="reveal mt-9 flex flex-wrap
+             items-center justify-center gap-3
+             sm:mt-12 sm:gap-4">
 
-    <!-- Footer Background Decorations -->
-    <div aria-hidden="true" class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-[#D6B56A]/[0.035] blur-3xl pointer-events-none"></div>
-    <div aria-hidden="true" class="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#1E6147]/20 blur-3xl pointer-events-none"></div>
+      <span
+        class="h-px w-8 bg-[#D6B56A]/50 sm:w-16">
+      </span>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+      <span
+       class="reveal mx-auto mt-5 max-w-xl
+         !text-white
+         text-lg leading-6
+         sm:mt-6 sm:text-base sm:leading-7">
 
-      <!-- Footer Admissions Banner -->
-      <div class="py-10 md:py-12 border-b border-white/[0.08] flex flex-col md:flex-row md:items-center justify-between gap-6">
+        Rwanda, Nyagatare district, Nyagatare Sector, Rukomo cell, Nyagatare village, near Nyagatare District Hospital
+
+      </span>
+
+      <span
+        class="h-px w-8 bg-[#D6B56A]/50 sm:w-16">
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     PREMIUM FOOTER
+     Noah's Ark International School of Hospitality & Tourism
+     Theme: Forest Green • Champagne Gold • Ivory
+========================================================== -->
+<footer id="siteFooter" class="relative isolate overflow-hidden border-t border-[#D6B56A]/30 bg-[#04100B] text-white/70 font-sans">
+
+  <!-- 01. ATMOSPHERIC BACKGROUND EFFECTS -->
+  <div aria-hidden="true" class="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-[#D6B56A]/[0.08] blur-[120px]"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-96 w-96 rounded-full bg-[#1E6147]/30 blur-[120px]"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]" style="background-image: radial-gradient(#F1E4C3 0.8px, transparent 0.8px); background-size: 24px 24px;"></div>
+
+  <div class="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+
+    <!-- 02. PREMIUM ADMISSIONS CALL TO ACTION (CTA BANNER) -->
+    <section class="grid gap-8 border-b border-white/10 py-12 sm:py-14 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:py-16" aria-labelledby="footer-cta-heading">
+      <div class="max-w-2xl">
+        <span class="mb-4 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em] text-[#D6B56A]">
+          <span class="h-px w-8 bg-[#D6B56A]"></span>
+          The Art of Hospitality
+        </span>
+
+        <h2 id="footer-cta-heading" class="serif text-3xl leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl font-serif">
+          Build a future defined by <span class="italic text-[#D6B56A] font-normal">excellence.</span>
+        </h2>
+
+        <p class="mt-4 max-w-xl text-sm leading-7 text-white/60 sm:text-base">
+          Discover professional education designed to prepare the next generation of global hospitality and tourism leaders.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-3.5 sm:flex-row lg:flex-col xl:flex-row">
+        <a href="ApplyNow.html" class="group inline-flex min-h-[48px] items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#E6CB8B] via-[#D6B56A] to-[#B9974F] px-7 py-3.5 text-center text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#04100B] shadow-lg shadow-black/40 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D6B56A]">
+          Begin Application
+          <i class="fa-solid fa-arrow-up-right-from-square text-[11px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"></i>
+        </a>
+
+        <a href="#campus" class="inline-flex min-h-[48px] items-center justify-center gap-3 rounded-xl border border-white/15 bg-white/[0.03] px-7 py-3.5 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-white/90 transition-all duration-300 hover:border-[#D6B56A]/60 hover:bg-[#D6B56A]/[0.08] hover:text-[#F1E4C3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D6B56A]">
+          Discover Campus
+          <i class="fa-solid fa-arrow-right text-[11px] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 03. MAIN FOOTER GRID -->
+    <div class="footer-main-grid py-14 lg:py-16">
+      
+      <!-- COLUMN 1: BRAND & LOCATIONS -->
+      <div class="brand-column flex flex-col justify-between">
         <div>
-          <span class="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[#D6B56A] font-semibold mb-4">
-            <span class="w-8 h-px bg-[#D6B56A]/70"></span>
-            The Art of Hospitality
-          </span>
-          <h2 class="serif text-2xl md:text-3xl lg:text-4xl text-white leading-tight tracking-wide">
-            Excellence Begins <br class="sm:hidden">
-            <span class="text-[#D6B56A] italic">With Education.</span>
-          </h2>
+
+<!-- BRAND LOGO -->
+      <!-- SCHOOL LOGO -->
+      <a href="index.html"
+        class="group flex shrink-0 items-center gap-3">
+
+        <div class="flex h-10 w-10 items-center justify-center
+          overflow-hidden border border-[#D6B56A]/50 bg-[#0B241B]
+          transition-all duration-300 group-hover:border-[#D6B56A]">
+
+          <img src="../IMAGES/logo.png"
+            alt="Noah's Ark logo"
+            class="h-full w-full object-contain p-1">
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-3">
-          <a href="#contact" class="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#D6B56A] to-[#B9974F] text-[#04120D] px-6 py-3.5 rounded-xl text-[11px] font-bold uppercase tracking-[0.15em] shadow-lg shadow-black/20 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">
-            Explore Admissions
-            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
-          </a>
-          <a href="#campus" class="inline-flex items-center justify-center gap-3 border border-white/15 bg-white/[0.03] text-white/80 px-6 py-3.5 rounded-xl text-[11px] font-semibold uppercase tracking-[0.15em] hover:border-[#D6B56A]/50 hover:text-[#D6B56A] hover:bg-[#D6B56A]/[0.04] transition-all duration-300">
-            Discover Our Campus
-          </a>
-        </div>
-      </div>
-
-      <!-- Footer Main Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 py-14 lg:py-16">
-
-        <!-- School Identity and Newsletter -->
-        <div class="sm:col-span-2 lg:col-span-5 lg:pr-10">
-
-          <a href="#home" aria-label="Noah's Ark International School homepage" class="inline-flex items-center gap-4 group mb-7">
-            <div class="w-14 h-14 shrink-0 rounded-2xl border border-[#D6B56A]/35 bg-[#D6B56A]/10 flex items-center justify-center">
-              <i class="fa-solid fa-crown text-[#D6B56A] text-xl" aria-hidden="true"></i>
-            </div>
-            <div>
-              <h3 class="serif text-white text-xl md:text-2xl font-bold tracking-wide group-hover:text-[#D6B56A] transition-colors">Noah's Ark International</h3>
-              <p class="text-[10px] uppercase tracking-[0.24em] text-[#D6B56A] mt-1.5">School of Hospitality &amp; Tourism</p>
-            </div>
-          </a>
-
-          <p class="text-[13px] leading-7 text-white/55 font-light max-w-md mb-7">
-            Shaping the next generation of hospitality professionals through practical excellence, international standards, professional discipline, and a commitment to exceptional service in Kigali and Nyagatare, Rwanda.
-          </p>
-
-          <!-- School Highlights -->
-          <div class="flex flex-wrap gap-2.5 mb-9">
-            <span class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.035] border border-white/[0.08] text-[10px] text-white/65">
-              <i class="fa-solid fa-graduation-cap text-[#D6B56A]"></i>
-              Professional Education
-            </span>
-            <span class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.035] border border-white/[0.08] text-[10px] text-white/65">
-              <i class="fa-solid fa-star text-[#D6B56A]"></i>
-              Hospitality Excellence
-            </span>
+        <div class="hidden sm:block">
+          <div class="font-bold text-[10px] tracking-[0.24em] text-white/90">
+            NOAH’S ARK
           </div>
+          <div class="font-semibold text-[9px] tracking-[0.20em] text-[#D6B56A]">
+            INTERNATIONAL SCHOOL
+          </div>
+    <span
+      class="mt-0.5 block text-[10px] tracking-[0.1em] text-white/50"
+    >
+      Hospitality &amp; Tourism
+    </span>
+        </div>
 
-          <!-- Newsletter Subscription -->
-          <div class="relative overflow-hidden rounded-2xl border border-[#D6B56A]/20 bg-gradient-to-br from-[#0B241B] to-[#061810] p-5 sm:p-6">
-            <div aria-hidden="true" class="absolute top-0 right-0 w-24 h-24 bg-[#D6B56A]/[0.04] blur-2xl rounded-full"></div>
+      </a>
 
-            <div class="relative">
-              <div class="flex items-center gap-3 mb-3">
-                <div class="w-10 h-10 shrink-0 rounded-xl bg-[#D6B56A]/10 border border-[#D6B56A]/20 flex items-center justify-center">
-                  <i class="fa-regular fa-envelope text-[#D6B56A]" aria-hidden="true"></i>
-                </div>
-                <div>
-                  <h4 class="text-white text-sm font-semibold tracking-wide">Stay Connected</h4>
-                  <p class="text-[10px] uppercase tracking-[0.16em] text-[#D6B56A]/75 mt-1">The Noah's Ark Newsletter</p>
-                </div>
+          <!-- LOCATIONS -->
+          <div class="space-y-3">
+            <span class="mt-8 block text-[10px] font-bold uppercase tracking-[0.25em] text-[#D6B56A]">
+              Campuses &amp; Locations
+            </span>
+
+
+            <!-- NYAGATARE -->
+            <div class="group flex items-start gap-3.5 rounded-xl border border-white/10 bg-white/[0.02] p-3.5 transition-all duration-300 hover:border-[#D6B56A]/40 hover:bg-white/[0.04]">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#D6B56A]/25 bg-[#D6B56A]/10 text-[#D6B56A]">
+                <i class="fa-solid fa-location-dot text-xs" aria-hidden="true"></i>
               </div>
-
-              <p class="text-[12px] leading-6 text-white/50 font-light mb-5">
-                Receive school announcements, academic updates, admissions information, and inspiring hospitality insights.
-              </p>
-
-              <form id="footerNewsletterForm" class="flex flex-col sm:flex-row gap-2.5">
-                <label for="footerNewsletterEmail" class="sr-only">Email address</label>
-                <input id="footerNewsletterEmail" name="email" type="email" placeholder="Your email address" autocomplete="email" required class="flex-1 min-w-0 w-full bg-[#04120D]/80 border border-white/10 rounded-xl px-4 py-3.5 text-xs text-white placeholder:text-white/30 outline-none focus:border-[#D6B56A]/70 focus:ring-2 focus:ring-[#D6B56A]/10 transition-all duration-300">
-
-                <button type="submit" class="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#D6B56A] to-[#B9974F] text-[#04120D] rounded-xl px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.13em] hover:brightness-110 active:scale-[0.98] transition-all duration-300 whitespace-nowrap">
-                  Subscribe
-                  <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
-                </button>
-              </form>
-
-              <p id="footerNewsletterMessage" class="hidden mt-3 text-xs leading-5" role="status" aria-live="polite"></p>
-              <p class="text-[10px] text-white/35 mt-3 leading-5">By subscribing, you agree to receive school-related updates.</p>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between">
+                  <h5 class="text-xs font-bold tracking-wide text-white">Nyagatare Campus</h5>
+                  <span class="text-[9px] uppercase tracking-wider text-white/40">Rwanda</span>
+                </div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Noah%27s%20Ark%20International%20School%20of%20Hospitality%20%26%20Tourism%20Nyagatare%20Rwanda" target="_blank" rel="noopener noreferrer" class="mt-1.5 inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#D6B56A] transition-colors hover:text-[#F1E4C3]">
+                  View on Google Maps
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[9px]" aria-hidden="true"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Academic Programs -->
-        <div class="lg:col-span-2">
-          <h4 class="flex items-center gap-3 text-white text-[11px] font-bold uppercase tracking-[0.22em] mb-7">
-            <span class="w-5 h-px bg-[#D6B56A]"></span>Academics
-          </h4>
-          <ul class="space-y-4 text-[12px] font-light">
-            <li><a href="#experience" class="footer-link">Culinary Arts</a></li>
-            <li><a href="#experience" class="footer-link">Hotel Management</a></li>
-            <li><a href="#experience" class="footer-link">Food &amp; Beverage</a></li>
-            <li><a href="#experience" class="footer-link">Tourism &amp; Eco-Resorts</a></li>
-            <li><a href="#experience" class="footer-link">Executive Training</a></li>
-          </ul>
-        </div>
+        <!-- CONTACT INFORMATION QUICK LIST -->
+        <div class="mt-6 border-t border-white/10 pt-5">
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <a href="mailto:info@noahsark.edu.rw" class="group flex items-center gap-3 text-xs text-white/60 transition-colors hover:text-[#F1E4C3]">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[#D6B56A] transition-colors group-hover:border-[#D6B56A]/40">
+                <i class="fa-regular fa-envelope text-xs" aria-hidden="true"></i>
+              </span>
+              <span class="truncate text-[11px]">noahsarktvet@gmail.com , uwapatra@gmail.com . </span>
+            </a>
 
-        <!-- Institutional Information -->
-        <div class="lg:col-span-2">
-          <h4 class="flex items-center gap-3 text-white text-[11px] font-bold uppercase tracking-[0.22em] mb-7">
-            <span class="w-5 h-px bg-[#D6B56A]"></span>Institution
-          </h4>
-          <ul class="space-y-4 text-[12px] font-light">
-            <li><a href="#about" class="footer-link">Our Story &amp; Vision</a></li>
-            <li><a href="#experience" class="footer-link">Student Experience</a></li>
-            <li><a href="#partnerships" class="footer-link">Industry Partners</a></li>
-            <li><a href="#campus" class="footer-link">Campus &amp; Gallery</a></li>
-            <li><a href="#contact" class="footer-link">Admissions Desk</a></li>
-          </ul>
-        </div>
+            <a href="tel:+250700000000" class="group flex items-center gap-3 text-xs text-white/60 transition-colors hover:text-[#F1E4C3]">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[#D6B56A] transition-colors group-hover:border-[#D6B56A]/40">
+                <i class="fa-solid fa-phone text-xs" aria-hidden="true"></i>
+              </span>
+              <span class="text-[11px]">+250788549346, +250788730096, +250788444908 </span>
+            </a>
 
-        <!-- Admissions Links -->
-        <div class="lg:col-span-3">
-          <h4 class="flex items-center gap-3 text-white text-[11px] font-bold uppercase tracking-[0.22em] mb-7">
-            <span class="w-5 h-px bg-[#D6B56A]"></span>Admissions
-          </h4>
-          <ul class="space-y-4 text-[12px] font-light">
-            <li><a href="#contact" class="footer-link">Apply Online</a></li>
-            <li><a href="#contact" class="footer-link">Tuition &amp; Fees</a></li>
-            <li><a href="#contact" class="footer-link">Scholarships</a></li>
-            <li><a href="#campus" class="footer-link">Book a Campus Tour</a></li>
-            <li><a href="#contact" class="footer-link">Contact Admissions</a></li>
-          </ul>
+            <a href="https://wa.me/+250787531956" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 text-xs text-white/60 transition-colors hover:text-[#F1E4C3]">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[#D6B56A] transition-colors group-hover:border-[#D6B56A]/40">
+                <i class="fa-brands fa-whatsapp text-xs" aria-hidden="true"></i>
+              </span>
+              <span class="text-[11px]">Chat on WhatsApp</span>
+            </a>
+          </div>
         </div>
-
       </div>
 
-      <!-- Footer Copyright -->
-      <div class="border-t border-white/[0.08] py-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-white/40">
-        <p>&copy; <span id="footerCopyrightYear">2026</span> Noah's Ark International School. All rights reserved.</p>
-        <p>Kigali · Rwanda</p>
-      </div>
+      <!-- COLUMN 2: ACADEMICS -->
+      <nav aria-label="Academic programmes">
+        <h3 class="footer-heading">
+          <span class="h-px w-4 bg-[#D6B56A]"></span>
+          Academics
+        </h3>
+        <ul class="footer-nav-list">
+          <li><a href="#experience" class="footer-link">Culinary Arts &amp; Gastronomy</a></li>
+          <li><a href="#experience" class="footer-link">International Hotel Management</a></li>
+          <li><a href="#experience" class="footer-link">Food &amp; Beverage Operations</a></li>
+          <li><a href="#experience" class="footer-link">Tourism &amp; Eco-Resort Leadership</a></li>
+          <li><a href="#experience" class="footer-link">Executive &amp; Professional Diplomas</a></li>
+          <li><a href="#experience" class="footer-link">Short Courses &amp; Certifications</a></li>
+        </ul>
+      </nav>
+
+      <!-- COLUMN 3: INSTITUTION -->
+      <nav aria-label="Institution information">
+        <h3 class="footer-heading">
+          <span class="h-px w-4 bg-[#D6B56A]"></span>
+          Institution
+        </h3>
+        <ul class="footer-nav-list">
+          <li><a href="#about" class="footer-link">Our Story &amp; Vision</a></li>
+          <li><a href="#experience" class="footer-link">Student Life &amp; Campus</a></li>
+          <li><a href="#partnerships" class="footer-link">Industry &amp; Hotel Partners</a></li>
+          <li><a href="#accreditation" class="footer-link">Accreditation &amp; Standards</a></li>
+          <li><a href="#news" class="footer-link">News &amp; Events</a></li>
+          <li><a href="#contact" class="footer-link">Contact Admissions</a></li>
+        </ul>
+      </nav>
+
+      <!-- COLUMN 4: ADMISSIONS & PROMPT -->
+      <nav aria-label="Admissions links" class="flex flex-col justify-between">
+        <div>
+          <h3 class="footer-heading">
+            <span class="h-px w-4 bg-[#D6B56A]"></span>
+            Admissions
+          </h3>
+          <ul class="footer-nav-list">
+            <li><a href="ApplyNow.html" class="footer-link">Apply Online</a></li>
+            <li><a href="#contact" class="footer-link">Tuition Fees &amp; Financial Aid</a></li>
+            <li><a href="#contact" class="footer-link">Scholarships &amp; Grants</a></li>
+            <li><a href="#campus" class="footer-link">Schedule a Campus Visit</a></li>
+            <li><a href="#contact" class="footer-link">Entry Requirements</a></li>
+          </ul>
+        </div>
+
+        <!-- CALLOUT BANNER -->
+        <div class="mt-8 rounded-xl border border-[#D6B56A]/25 bg-gradient-to-b from-[#D6B56A]/[0.08] to-transparent p-4">
+          <p class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#D6B56A]">
+            Your Next Chapter
+          </p>
+          <p class="mt-1.5 text-xs leading-5 text-white/60">
+            Take the first step towards a global career in hospitality.
+          </p>
+          <a href="ApplyNow.html" class="mt-3 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:text-[#D6B56A]">
+            Start Application
+            <i class="fa-solid fa-arrow-right text-[9px]" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
 
     </div>
-  </footer>
 
+    <!-- 04. FOOTER BASELINE / BOTTOM BAR -->
+    <div class="border-t border-white/10 py-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+        <p class="text-[11px] leading-6 text-white/45">
+          &copy; <span id="footerCopyrightYear">2026</span> Noah's Ark International School of Hospitality &amp; Tourism. All rights reserved.
+        </p>
+
+        <!-- SOCIAL & BACK TO TOP LINKS -->
+        <div class="flex flex-wrap items-center gap-6 text-xs text-white/50">
+          <div class="flex items-center gap-4">
+            <a href="#" aria-label="Instagram" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-instagram text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-linkedin-in text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Facebook" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-facebook-f text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="YouTube" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-youtube text-sm" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <span class="h-3.5 w-px bg-white/15"></span>
+
+          <a href="#home" class="inline-flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:text-[#D6B56A]">
+            Back to top
+            <i class="fa-solid fa-arrow-up text-[10px]" aria-hidden="true"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</footer>
   <!-- =====================================================
        11. APPLICATION POPUP
        Automatic application invitation with close controls.
   ====================================================== -->
-  <div id="applyPopup" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4" aria-hidden="true">
+  <div id="applyPopup" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-slate/70 backdrop-blur-sm px-4" aria-hidden="true">
 
-    <div id="applyPopupCard" class="relative w-full max-w-lg overflow-hidden rounded-3xl border border-[#D6B56A]/30 bg-[#07100d] shadow-[0_25px_80px_rgba(0,0,0,0.6)] opacity-0 scale-95 transition-all duration-500">
+    <div id="applyPopupCard" class="relative w-full max-w-lg overflow-hidden rounded-none border border-[#D6B56A]/30 bg-[#07100d] shadow-[0_25px_80px_rgba(0,0,0,0.6)] opacity-0 scale-95 transition-all duration-500">
 
       <!-- Popup Background Decorations -->
       <div class="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6B56A]/10 blur-3xl"></div>
-      <div class="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-[#1E6147]/30 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-[#1E2147]/100 blur-3xl"></div>
 
       <!-- Popup Close Button -->
-      <button id="closeApplyPopup" type="button" aria-label="Close" class="absolute right-5 top-5 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition-all duration-300 hover:border-[#D6B56A]/50 hover:bg-[#D6B56A]/10 hover:text-[#D6B56A] hover:rotate-90">
+      <button id="closeApplyPopup" type="button" aria-label="Close" class="absolute right-5 top-5 z-20 flex h-10 w-10 items-center justify-center rounded-none border border-white/10 bg-white/5 text-white/100 transition-all duration-300 hover:border-[#D6B56A]/50 hover:bg-[#D6B56A]/10 hover:text-[#D6B56A] hover:rotate-90">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
         </svg>
@@ -687,12 +972,13 @@
 
         <div class="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-[#D6B56A]/30 bg-[#D6B56A]/10 px-4 py-2">
           <span class="h-2 w-2 rounded-none bg-[#D6B56A]"></span>
-          <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D6B56A]">Application is Open now</span>
+          <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/100">Application is Open now</span>
         </div>
 
-        <h2 class="font-serif text-3xl font-bold leading-tight text-white sm:text-4xl">
-          Ready to start your journey with <span class="text-[#D6B56A]">Noah’s Ark?</span>
-        </h2>
+<h2 class="ready-journey-heading font-serif text-3xl font-bold leading-tight sm:text-4xl">
+    Ready to start your journey with
+    <span class="text-[#D6B56A]">Noah’s Ark?</span>
+</h2>
 
         <p class="mx-auto mt-5 max-w-md text-sm leading-7 text-white/65 sm:text-base">
           Take the first step toward an exciting career in hospitality and tourism. You can apply now or come back when you're ready.
@@ -707,14 +993,14 @@
         <!-- Popup Actions -->
         <div class="flex flex-col gap-3 sm:flex-row sm:justify-center">
 
-          <a href="ApplyNow.html" id="popupApplyBtn" class="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#B9974F] px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-[#07100d] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[#D6B56A]/30">
+          <a href="ApplyNow.html" id="popupApplyBtn" class="group inline-flex items-center justify-center gap-2 rounded-none bg-gradient-to-r from-[#D6B56A] to-[#B9974F] px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-[#07100d] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[#D6B56A]/30">
             Apply Now
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/>
             </svg>
           </a>
 
-          <button id="maybeLaterBtn" type="button" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white/75 transition-all duration-300 hover:border-[#D6B56A]/40 hover:bg-white/10 hover:text-white">
+          <button id="maybeLaterBtn" type="button" class="inline-flex items-center justify-center rounded-none border border-white/15 bg-white/5 px-7 py-3.5 text-sm font-semibold !text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:shadow-[#D6B56A]/30">
             Maybe Later
           </button>
 
@@ -771,6 +1057,7 @@
        Each script is loaded once.
   ====================================================== -->
   <script src="../JS/index.js" defer></script>
+  <script src="../JS/common.js" defer></script>
   <script src="../JS/about-slider.js" defer></script>
   <script src="../JS/site-interactions.js" defer></script>
 

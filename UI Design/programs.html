@@ -1,256 +1,209 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programs | Noah's Ark International School</title>
-    <meta name="description" content="Explore academic and professional programs at Noah's Ark International School of Hospitality & Tourism.">
+  <!-- =====================================================
+       01. DOCUMENT METADATA
+  ====================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rwanda School of Hospitality | International Luxury Hotel School</title>
+  <meta name="description" content="A premier international hospitality and professional leadership school in Kigali, blending African heritage with world-class hospitality standards.">
 
-    <!-- =========================================================
-         TAILWIND CSS CONFIGURATION
-    ========================================================== -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        forest: "#0B241B",
-                        forestdeep: "#06150F",
-                        forestlight: "#10382A",
-                        emerald: "#164A36",
-                        gold: "#D6B56A",
-                        goldlight: "#E8D39B",
-                        cream: "#F1E4C3",
-                        ivory: "#F7F5EF"
-                    },
-                    fontFamily: {
-                        display: ["Playfair Display", "Georgia", "serif"],
-                        sans: ["Plus Jakarta Sans", "Arial", "sans-serif"]
-                    }
-                }
-            }
-        };
-    </script>
+  <!-- =====================================================
+       02. TAILWIND CSS FRAMEWORK
+  ====================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- =========================================================
-         GOOGLE FONTS
-    ========================================================== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- =====================================================
+       03. GOOGLE FONTS
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-    <!-- =========================================================
-         LUCIDE ICONS
-    ========================================================== -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- =====================================================
+       04. ICON LIBRARIES
+  ====================================================== -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- =========================================================
-         CUSTOM STYLESHEET
-    ========================================================== -->
-    <style>
-        :root {
-            --forest: #0B241B;
-            --deep: #06150F;
-            --forest-light: #10382A;
-            --emerald: #164A36;
-            --gold: #D6B56A;
-            --gold-light: #E8D39B;
-            --cream: #F1E4C3;
-            --text: #FFFFFF;
-            --muted: rgba(255,255,255,.65);
-            --card: rgba(255,255,255,.05);
-            --border: rgba(214,181,106,.20);
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            overflow-x: hidden;
-            font-family: "Plus Jakarta Sans", Arial, sans-serif;
-            background: var(--deep);
-            color: var(--text);
-            transition: background-color .4s ease, color .4s ease;
-        }
-
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        ::selection {
-            background: rgba(214,181,106,.30);
-            color: #fff;
-        }
-
-        /* Navigation Links */
-        .premium-nav-link {
-            position: relative;
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
-            transition: color 0.3s ease;
-        }
-
-        .premium-nav-link:hover {
-            color: #D6B56A;
-        }
-
-        .premium-nav-apply {
-            background: linear-gradient(135deg, #D6B56A, #A98235);
-            color: #06150F !important;
-            font-weight: 600;
-            border-radius: 9999px;
-            padding: 0.625rem 1.25rem;
-            box-shadow: 0 4px 20px rgba(214, 181, 106, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-        }
-
-        .premium-nav-apply:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(214, 181, 106, 0.5);
-        }
-
-        /* Programs Section Background */
-        .programs-section {
-            position: relative;
-            isolation: isolate;
-            overflow: hidden;
-            background: radial-gradient(ellipse at 12% 15%, rgba(214,181,106,.12), transparent 34%),
-                        radial-gradient(ellipse at 90% 70%, rgba(30,97,71,.32), transparent 38%),
-                        linear-gradient(135deg, #071A12, #0B241B 50%, #06150F);
-        }
-
-        .gold-text {
-            background: linear-gradient(110deg, #F7E9BD, #D6B56A 48%, #A98235);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        /* Program Cards */
-        .program-card {
-            position: relative;
-            background: var(--card);
-            border: 1px solid var(--border);
-            box-shadow: 0 18px 55px rgba(0,0,0,.20);
-            backdrop-filter: blur(16px);
-            transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
-        }
-
-        .program-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(214,181,106,.65);
-            box-shadow: 0 28px 70px rgba(0,0,0,.38);
-        }
-
-        /* Footer styling */
-        #siteFooter {
-            background: #071A12;
-            color: #F1E4C3;
-            border-top: 1px solid rgba(214,181,106,.15);
-            transition: background .4s ease, color .4s ease, border-color .4s ease;
-        }
-
-        /* Light Mode Styling Overrides */
-        body.light-mode {
-            background: #F7F5EF;
-            color: #10251B;
-        }
-
-        body.light-mode .top-bar {
-            background: #F0EBDD !important;
-            color: rgba(16,37,27,.65) !important;
-        }
-
-        body.light-mode #navbar nav {
-            background: rgba(255,255,255,.96) !important;
-            border-color: rgba(16,37,27,.12) !important;
-            box-shadow: 0 10px 35px rgba(16,37,27,.08);
-        }
-
-        body.light-mode .premium-nav-link {
-            color: #10251B !important;
-        }
-
-        body.light-mode .premium-nav-link:hover {
-            color: #A67C28 !important;
-        }
-
-        body.light-mode .program-card {
-            background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(246,242,231,.92));
-            border-color: rgba(16,37,27,.12);
-            box-shadow: 0 18px 50px rgba(16,37,27,.08);
-        }
-
-        body.light-mode #siteFooter {
-            background: #FFFFFF !important;
-            color: #10291E !important;
-            border-color: rgba(16,41,30,.12) !important;
-        }
-    </style>
+  <!-- =====================================================
+       05. CUSTOM STYLESHEET
+  ====================================================== -->
+ <link rel="stylesheet" href="../CSS/index.css">
 </head>
 
-<body>
-    
-    <!-- =========================================================
-         MAIN HEADER AND NAVIGATION
-    ========================================================== -->
-    <header id="navbar" class="fixed top-[37px] left-0 right-0 z-50 bg-[#06150F]/80 backdrop-blur-md transition-all duration-500 border-b border-white/1ت">
-        <div class="w-full px-4 sm:px-8 lg:px-12">
-            <nav class="flex h-[80px] items-center justify-between">
-                
-                <!-- SCHOOL LOGO -->
-                <a href="index.html" class="group flex items-center gap-3">
-                    <div class="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border border-[#D6B56A]/50 bg-[#0B241B] transition-all duration-300 group-hover:border-[#D6B56A]">
-                        <img src="../IMAGES/logo.png" alt="Noah's Ark logo" class="h-full w-full object-contain p-1.5">
-                    </div>
-                    <div>
-                        <div class="font-bold text-[11px] tracking-[0.24em] text-white">NOAH’S ARK</div>
-                        <div class="font-semibold text-[9px] tracking-[0.20em] text-[#D6B56A]">INTERNATIONAL SCHOOL</div>
-                    </div>
-                </a>
+<body class="bg-[#0B241B] text-[#FAF8F2] antialiased">
 
-                <!-- DESKTOP NAVIGATION -->
-                <div class="hidden items-center lg:flex gap-1">
-                    <a href="index.html" class="premium-nav-link">Home</a>
-                    <a href="programs.html" class="premium-nav-link text-gold font-semibold">Our Programs</a>
-                    <a href="experience.html" class="premium-nav-link">Experience</a>
-                    <a href="campus.html" class="premium-nav-link">Campus</a>
-                    <a href="faq.html" class="premium-nav-link">FAQ</a>
-                </div>
+<!-- CURRENT PAGE INDICATOR -->
+<div id="currentPageIndicator" aria-label="Current page">
+    <span class="page-indicator-dot"></span>
+    <span id="currentPageName"></span>
+</div>
+<!-- =====================================================
+     06. MAIN HEADER AND NAVIGATION
+===================================================== -->
+<header id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-500">
 
-                <!-- RIGHT ACTIONS (Theme Toggle & Apply CTA) -->
-                <div class="flex items-center gap-4">
-                    <button id="themeToggle" type="button" aria-label="Switch theme" title="Switch theme" class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#D6B56A]/30 bg-[#10382A]/60 text-[#D6B56A] transition-all duration-300 hover:border-gold">
-                        <!-- Sun Icon -->
-                        <svg id="sunIcon" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M3 12h2m14 0h2M4.93 19.07l1.41-1.41M18.66 5.34l1.41-1.41M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                        <!-- Moon Icon -->
-                        <svg id="moonIcon" class="block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-                    </button>
+ <div class="w-full px-3 sm:px-8 lg:px-12">
 
-                    <a href="ApplyNow.html" class="hidden sm:inline-flex premium-nav-link premium-nav-apply">
-                        Apply Now
-                    </a>
+    <nav class="flex h-[88px] items-center border-b border-white/10">
 
-                    <!-- MOBILE HAMBURGER TOGGLE -->
-                    <button id="menuButton" type="button" aria-label="Open menu" class="inline-flex lg:hidden h-10 w-10 items-center justify-center rounded-xl border border-[#D6B56A]/30 text-gold">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
-                    </button>
-                </div>
 
-            </nav>
+<!-- SCHOOL LOGO + SCHOOL NAME -->
+<a href="index.html"
+  aria-label="Noah's Ark International School homepage"
+  class="group flex min-w-0 shrink items-center gap-2 sm:gap-3">
+
+  <!-- LOGO IMAGE -->
+  <div class="flex h-9 w-9 shrink-0 items-center justify-center
+    overflow-hidden border border-[#D6B56A]/50 bg-[#0B241B]
+    transition-all duration-300
+    group-hover:border-[#D6B56A]
+    sm:h-10 sm:w-10">
+
+    <img src="../IMAGES/logo.png"
+      alt="Noah's Ark logo"
+      class="h-full w-full object-contain p-1">
+  </div>
+
+  <!-- SCHOOL NAME: VISIBLE ON ALL SCREEN SIZES -->
+  <div class="block min-w-0 leading-tight">
+
+    <div class="whitespace-nowrap font-bold
+      text-[9px] tracking-[0.12em] text-white/90
+      sm:text-[10px] sm:tracking-[0.24em]">
+
+      NOAH’S ARK
+
+    </div>
+
+    <div class="mt-1 whitespace-nowrap font-semibold
+      text-[7px] tracking-[0.08em] text-[#D6B56A]
+      sm:text-[9px] sm:tracking-[0.20em]">
+
+      INTERNATIONAL SCHOOL
+
+    </div>
+
+  </div>
+
+</a>
+
+
+      <!-- DESKTOP NAVIGATION -->
+      <div class="ml-auto hidden items-center lg:flex">
+        <a href="index.html" class="premium-nav-link">Home</a>
+        <a href="programs.html" class="premium-nav-link">Our Programs</a>
+        <a href="experience.html" class="premium-nav-link">Experience</a>
+        <a href="mvv.html" class="premium-nav-link">MVV</a>
+        <a href="faq.html" class="premium-nav-link">FAQ</a>
+        <a href="ApplyNow.html" class="premium-nav-link premium-nav-apply">
+          Apply Now
+        </a>
+      </div>
+
+      <!-- THEME TOGGLE + MOBILE MENU -->
+      <div class="ml-auto lg:ml-6 flex shrink-0 items-center gap-3">
+
+        <!-- LIGHT / DARK THEME TOGGLE -->
+        <button
+          id="themeToggle"
+          type="button"
+          aria-label="Switch to light mode"
+          title="Switch to light mode"
+          class="theme-toggle inline-flex h-10 w-10 shrink-0
+            items-center justify-center rounded-full
+            border border-[#D6B56A]/30
+            bg-[#10382A]/60 text-[#D6B56A]
+            transition-all duration-300"
+        >
+
+          <!-- SUN ICON -->
+          <svg id="sunIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            aria-hidden="true">
+
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 3v2m0 14v2M4.93 4.93l1.41 1.41
+              m11.32 11.32l1.41 1.41M3 12h2m14 0h2
+              M4.93 19.07l1.41-1.41M18.66 5.34l1.41-1.41
+              M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+
+          <!-- MOON ICON -->
+          <svg id="moonIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            aria-hidden="true">
+
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 12.79A9 9 0 1111.21 3
+              7 7 0 0021 12.79z"/>
+          </svg>
+
+        </button>
+
+        <!-- MOBILE MENU WRAPPER -->
+        <div class="relative lg:hidden">
+
+          <!-- HAMBURGER BUTTON -->
+          <button
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="menuPanel"
+            class="inline-flex h-10 w-10 shrink-0
+              items-center justify-center
+              border border-[#D6B56A]/30 bg-transparent
+              transition-all duration-300
+              hover:border-[#D6B56A]"
+          >
+
+            <span class="flex w-4 flex-col items-center gap-1">
+              <span class="menu-line block h-px w-4 bg-[#D6B56A]"></span>
+              <span class="menu-line block h-px w-4 bg-[#D6B56A]"></span>
+              <span class="menu-line block h-px w-4 bg-[#D6B56A]"></span>
+            </span>
+
+          </button>
+
+          <!-- MOBILE DROPDOWN MENU -->
+          <div id="menuPanel" aria-hidden="true"
+            class="absolute right-0 top-full mt-3 w-64
+              border border-[#D6B56A]/20
+              bg-[#07100d]/95 shadow-2xl backdrop-blur-xl"
+          >
+
+            <div class="p-2">
+              <a href="index.html" class="mobile-nav-link">Home</a>
+              <a href="programs.html" class="mobile-nav-link">Our Programs</a>
+              <a href="experience.html" class="mobile-nav-link">Experience</a>
+              <a href="mvv.html" class="mobile-nav-link">MVV</a>
+              <a href="faq.html" class="mobile-nav-link">FAQ</a>
+              <a href="ApplyNow.html" class="mobile-nav-link">Apply Now</a>
+            </div>
+
+          </div>
+
         </div>
-    </header>
 
+      </div>
+
+    </nav>
+
+  </div>
+</header>
     <!-- =========================================================
          MAIN CONTENT AREA
     ========================================================== -->
@@ -287,41 +240,243 @@
         </div>
     </main>
 
-    <!-- =========================================================
-         PREMIUM FOOTER
-    ========================================================== -->
-    <footer id="siteFooter" class="relative pt-16 pb-12 border-t">
-        <div class="mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-                <div>
-                    <h3 class="font-display text-lg font-bold mb-4">Noah's Ark International</h3>
-                    <p class="text-sm mb-4">Empowering the next generation of hospitality and tourism leaders in Kigali, Rwanda.</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-sm mb-4 text-gold">Quick Links</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="programs.html">Programs</a></li>
-                        <li><a href="experience.html">Experience</a></li>
-                        <li><a href="ApplyNow.html">Admissions</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-sm mb-4 text-gold">Contact</h4>
-                    <p class="text-sm mb-2">Kigali, Rwanda</p>
-                    <p class="text-sm mb-2">Email: info@noahsark.ac.rw</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-sm mb-4 text-gold">Accreditation</h4>
-                    <p class="text-sm">Committed to top-tier TVET standards and professional excellence.</p>
-                </div>
-            </div>
-            <div class="border-t border-white/10 pt-6 text-center text-xs opacity-75">
-                &copy; 2026 Noah's Ark International School of Hospitality & Tourism. All rights reserved.
-            </div>
-        </div>
-    </footer>
+<!-- =========================================================
+     PREMIUM FOOTER
+     Noah's Ark International School of Hospitality & Tourism
+     Theme: Forest Green • Champagne Gold • Ivory
+========================================================== -->
+<footer id="siteFooter" class="relative isolate overflow-hidden border-t border-[#D6B56A]/30 bg-[#04100B] text-white/70 font-sans">
 
+  <!-- 01. ATMOSPHERIC BACKGROUND EFFECTS -->
+  <div aria-hidden="true" class="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-[#D6B56A]/[0.08] blur-[120px]"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-96 w-96 rounded-full bg-[#1E6147]/30 blur-[120px]"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]" style="background-image: radial-gradient(#F1E4C3 0.8px, transparent 0.8px); background-size: 24px 24px;"></div>
+
+  <div class="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+
+    <!-- 02. PREMIUM ADMISSIONS CALL TO ACTION (CTA BANNER) -->
+    <section class="grid gap-8 border-b border-white/10 py-12 sm:py-14 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:py-16" aria-labelledby="footer-cta-heading">
+      <div class="max-w-2xl">
+        <span class="mb-4 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em] text-[#D6B56A]">
+          <span class="h-px w-8 bg-[#D6B56A]"></span>
+          The Art of Hospitality
+        </span>
+
+        <h2 id="footer-cta-heading" class="serif text-3xl leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl font-serif">
+          Build a future defined by <span class="italic text-[#D6B56A] font-normal">excellence.</span>
+        </h2>
+
+        <p class="mt-4 max-w-xl text-sm leading-7 text-white/60 sm:text-base">
+          Discover professional education designed to prepare the next generation of global hospitality and tourism leaders.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-3.5 sm:flex-row lg:flex-col xl:flex-row">
+        <a href="ApplyNow.html" class="group inline-flex min-h-[48px] items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#E6CB8B] via-[#D6B56A] to-[#B9974F] px-7 py-3.5 text-center text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#04100B] shadow-lg shadow-black/40 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D6B56A]">
+          Begin Application
+          <i class="fa-solid fa-arrow-up-right-from-square text-[11px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"></i>
+        </a>
+
+        <a href="#campus" class="inline-flex min-h-[48px] items-center justify-center gap-3 rounded-xl border border-white/15 bg-white/[0.03] px-7 py-3.5 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-white/90 transition-all duration-300 hover:border-[#D6B56A]/60 hover:bg-[#D6B56A]/[0.08] hover:text-[#F1E4C3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D6B56A]">
+          Discover Campus
+          <i class="fa-solid fa-arrow-right text-[11px] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 03. MAIN FOOTER GRID -->
+    <div class="footer-main-grid py-14 lg:py-16">
+      
+      <!-- COLUMN 1: BRAND & LOCATIONS -->
+      <div class="brand-column flex flex-col justify-between">
+        <div>
+
+<!-- BRAND LOGO -->
+      <!-- SCHOOL LOGO -->
+      <a href="index.html"
+        class="group flex shrink-0 items-center gap-3">
+
+        <div class="flex h-10 w-10 items-center justify-center
+          overflow-hidden border border-[#D6B56A]/50 bg-[#0B241B]
+          transition-all duration-300 group-hover:border-[#D6B56A]">
+
+          <img src="../IMAGES/logo.png"
+            alt="Noah's Ark logo"
+            class="h-full w-full object-contain p-1">
+        </div>
+
+        <div class="hidden sm:block">
+          <div class="font-bold text-[10px] tracking-[0.24em] text-white/90">
+            NOAH’S ARK
+          </div>
+          <div class="font-semibold text-[9px] tracking-[0.20em] text-[#D6B56A]">
+            INTERNATIONAL SCHOOL
+          </div>
+    <span
+      class="mt-0.5 block text-[10px] tracking-[0.1em] text-white/50"
+    >
+      Hospitality &amp; Tourism
+    </span>
+        </div>
+
+      </a>
+
+          <!-- LOCATIONS -->
+          <div class="space-y-3">
+            <span class="mt-8 block text-[10px] font-bold uppercase tracking-[0.25em] text-[#D6B56A]">
+              Campuses &amp; Locations
+            </span>
+
+
+            <!-- NYAGATARE -->
+            <div class="group flex items-start gap-3.5 rounded-xl border border-white/10 bg-white/[0.02] p-3.5 transition-all duration-300 hover:border-[#D6B56A]/40 hover:bg-white/[0.04]">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#D6B56A]/25 bg-[#D6B56A]/10 text-[#D6B56A]">
+                <i class="fa-solid fa-location-dot text-xs" aria-hidden="true"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between">
+                  <h5 class="text-xs font-bold tracking-wide text-white">Nyagatare Campus</h5>
+                  <span class="text-[9px] uppercase tracking-wider text-white/40">Rwanda</span>
+                </div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Noah%27s%20Ark%20International%20School%20of%20Hospitality%20%26%20Tourism%20Nyagatare%20Rwanda" target="_blank" rel="noopener noreferrer" class="mt-1.5 inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#D6B56A] transition-colors hover:text-[#F1E4C3]">
+                  View on Google Maps
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[9px]" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTACT INFORMATION QUICK LIST -->
+        <div class="mt-6 border-t border-white/10 pt-5">
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <a href="mailto:info@noahsark.edu.rw" class="group flex items-center gap-3 text-xs text-white/60 transition-colors hover:text-[#F1E4C3]">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[#D6B56A] transition-colors group-hover:border-[#D6B56A]/40">
+                <i class="fa-regular fa-envelope text-xs" aria-hidden="true"></i>
+              </span>
+              <span class="truncate text-[11px]">noahsarktvet@gmail.com , uwapatra@gmail.com . </span>
+            </a>
+
+            <a href="tel:+250700000000" class="group flex items-center gap-3 text-xs text-white/60 transition-colors hover:text-[#F1E4C3]">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[#D6B56A] transition-colors group-hover:border-[#D6B56A]/40">
+                <i class="fa-solid fa-phone text-xs" aria-hidden="true"></i>
+              </span>
+              <span class="text-[11px]">+250788549346, +250788730096, +250788444908 </span>
+            </a>
+
+            <a href="https://wa.me/+250787531956" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 text-xs text-white/60 transition-colors hover:text-[#F1E4C3]">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[#D6B56A] transition-colors group-hover:border-[#D6B56A]/40">
+                <i class="fa-brands fa-whatsapp text-xs" aria-hidden="true"></i>
+              </span>
+              <span class="text-[11px]">Chat on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMN 2: ACADEMICS -->
+      <nav aria-label="Academic programmes">
+        <h3 class="footer-heading">
+          <span class="h-px w-4 bg-[#D6B56A]"></span>
+          Academics
+        </h3>
+        <ul class="footer-nav-list">
+          <li><a href="#experience" class="footer-link">Culinary Arts &amp; Gastronomy</a></li>
+          <li><a href="#experience" class="footer-link">International Hotel Management</a></li>
+          <li><a href="#experience" class="footer-link">Food &amp; Beverage Operations</a></li>
+          <li><a href="#experience" class="footer-link">Tourism &amp; Eco-Resort Leadership</a></li>
+          <li><a href="#experience" class="footer-link">Executive &amp; Professional Diplomas</a></li>
+          <li><a href="#experience" class="footer-link">Short Courses &amp; Certifications</a></li>
+        </ul>
+      </nav>
+
+      <!-- COLUMN 3: INSTITUTION -->
+      <nav aria-label="Institution information">
+        <h3 class="footer-heading">
+          <span class="h-px w-4 bg-[#D6B56A]"></span>
+          Institution
+        </h3>
+        <ul class="footer-nav-list">
+          <li><a href="#about" class="footer-link">Our Story &amp; Vision</a></li>
+          <li><a href="#experience" class="footer-link">Student Life &amp; Campus</a></li>
+          <li><a href="#partnerships" class="footer-link">Industry &amp; Hotel Partners</a></li>
+          <li><a href="#accreditation" class="footer-link">Accreditation &amp; Standards</a></li>
+          <li><a href="#news" class="footer-link">News &amp; Events</a></li>
+          <li><a href="#contact" class="footer-link">Contact Admissions</a></li>
+        </ul>
+      </nav>
+
+      <!-- COLUMN 4: ADMISSIONS & PROMPT -->
+      <nav aria-label="Admissions links" class="flex flex-col justify-between">
+        <div>
+          <h3 class="footer-heading">
+            <span class="h-px w-4 bg-[#D6B56A]"></span>
+            Admissions
+          </h3>
+          <ul class="footer-nav-list">
+            <li><a href="ApplyNow.html" class="footer-link">Apply Online</a></li>
+            <li><a href="#contact" class="footer-link">Tuition Fees &amp; Financial Aid</a></li>
+            <li><a href="#contact" class="footer-link">Scholarships &amp; Grants</a></li>
+            <li><a href="#campus" class="footer-link">Schedule a Campus Visit</a></li>
+            <li><a href="#contact" class="footer-link">Entry Requirements</a></li>
+          </ul>
+        </div>
+
+        <!-- CALLOUT BANNER -->
+        <div class="mt-8 rounded-xl border border-[#D6B56A]/25 bg-gradient-to-b from-[#D6B56A]/[0.08] to-transparent p-4">
+          <p class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#D6B56A]">
+            Your Next Chapter
+          </p>
+          <p class="mt-1.5 text-xs leading-5 text-white/60">
+            Take the first step towards a global career in hospitality.
+          </p>
+          <a href="ApplyNow.html" class="mt-3 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:text-[#D6B56A]">
+            Start Application
+            <i class="fa-solid fa-arrow-right text-[9px]" aria-hidden="true"></i>
+          </a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- 04. FOOTER BASELINE / BOTTOM BAR -->
+    <div class="border-t border-white/10 py-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+        <p class="text-[11px] leading-6 text-white/45">
+          &copy; <span id="footerCopyrightYear">2026</span> Noah's Ark International School of Hospitality &amp; Tourism. All rights reserved.
+        </p>
+
+        <!-- SOCIAL & BACK TO TOP LINKS -->
+        <div class="flex flex-wrap items-center gap-6 text-xs text-white/50">
+          <div class="flex items-center gap-4">
+            <a href="#" aria-label="Instagram" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-instagram text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-linkedin-in text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Facebook" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-facebook-f text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="YouTube" class="text-white/50 transition-colors hover:text-[#D6B56A]">
+              <i class="fa-brands fa-youtube text-sm" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <span class="h-3.5 w-px bg-white/15"></span>
+
+          <a href="#home" class="inline-flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:text-[#D6B56A]">
+            Back to top
+            <i class="fa-solid fa-arrow-up text-[10px]" aria-hidden="true"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</footer>
     <!-- =========================================================
          BASIC SCRIPT TOGGLE CONTROLS
     ========================================================== -->
@@ -337,5 +492,6 @@
             moonIcon.classList.toggle('hidden', isLight);
         });
     </script>
+<script src="../JS/programs.js" defer></script>
 </body>
 </html>

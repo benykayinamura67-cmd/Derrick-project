@@ -1348,8 +1348,19 @@ document.getElementById('activity').innerHTML = [
 
 /* =========================
    START DASHBOARD
+   VERIFY ADMIN SESSION FIRST
 ========================= */
 
-buildNav();
+(async function initializeAdminDashboard() {
 
-lucide.createIcons();
+    const authorized = await window.requireAdminSession();
+
+    if (!authorized) {
+        return;
+    }
+
+    buildNav();
+
+    lucide.createIcons();
+
+})();

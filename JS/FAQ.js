@@ -1,1110 +1,707 @@
 
 /* =========================================================
-   RWANDA SCHOOL OF HOSPITALITY
-   FAQ PAGE JAVASCRIPT
+   NOAH'S ARK INTERNATIONAL SCHOOL
+   FAQ PAGE — INTEGRATED JAVASCRIPT
    File: ../JS/FAQ.js
+
+   FEATURES
+   01. Persistent light/dark theme
+   02. Responsive mobile navigation
+   03. Navbar scroll effect and back-to-top
+   04. FAQ category filters and live search
+   05. FAQ accordion behavior
+   06. Accessible enquiry modal
+   07. Local demo enquiry storage
+   08. Toast notifications and footer year
 ========================================================= */
 
-"use strict";
+(() => {
+  "use strict";
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* =====================================================
-       1. DOM ELEMENTS
-    ====================================================== */
-
-    const html = document.documentElement;
+  function initFAQPage() {
+    const root = document.documentElement;
     const body = document.body;
 
-    const navbar = document.getElementById("mainNavbar");
-    const menuToggle = document.getElementById("menuToggle");
-    const menuIcon = document.getElementById("menuIcon");
-    const navigationMenu = document.getElementById("navigationMenu");
+    /* =====================================================
+       01. SHARED ELEMENTS AND TOAST NOTIFICATIONS
+    ===================================================== */
 
-    const themeToggle = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-
-    const faqSearch = document.getElementById("faqSearch");
-    const faqCategories = Array.from(
-        document.querySelectorAll(".faq-category")
-    );
-    const faqGroups = Array.from(
-        document.querySelectorAll(".faq-group")
-    );
-    const faqItems = Array.from(
-        document.querySelectorAll(".faq-item")
-    );
-    const searchResultsInfo = document.getElementById("searchResultsInfo");
-    const faqEmptyState = document.getElementById("faqEmptyState");
-
-    const inquiryModal = document.getElementById("inquiryModal");
-    const inquiryForm = document.getElementById("inquiryForm");
-    const inquiryStatus = document.getElementById("inquiryStatus");
-    const openInquiryButton = document.getElementById("openInquiry");
-    const closeInquiryButton = document.getElementById("closeInquiry");
-    const menuEnquire = document.getElementById("menuEnquire");
-    const emptyStateEnquire = document.getElementById("emptyStateEnquire");
-
-    const newsletterForm = document.getElementById("newsletterForm");
-    const newsletterEmail = document.getElementById("newsletterEmail");
-    const newsletterStatus = document.getElementById("newsletterStatus");
-
-    const footer = document.getElementById("footer");
-    const footerCustomizerToggle =
-        document.getElementById("footerCustomizerToggle");
-    const footerColorPanel = document.getElementById("footerColorPanel");
-    const footerSwatches = Array.from(
-        document.querySelectorAll(".footer-color-swatch")
-    );
-    const activeFooterColor = document.getElementById("activeFooterColor");
-
+    const navbar = document.getElementById("navbar");
     const backToTop = document.getElementById("backToTop");
-    const currentYear = document.getElementById("currentYear");
 
     const toast = document.getElementById("toast");
     const toastTitle = document.getElementById("toastTitle");
     const toastMessage = document.getElementById("toastMessage");
     const toastIcon = document.getElementById("toastIcon");
 
-    let activeCategory = "admissions";
-    let lastFocusedElement = null;
     let toastTimer = null;
-    let modalCloseTimer = null;
-
-
-    /* =====================================================
-       2. SAFE LOCAL STORAGE
-       Handles missing or invalid saved data.
-    ====================================================== */
-
-    function readStoredJSON(key, fallback = []) {
-        try {
-            const value = localStorage.getItem(key);
-            return value ? JSON.parse(value) : fallback;
-        } catch (error) {
-            console.warn(`Could not read saved data: ${key}`, error);
-            return fallback;
-        }
-    }
-
-    function saveStoredJSON(key, value) {
-        try {
-            localStorage.setItem(key, JSON.stringify(value));
-            return true;
-        } catch (error) {
-            console.error(`Could not save data: ${key}`, error);
-            showToast(
-                "Storage Error",
-                "Your browser could not save this information.",
-                "error"
-            );
-            return false;
-        }
-    }
-
-    function readStoredValue(key, fallback = null) {
-        try {
-            return localStorage.getItem(key) ?? fallback;
-        } catch (error) {
-            console.warn(`Could not read setting: ${key}`, error);
-            return fallback;
-        }
-    }
-
-    function saveStoredValue(key, value) {
-        try {
-            localStorage.setItem(key, value);
-            return true;
-        } catch (error) {
-            console.error(`Could not save setting: ${key}`, error);
-            return false;
-        }
-    }
-
-
-    /* =====================================================
-       3. CURRENT YEAR
-    ====================================================== */
-
-    if (currentYear) {
-        currentYear.textContent = new Date().getFullYear();
-    }
-
-
-    /* =====================================================
-       4. TOAST NOTIFICATIONS
-    ====================================================== */
+    let lastFocusedElement = null;
 
     function showToast(title, message, type = "success") {
-        if (!toast) return;
+      if (!toast) return;
 
-        if (toastTitle) {
-            toastTitle.textContent = title;
-        }
+      if (toastTitle) {
+        toastTitle.textContent = title;
+      }
 
-        if (toastMessage) {
-            toastMessage.textContent = message;
-        }
+      if (toastMessage) {
+        toastMessage.textContent = message;
+      }
 
-        if (toastIcon) {
-            if (type === "error") {
-                toastIcon.innerHTML =
-                    '<i class="fa-solid fa-circle-exclamation"></i>';
-                toastIcon.className = "text-red-400 mt-0.5";
-            } else {
-                toastIcon.innerHTML =
-                    '<i class="fa-solid fa-circle-check"></i>';
-                toastIcon.className = "text-[#D6B56A] mt-0.5";
-            }
-        }
+      if (toastIcon) {
+        toastIcon.innerHTML =
+          type === "error"
+            ? '<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>'
+            : '<i class="fa-solid fa-circle-check" aria-hidden="true"></i>';
+      }
 
-        toast.classList.add("show");
+      toast.classList.add("show");
+      toast.setAttribute("aria-hidden", "false");
 
-        clearTimeout(toastTimer);
+      if (toastTimer) {
+        window.clearTimeout(toastTimer);
+      }
 
-        toastTimer = setTimeout(() => {
-            toast.classList.remove("show");
-        }, 3500);
+      toastTimer = window.setTimeout(() => {
+        toast.classList.remove("show");
+        toast.setAttribute("aria-hidden", "true");
+      }, 3500);
     }
-
 
     /* =====================================================
-       5. FORM STATUS MESSAGES
-    ====================================================== */
+       02. LIGHT / DARK THEME TOGGLE
+    ===================================================== */
 
-    function showFormStatus(element, message, type = "success") {
-        if (!element) return;
+    const themeToggle = document.getElementById("themeToggle");
+    const sunIcon = document.getElementById("sunIcon");
+    const moonIcon = document.getElementById("moonIcon");
 
-        element.textContent = message;
-        element.className =
-            "status-message show " +
-            (type === "error" ? "status-error" : "status-success");
+    function updateThemeUI() {
+      const isLight = root.classList.contains("light-theme");
+
+      if (sunIcon) {
+        sunIcon.style.visibility = isLight ? "hidden" : "visible";
+        sunIcon.style.opacity = isLight ? "0" : "1";
+      }
+
+      if (moonIcon) {
+        moonIcon.style.visibility = isLight ? "visible" : "hidden";
+        moonIcon.style.opacity = isLight ? "1" : "0";
+      }
+
+      if (themeToggle) {
+        const label = isLight
+          ? "Switch to dark mode"
+          : "Switch to light mode";
+
+        themeToggle.setAttribute("aria-label", label);
+        themeToggle.setAttribute("title", label);
+        themeToggle.setAttribute("aria-pressed", String(isLight));
+      }
     }
 
-
-    /* =====================================================
-       6. DARK / LIGHT THEME
-       Supports the existing schoolTheme setting.
-    ====================================================== */
-
-    function updateThemeIcon() {
-        if (!themeIcon) return;
-
-        const isLight = html.classList.contains("light-theme");
-
-        themeIcon.className = isLight
-            ? "fa-solid fa-moon text-sm"
-            : "fa-solid fa-sun text-sm";
-
-        if (themeToggle) {
-            const label = isLight
-                ? "Switch to dark mode"
-                : "Switch to light mode";
-
-            themeToggle.setAttribute("aria-label", label);
-            themeToggle.setAttribute("title", label);
-        }
+    // Restore the saved theme.
+    try {
+      root.classList.toggle(
+        "light-theme",
+        localStorage.getItem("rsh-theme") === "light"
+      );
+    } catch (error) {
+      console.warn("Could not restore the saved theme.", error);
     }
 
-    function loadTheme() {
-        const savedTheme =
-            readStoredValue("schoolTheme") ||
-            readStoredValue("rsh-theme");
-
-        html.classList.toggle("light-theme", savedTheme === "light");
-        updateThemeIcon();
-    }
-
-    function toggleTheme() {
-        const isLight = html.classList.toggle("light-theme");
-        const theme = isLight ? "light" : "dark";
-
-        saveStoredValue("schoolTheme", theme);
-        updateThemeIcon();
-
-        showToast(
-            "Theme Updated",
-            isLight
-                ? "Light mode is now active."
-                : "Dark mode is now active."
-        );
-    }
-
-    loadTheme();
+    updateThemeUI();
 
     if (themeToggle) {
-        themeToggle.addEventListener("click", toggleTheme);
-    }
+      themeToggle.addEventListener("click", () => {
+        const isLight = root.classList.toggle("light-theme");
 
+        try {
+          localStorage.setItem(
+            "rsh-theme",
+            isLight ? "light" : "dark"
+          );
+        } catch (error) {
+          console.warn("Could not save the theme preference.", error);
+        }
+
+        updateThemeUI();
+      });
+    }
 
     /* =====================================================
-       7. MOBILE NAVIGATION MENU
-    ====================================================== */
+       03. RESPONSIVE MOBILE NAVIGATION
+    ===================================================== */
 
-    function openMenu() {
-        if (!navigationMenu) return;
+    const menuButton = document.getElementById("menuButton");
+    const menuPanel = document.getElementById("menuPanel");
 
-        navigationMenu.classList.add("menu-open");
+    function setMenu(open) {
+      if (!menuButton || !menuPanel) return;
 
-        if (menuToggle) {
-            menuToggle.setAttribute("aria-expanded", "true");
-            menuToggle.setAttribute("aria-label", "Close navigation menu");
+      menuPanel.classList.toggle("menu-open", open);
+
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.setAttribute(
+        "aria-label",
+        open ? "Close navigation menu" : "Open navigation menu"
+      );
+
+      menuPanel.setAttribute("aria-hidden", String(!open));
+
+      menuPanel.querySelectorAll("a").forEach((link) => {
+        link.tabIndex = open ? 0 : -1;
+      });
+
+      menuButton.querySelectorAll(".menu-line").forEach((line, index) => {
+        if (index === 0) {
+          line.style.transform = open
+            ? "translateY(6px) rotate(45deg)"
+            : "";
         }
 
-        if (menuIcon) {
-            menuIcon.className = "fa-solid fa-xmark";
+        if (index === 1) {
+          line.style.opacity = open ? "0" : "";
         }
+
+        if (index === 2) {
+          line.style.transform = open
+            ? "translateY(-6px) rotate(-45deg)"
+            : "";
+        }
+      });
     }
 
-    function closeMenu() {
-        if (!navigationMenu) return;
+    if (menuButton && menuPanel) {
+      // Start with the menu closed.
+      setMenu(false);
 
-        navigationMenu.classList.remove("menu-open");
+      menuButton.addEventListener("click", (event) => {
+        event.stopPropagation();
 
-        if (menuToggle) {
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.setAttribute("aria-label", "Open navigation menu");
+        const isOpen =
+          menuButton.getAttribute("aria-expanded") === "true";
+
+        setMenu(!isOpen);
+      });
+
+      // Close the menu after selecting a navigation link.
+      menuPanel.addEventListener("click", (event) => {
+        const link = event.target.closest("a");
+
+        if (link) {
+          setMenu(false);
         }
+      });
 
-        if (menuIcon) {
-            menuIcon.className = "fa-solid fa-bars";
-        }
-    }
-
-    if (menuToggle) {
-        menuToggle.addEventListener("click", event => {
-            event.stopPropagation();
-
-            if (navigationMenu?.classList.contains("menu-open")) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-    }
-
-    document.addEventListener("click", event => {
-        if (!navigationMenu || !menuToggle) return;
-
+      // Close the menu when clicking outside it.
+      document.addEventListener("click", (event) => {
         if (
-            navigationMenu.classList.contains("menu-open") &&
-            !navigationMenu.contains(event.target) &&
-            !menuToggle.contains(event.target)
+          !menuButton.contains(event.target) &&
+          !menuPanel.contains(event.target)
         ) {
-            closeMenu();
+          setMenu(false);
         }
-    });
+      });
 
-    document.querySelectorAll("[data-menu-link]").forEach(link => {
-        link.addEventListener("click", closeMenu);
-    });
+      // Close the menu using Escape.
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          setMenu(false);
+        }
+      });
 
+      // Tailwind's lg breakpoint starts at 1024px.
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024) {
+          setMenu(false);
+        }
+      });
+    }
 
     /* =====================================================
-       8. NAVBAR SCROLL EFFECT
-    ====================================================== */
+       04. NAVBAR SCROLL EFFECT AND BACK TO TOP
+    ===================================================== */
 
     function handleScroll() {
-        if (navbar) {
-            navbar.classList.toggle("scrolled", window.scrollY > 40);
-        }
+      if (navbar) {
+        navbar.classList.toggle("scrolled", window.scrollY > 40);
+      }
 
-        if (backToTop) {
-            backToTop.classList.toggle("show", window.scrollY > 500);
-        }
+      if (backToTop) {
+        backToTop.classList.toggle("show", window.scrollY > 500);
+      }
     }
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, {
+      passive: true
+    });
+
     handleScroll();
 
+    if (backToTop) {
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+    }
+
+    const footerYear = document.getElementById("footerCopyrightYear");
+
+    if (footerYear) {
+      footerYear.textContent = String(new Date().getFullYear());
+    }
 
     /* =====================================================
-       9. FAQ HELPERS
-    ====================================================== */
+       05. FAQ CATEGORY FILTER AND LIVE SEARCH
+    ===================================================== */
 
-    function getGroupQuestions(group) {
-        return Array.from(group.querySelectorAll(".faq-item"));
+    const faqSearch = document.getElementById("faqSearch");
+
+    const faqCategories = Array.from(
+      document.querySelectorAll(".faq-category")
+    );
+
+    const faqGroups = Array.from(
+      document.querySelectorAll(".faq-group")
+    );
+
+    const faqItems = Array.from(
+      document.querySelectorAll(".faq-item")
+    );
+
+    const faqEmptyState = document.getElementById("faqEmptyState");
+    const searchResultsInfo = document.getElementById("searchResultsInfo");
+
+    let activeCategory =
+      document.querySelector(".faq-category.active")?.dataset.category ||
+      "admissions";
+
+    function categoryLabel(category) {
+      const button = faqCategories.find(
+        (item) => item.dataset.category === category
+      );
+
+      return button
+        ? button.textContent.trim().replace(/\s+/g, " ")
+        : category;
     }
 
-    function resetFAQDisplay() {
-        faqItems.forEach(item => {
-            item.style.display = "";
-            item.open = false;
-        });
+    function renderFAQs() {
+      const query = faqSearch
+        ? faqSearch.value.trim().toLocaleLowerCase()
+        : "";
 
-        faqGroups.forEach(group => {
-            group.style.display = "";
-        });
-    }
+      let visibleQuestions = 0;
 
-    function closeAllFAQItems() {
-        faqItems.forEach(item => {
-            item.open = false;
-        });
-    }
+      faqCategories.forEach((button) => {
+        const active = button.dataset.category === activeCategory;
 
-    function getCategoryName(category) {
-        const button = faqCategories.find(
-            item => item.dataset.category === category
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+
+      faqGroups.forEach((group) => {
+        const category = group.dataset.group;
+        const matchesCategory = category === activeCategory;
+
+        const groupItems = Array.from(
+          group.querySelectorAll(".faq-item")
         );
 
-        if (button) {
-            return button.textContent.trim();
+        let groupMatches = 0;
+
+        groupItems.forEach((item) => {
+          const text = item.textContent.toLocaleLowerCase();
+          const matchesSearch = !query || text.includes(query);
+
+          // Searching checks all categories.
+          // Without a search, show the selected category.
+          const showItem = query
+            ? matchesSearch
+            : matchesCategory;
+
+          item.style.display = showItem ? "" : "none";
+
+          if (!showItem) {
+            item.open = false;
+          }
+
+          if (showItem) {
+            groupMatches++;
+            visibleQuestions++;
+          }
+        });
+
+        const showGroup = query
+          ? groupMatches > 0
+          : matchesCategory;
+
+        group.style.display = showGroup ? "" : "none";
+        group.classList.toggle("active", showGroup);
+      });
+
+      if (faqEmptyState) {
+        faqEmptyState.style.display =
+          visibleQuestions > 0 ? "none" : "block";
+      }
+
+      if (searchResultsInfo) {
+        if (query) {
+          searchResultsInfo.textContent =
+            `${visibleQuestions} question` +
+            `${visibleQuestions === 1 ? "" : "s"} found` +
+            (
+              visibleQuestions
+                ? ` for “${faqSearch.value.trim()}”`
+                : ""
+            );
+        } else {
+          searchResultsInfo.textContent =
+            `Showing ${categoryLabel(activeCategory)} questions`;
+        }
+      }
+    }
+
+    // Category buttons.
+    faqCategories.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeCategory = button.dataset.category;
+
+        if (faqSearch) {
+          faqSearch.value = "";
         }
 
-        return category
-            .replace(/-/g, " ")
-            .replace(/\b\w/g, letter => letter.toUpperCase());
+        renderFAQs();
+      });
+    });
+
+    // Search as the visitor types.
+    if (faqSearch) {
+      faqSearch.addEventListener("input", renderFAQs);
+      faqSearch.addEventListener("search", renderFAQs);
     }
 
-    function getActiveGroup() {
-        return faqGroups.find(
-            group => group.dataset.group === activeCategory
-        );
+    // Allow only one expanded FAQ per category.
+    faqItems.forEach((item) => {
+      item.addEventListener("toggle", () => {
+        if (!item.open) return;
+
+        const parentGroup = item.closest(".faq-group");
+
+        if (!parentGroup) return;
+
+        parentGroup.querySelectorAll(".faq-item").forEach((otherItem) => {
+          if (otherItem !== item) {
+            otherItem.open = false;
+          }
+        });
+      });
+    });
+
+    renderFAQs();
+
+/* =====================================================
+   07. EMAILJS ADMISSIONS ENQUIRY SUBMISSION
+===================================================== */
+
+const EMAILJS_PUBLIC_KEY = "vF7ID9vsgwJvVNMHy";
+const EMAILJS_SERVICE_ID = "service_tpi8qt2";
+const EMAILJS_TEMPLATE_ID = "template_t7qdmhl";
+
+// Initialize EmailJS.
+if (typeof emailjs !== "undefined") {
+  emailjs.init({
+    publicKey: EMAILJS_PUBLIC_KEY
+  });
+}
+
+if (inquiryForm) {
+  inquiryForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!inquiryForm.reportValidity()) {
+      return;
     }
 
-    function updateSearchInfo(message) {
-        if (searchResultsInfo) {
-            searchResultsInfo.textContent = message;
+    if (typeof emailjs === "undefined") {
+      showToast(
+        "Email service unavailable",
+        "Please refresh the page and try again.",
+        "error"
+      );
+      return;
+    }
+
+    const formData = new FormData(inquiryForm);
+
+    const name = String(formData.get("name") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const question = String(formData.get("question") || "").trim();
+
+    if (!name || !email || !question) {
+      if (inquiryStatus) {
+        inquiryStatus.textContent =
+          "Please complete all fields.";
+
+        inquiryStatus.className = "inquiry-status error";
+      }
+      return;
+    }
+
+    const submitButton = inquiryForm.querySelector(
+      'button[type="submit"]'
+    );
+
+    if (!submitButton) {
+      console.error("Submit button not found.");
+      return;
+    }
+
+    const originalButtonHTML = submitButton.innerHTML;
+
+    submitButton.disabled = true;
+    submitButton.innerHTML =
+      '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
+
+    if (inquiryStatus) {
+      inquiryStatus.textContent = "Sending your enquiry...";
+      inquiryStatus.className = "inquiry-status";
+    }
+
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        inquiryForm
+      );
+
+      if (inquiryStatus) {
+        inquiryStatus.textContent =
+          "Thank you! Your enquiry has been sent successfully. Our admissions team will get back to you.";
+        inquiryStatus.className = "inquiry-status success";
+      }
+
+      inquiryForm.reset();
+
+      showToast(
+        "Enquiry sent successfully",
+        "Thank you for contacting Noah's Ark International School."
+      );
+
+      window.setTimeout(() => {
+        const panel = document.getElementById("inquiryPanel");
+
+        if (panel && panel.classList.contains("active")) {
+          document.getElementById("closeInquiry")?.click();
         }
+      }, 1800);
+
+    } catch (error) {
+      console.error("EmailJS submission failed:", error);
+
+      if (inquiryStatus) {
+        inquiryStatus.textContent =
+          "Your enquiry could not be sent. Please try again.";
+        inquiryStatus.className = "inquiry-status error";
+      }
+
+      showToast(
+        "Enquiry not sent",
+        "Please check your connection and try again.",
+        "error"
+      );
+
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = originalButtonHTML;
     }
+  });
+}
 
 
     /* =====================================================
-       10. FAQ CATEGORY SWITCHING
-    ====================================================== */
+       08. INITIAL ACCESSIBILITY STATE
+    ===================================================== */
 
-    function setActiveCategory(category, clearSearch = true) {
-        if (!category) return;
-
-        const categoryExists = faqGroups.some(
-            group => group.dataset.group === category
-        );
-
-        if (!categoryExists) {
-            const firstGroup = faqGroups[0];
-            if (!firstGroup) return;
-            category = firstGroup.dataset.group;
-        }
-
-        activeCategory = category;
-
-        if (clearSearch && faqSearch) {
-            faqSearch.value = "";
-        }
-
-        resetFAQDisplay();
-
-        faqCategories.forEach(button => {
-            const isActive = button.dataset.category === category;
-
-            button.classList.toggle("active", isActive);
-            button.setAttribute("aria-pressed", String(isActive));
-        });
-
-        faqGroups.forEach(group => {
-            const isActive = group.dataset.group === category;
-
-            group.classList.toggle("active", isActive);
-            group.style.display = isActive ? "" : "none";
-        });
-
-        if (faqEmptyState) {
-            faqEmptyState.style.display = "none";
-        }
-
-        const activeGroup = getActiveGroup();
-        const questionCount = activeGroup
-            ? getGroupQuestions(activeGroup).length
-            : 0;
-
-        updateSearchInfo(
-            `Showing ${getCategoryName(category)} questions (${questionCount})`
-        );
+    if (menuPanel) {
+      menuPanel.setAttribute("aria-hidden", "true");
     }
 
-    faqCategories.forEach(button => {
-        button.addEventListener("click", () => {
-            const category = button.dataset.category;
-            if (!category) return;
+    if (inquiryModal) {
+      inquiryModal.setAttribute("aria-hidden", "true");
+    }
 
-            setActiveCategory(category);
+    if (toast) {
+      toast.setAttribute("aria-hidden", "true");
+    }
+  }
 
-            const container = document.getElementById("faqContainer");
+  // Initialize safely whether the script loads before or after
+  // the HTML document has finished loading.
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initFAQPage,
+      { once: true }
+    );
+  } else {
+    initFAQPage();
+  }
+})();
 
-            if (container) {
-                container.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }
-        });
+// =====================================================
+// CURRENT PAGE INDICATOR
+// Automatically displays the current page name
+// =====================================================
+
+(() => {
+    "use strict";
+
+    const pageNameElement = document.getElementById("currentPageName");
+
+    if (!pageNameElement) return;
+
+    const fileName = window.location.pathname
+        .split("/")
+        .filter(Boolean)
+        .pop() || "index.html";
+
+    const pageName = fileName
+        .replace(/\.html?$/i, "")
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, letter => letter.toUpperCase());
+
+    const pageLabels = {
+        "index": "Home",
+        "apply now": "Apply Now",
+        "noahs ark mvv": "Mission, Vision & Values",
+        "our programs": "Our Programs",
+        "experience": "Experience",
+        "faq": "Frequently Asked Questions",
+        "contact": "Contact Us"
+    };
+
+    pageNameElement.textContent =
+        pageLabels[pageName.toLowerCase()] || pageName;
+})();
+/* =========================================
+   ADMISSIONS INQUIRY PANEL
+========================================= */
+
+(() => {
+    "use strict";
+
+    const openButton = document.getElementById("openInquiry");
+    const closeButton = document.getElementById("closeInquiry");
+
+    const inquiryPanel = document.getElementById("inquiryPanel");
+    const inquiryOverlay = document.getElementById("inquiryOverlay");
+
+    const inquiryForm = document.getElementById("inquiryForm");
+    const inquiryStatus = document.getElementById("inquiryStatus");
+
+    if (
+        !openButton ||
+        !closeButton ||
+        !inquiryPanel ||
+        !inquiryOverlay ||
+        !inquiryForm
+    ) return;
+
+
+    let previousFocus = null;
+
+
+    /* OPEN PANEL */
+
+    function openInquiry() {
+
+        previousFocus = document.activeElement;
+
+        inquiryPanel.inert = false;
+
+        inquiryPanel.classList.add("active");
+        inquiryOverlay.classList.add("active");
+
+        document.body.classList.add("inquiry-open");
+
+        inquiryPanel.setAttribute("aria-hidden", "false");
+        inquiryOverlay.setAttribute("aria-hidden", "false");
+
+        openButton.setAttribute("aria-expanded", "true");
+
+        setTimeout(() => {
+            document.getElementById("inquiryName")?.focus();
+        }, 150);
+    }
+
+
+    /* CLOSE PANEL */
+
+    function closeInquiry() {
+
+        inquiryPanel.classList.remove("active");
+        inquiryOverlay.classList.remove("active");
+
+        document.body.classList.remove("inquiry-open");
+
+        inquiryPanel.setAttribute("aria-hidden", "true");
+        inquiryOverlay.setAttribute("aria-hidden", "true");
+
+        inquiryPanel.inert = true;
+
+        openButton.setAttribute("aria-expanded", "false");
+
+        if (previousFocus && previousFocus.isConnected) {
+            previousFocus.focus();
+        }
+    }
+
+
+    /* BUTTON EVENTS */
+
+    openButton.addEventListener("click", openInquiry);
+
+    closeButton.addEventListener("click", closeInquiry);
+
+    inquiryOverlay.addEventListener("click", closeInquiry);
+
+
+    /* ESCAPE KEY */
+
+    document.addEventListener("keydown", (event) => {
+
+        if (!inquiryPanel.classList.contains("active")) return;
+
+        if (event.key === "Escape") {
+            closeInquiry();
+        }
+
     });
 
 
-    /* =====================================================
-       11. FAQ ACCORDION
-       Opens one answer at a time.
-    ====================================================== */
+    /* FORM SUBMISSION */
 
-    faqItems.forEach(item => {
-        item.addEventListener("toggle", () => {
-            if (!item.open) return;
+    inquiryForm.addEventListener("submit", (event) => {
 
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.open) {
-                    otherItem.open = false;
-                }
-            });
-        });
-    });
+        event.preventDefault();
 
-
-    /* =====================================================
-       12. FAQ SEARCH
-       Searches questions and answers across all categories.
-    ====================================================== */
-
-    function searchFAQs() {
-        if (!faqSearch) return;
-
-        const term = faqSearch.value.trim().toLowerCase();
-
-        if (!term) {
-            setActiveCategory(activeCategory, false);
+        if (!inquiryForm.checkValidity()) {
+            inquiryForm.reportValidity();
             return;
         }
 
-        let totalMatches = 0;
+        inquiryStatus.textContent =
+            "Thank you! Your enquiry has been prepared successfully.";
 
-        faqCategories.forEach(button => {
-            button.classList.remove("active");
-            button.setAttribute("aria-pressed", "false");
-        });
+        inquiryStatus.className = "inquiry-status success";
 
-        faqGroups.forEach(group => {
-            let groupMatches = 0;
+        // This is currently a front-end demonstration.
+        // Connect a backend or email service for real submission.
 
-            getGroupQuestions(group).forEach(item => {
-                const matches = item.textContent
-                    .toLowerCase()
-                    .includes(term);
-
-                item.style.display = matches ? "" : "none";
-
-                if (!matches) {
-                    item.open = false;
-                } else {
-                    groupMatches++;
-                    totalMatches++;
-                }
-            });
-
-            const hasMatches = groupMatches > 0;
-
-            group.style.display = hasMatches ? "" : "none";
-            group.classList.toggle("active", hasMatches);
-        });
-
-        closeAllFAQItems();
-
-        if (faqEmptyState) {
-            faqEmptyState.style.display =
-                totalMatches === 0 ? "block" : "none";
-        }
-
-        updateSearchInfo(
-            totalMatches === 0
-                ? `No results for "${faqSearch.value.trim()}".`
-                : `${totalMatches} question${totalMatches === 1 ? "" : "s"} found for "${faqSearch.value.trim()}".`
-        );
-    }
-
-    if (faqSearch) {
-        faqSearch.addEventListener("input", searchFAQs);
-
-        faqSearch.addEventListener("keydown", event => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                searchFAQs();
-            }
-        });
-    }
-
-
-    /* =====================================================
-       13. INQUIRY MODAL
-    ====================================================== */
-
-    function openInquiryModal() {
-        if (!inquiryModal) return;
-
-        clearTimeout(modalCloseTimer);
-
-        lastFocusedElement = document.activeElement;
-
-        inquiryModal.classList.add("modal-open");
-        inquiryModal.setAttribute("aria-hidden", "false");
-        body.classList.add("modal-open");
-
-        const nameInput = document.getElementById("inquiryName");
-
-        setTimeout(() => {
-            if (nameInput) nameInput.focus();
-        }, 100);
-    }
-
-    function closeInquiryModal() {
-        if (!inquiryModal) return;
-
-        inquiryModal.classList.remove("modal-open");
-        inquiryModal.setAttribute("aria-hidden", "true");
-        body.classList.remove("modal-open");
-
-        if (
-            lastFocusedElement &&
-            typeof lastFocusedElement.focus === "function" &&
-            document.contains(lastFocusedElement)
-        ) {
-            lastFocusedElement.focus();
-        }
-    }
-
-    if (openInquiryButton) {
-        openInquiryButton.addEventListener("click", openInquiryModal);
-    }
-
-    if (closeInquiryButton) {
-        closeInquiryButton.addEventListener("click", closeInquiryModal);
-    }
-
-    if (menuEnquire) {
-        menuEnquire.addEventListener("click", () => {
-            closeMenu();
-            openInquiryModal();
-        });
-    }
-
-    if (emptyStateEnquire) {
-        emptyStateEnquire.addEventListener("click", openInquiryModal);
-    }
-
-    document.querySelectorAll("[data-footer-inquiry]").forEach(button => {
-        button.addEventListener("click", openInquiryModal);
     });
 
-    document.querySelectorAll('[data-action="admissions-desk"]').forEach(button => {
-        button.addEventListener("click", openInquiryModal);
-    });
-
-    if (inquiryModal) {
-        inquiryModal.addEventListener("click", event => {
-            if (event.target === inquiryModal) {
-                closeInquiryModal();
-            }
-        });
-    }
-
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-            if (inquiryModal?.classList.contains("modal-open")) {
-                closeInquiryModal();
-            }
-
-            if (navigationMenu?.classList.contains("menu-open")) {
-                closeMenu();
-            }
-        }
-    });
-
-
-    /* =====================================================
-       14. INQUIRY FORM
-       Saves enquiries locally in this browser.
-    ====================================================== */
-
-    if (inquiryForm) {
-        inquiryForm.addEventListener("submit", event => {
-            event.preventDefault();
-
-            const formData = new FormData(inquiryForm);
-
-            const nameInput = document.getElementById("inquiryName");
-            const emailInput = document.getElementById("inquiryEmail");
-            const questionInput = document.getElementById("inquiryQuestion");
-
-            const name = (
-                nameInput?.value ??
-                formData.get("name") ??
-                ""
-            ).toString().trim();
-
-            const email = (
-                emailInput?.value ??
-                formData.get("email") ??
-                ""
-            ).toString().trim();
-
-            const question = (
-                questionInput?.value ??
-                formData.get("question") ??
-                ""
-            ).toString().trim();
-
-            if (!name || !email || !question) {
-                showFormStatus(
-                    inquiryStatus,
-                    "Please complete all required fields.",
-                    "error"
-                );
-                return;
-            }
-
-            if (emailInput && !emailInput.checkValidity()) {
-                showFormStatus(
-                    inquiryStatus,
-                    "Please enter a valid email address.",
-                    "error"
-                );
-                emailInput.focus();
-                return;
-            }
-
-            const enquiries = readStoredJSON(
-                "schoolInquiries",
-                readStoredJSON("rsh-enquiries", [])
-            );
-
-            if (!Array.isArray(enquiries)) {
-                showFormStatus(
-                    inquiryStatus,
-                    "Saved enquiries could not be read. Please try again.",
-                    "error"
-                );
-                return;
-            }
-
-            enquiries.push({
-                id: `INQ-${Date.now()}`,
-                name,
-                email,
-                question,
-                createdAt: new Date().toISOString()
-            });
-
-            if (!saveStoredJSON("schoolInquiries", enquiries)) {
-                return;
-            }
-
-            showFormStatus(
-                inquiryStatus,
-                "Thank you. Your enquiry has been saved in this browser.",
-                "success"
-            );
-
-            inquiryForm.reset();
-
-            showToast(
-                "Enquiry Saved",
-                "Your enquiry was saved locally."
-            );
-
-            modalCloseTimer = setTimeout(closeInquiryModal, 1800);
-        });
-    }
-
-
-    /* =====================================================
-       15. NEWSLETTER SUBSCRIPTION
-       Saves email addresses locally in this browser.
-    ====================================================== */
-
-    if (newsletterForm) {
-        newsletterForm.addEventListener("submit", event => {
-            event.preventDefault();
-
-            const emailInput =
-                newsletterEmail ||
-                document.getElementById("newsletterEmail");
-
-            const email = emailInput
-                ? emailInput.value.trim()
-                : "";
-
-            if (!email) {
-                showFormStatus(
-                    newsletterStatus,
-                    "Please enter your email address.",
-                    "error"
-                );
-                return;
-            }
-
-            if (emailInput && !emailInput.checkValidity()) {
-                showFormStatus(
-                    newsletterStatus,
-                    "Please enter a valid email address.",
-                    "error"
-                );
-                emailInput.focus();
-                return;
-            }
-
-            const subscribers = readStoredJSON(
-                "schoolNewsletter",
-                readStoredJSON("rsh-newsletter", [])
-            );
-
-            if (!Array.isArray(subscribers)) {
-                showFormStatus(
-                    newsletterStatus,
-                    "Subscription data could not be read. Please try again.",
-                    "error"
-                );
-                return;
-            }
-
-            const existingEmail = subscribers.some(
-                savedEmail =>
-                    savedEmail.toLowerCase() === email.toLowerCase()
-            );
-
-            if (existingEmail) {
-                showFormStatus(
-                    newsletterStatus,
-                    "This email is already subscribed.",
-                    "error"
-                );
-                return;
-            }
-
-            subscribers.push(email);
-
-            if (!saveStoredJSON("schoolNewsletter", subscribers)) {
-                return;
-            }
-
-            showFormStatus(
-                newsletterStatus,
-                "Thank you! Your email has been saved for this demo.",
-                "success"
-            );
-
-            newsletterForm.reset();
-
-            showToast(
-                "Subscription Saved",
-                "Your subscription was saved locally."
-            );
-        });
-    }
-
-
-    /* =====================================================
-       16. FOOTER COLOR CUSTOMIZER
-    ====================================================== */
-
-    const defaultFooterColor = {
-        name: "Forest Gold",
-        primary: "#071A12",
-        secondary: "#0B241B"
-    };
-
-    function isValidHexColor(value) {
-        return typeof value === "string" &&
-            /^#[0-9A-F]{6}$/i.test(value);
-    }
-
-    function applyFooterColor(data, save = true) {
-        if (
-            !data ||
-            typeof data.name !== "string" ||
-            !isValidHexColor(data.primary) ||
-            !isValidHexColor(data.secondary)
-        ) {
-            data = defaultFooterColor;
-        }
-
-        if (footer) {
-            footer.style.setProperty("--footer-primary", data.primary);
-            footer.style.setProperty("--footer-secondary", data.secondary);
-        }
-
-        if (activeFooterColor) {
-            activeFooterColor.textContent = data.name;
-        }
-
-        footerSwatches.forEach(swatch => {
-            swatch.classList.toggle(
-                "active",
-                swatch.dataset.footerName === data.name
-            );
-        });
-
-        if (save) {
-            saveStoredJSON("footerColor", data);
-        }
-    }
-
-    function loadFooterColor() {
-        const saved = readStoredJSON(
-            "footerColor",
-            readStoredJSON("rsh-footer-color", null)
-        );
-
-        applyFooterColor(
-            saved && typeof saved === "object"
-                ? saved
-                : defaultFooterColor,
-            false
-        );
-    }
-
-    if (footerCustomizerToggle) {
-        footerCustomizerToggle.addEventListener("click", () => {
-            if (!footerColorPanel) return;
-
-            const isOpen = footerColorPanel.classList.toggle("open");
-
-            footerCustomizerToggle.setAttribute(
-                "aria-expanded",
-                String(isOpen)
-            );
-        });
-    }
-
-    footerSwatches.forEach(swatch => {
-        swatch.addEventListener("click", () => {
-            const data = {
-                name: swatch.dataset.footerName,
-                primary: swatch.dataset.footerPrimary,
-                secondary: swatch.dataset.footerSecondary
-            };
-
-            if (
-                !data.name ||
-                !isValidHexColor(data.primary) ||
-                !isValidHexColor(data.secondary)
-            ) {
-                showToast(
-                    "Invalid Footer Color",
-                    "Check the color values on this swatch.",
-                    "error"
-                );
-                return;
-            }
-
-            applyFooterColor(data);
-
-            showToast(
-                "Footer Updated",
-                `${data.name} is now active.`
-            );
-        });
-    });
-
-    loadFooterColor();
-
-
-    /* =====================================================
-       17. LANGUAGE BUTTONS
-       Stores the selected language preference.
-       Translation content must be supplied separately.
-    ====================================================== */
-
-    const languageButtons = Array.from(
-        document.querySelectorAll("[data-language]")
-    );
-
-    function setLanguage(language, showMessage = false) {
-        if (!["EN", "FR"].includes(language)) return;
-
-        languageButtons.forEach(button => {
-            const isActive = button.dataset.language === language;
-
-            button.classList.toggle("active", isActive);
-            button.setAttribute("aria-pressed", String(isActive));
-        });
-
-        saveStoredValue("schoolLanguage", language);
-
-        if (showMessage) {
-            showToast(
-                language === "FR" ? "French Selected" : "English Selected",
-                language === "FR"
-                    ? "Connect your French translations to switch the page content."
-                    : "English is selected."
-            );
-        }
-    }
-
-    languageButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            setLanguage(button.dataset.language, true);
-        });
-    });
-
-    const savedLanguage = readStoredValue("schoolLanguage");
-
-    if (savedLanguage) {
-        setLanguage(savedLanguage);
-    }
-
-
-    /* =====================================================
-       18. VIRTUAL TOUR PLACEHOLDER
-    ====================================================== */
-
-    document.querySelectorAll('[data-action="virtual-tour"]').forEach(button => {
-        button.addEventListener("click", event => {
-            const href = button.getAttribute("href");
-
-            if (button.tagName === "A" && href && href !== "#") {
-                return;
-            }
-
-            event.preventDefault();
-
-            showToast(
-                "Virtual Tour",
-                "Connect this button to your virtual-tour page."
-            );
-        });
-    });
-
-
-    /* =====================================================
-       19. SOCIAL MEDIA PLACEHOLDERS
-    ====================================================== */
-
-    document.querySelectorAll("[data-placeholder-social]").forEach(link => {
-        link.addEventListener("click", event => {
-            event.preventDefault();
-
-            const platform =
-                link.dataset.placeholderSocial || "Social media";
-
-            showToast(
-                "Social Link",
-                `${platform} has not been configured yet.`
-            );
-        });
-    });
-
-
-    /* =====================================================
-       20. POLICY PLACEHOLDERS
-    ====================================================== */
-
-    document.querySelectorAll("[data-policy]").forEach(button => {
-        button.addEventListener("click", () => {
-            const policy = button.dataset.policy || "Policy";
-
-            showToast(
-                policy,
-                "Connect this button to the official policy page."
-            );
-        });
-    });
-
-
-    /* =====================================================
-       21. BACK TO TOP
-    ====================================================== */
-
-    if (backToTop) {
-        backToTop.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-    }
-
-
-    /* =====================================================
-       22. SMOOTH SCROLL FOR INTERNAL LINKS
-    ====================================================== */
-
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener("click", event => {
-            const targetId = link.getAttribute("href");
-
-            if (!targetId || targetId === "#") return;
-
-            let target;
-
-            try {
-                target = document.querySelector(targetId);
-            } catch (error) {
-                return;
-            }
-
-            if (!target) return;
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-            closeMenu();
-        });
-    });
-
-
-    /* =====================================================
-       23. LUCIDE ICONS
-    ====================================================== */
-
-    if (
-        typeof lucide !== "undefined" &&
-        typeof lucide.createIcons === "function"
-    ) {
-        lucide.createIcons();
-    }
-
-
-    /* =====================================================
-       24. INITIAL FAQ STATE
-    ====================================================== */
-
-    if (faqGroups.length > 0) {
-        const initialCategoryExists = faqGroups.some(
-            group => group.dataset.group === activeCategory
-        );
-
-        if (!initialCategoryExists) {
-            activeCategory = faqGroups[0].dataset.group;
-        }
-
-        setActiveCategory(activeCategory);
-    }
-
-
-    /* =====================================================
-       25. INITIALIZE MODAL ACCESSIBILITY STATE
-    ====================================================== */
-
-    if (inquiryModal) {
-        inquiryModal.setAttribute("aria-hidden", "true");
-    }
-
-    if (menuToggle && navigationMenu) {
-        menuToggle.setAttribute(
-            "aria-expanded",
-            String(navigationMenu.classList.contains("menu-open"))
-        );
-    }
-
-
-    /* =====================================================
-       26. INITIALIZATION COMPLETE
-    ====================================================== */
-
-    console.log(
-        "Rwanda School of Hospitality FAQ JavaScript loaded successfully."
-    );
-
-});
+})();

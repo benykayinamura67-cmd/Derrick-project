@@ -1,0 +1,30 @@
+﻿# Environment variables and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Backup files
+*.backup
+*.backup-*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Private applicant uploads - never publish
+BACKEND/uploads/
+
+# OneDrive cloud placeholder - keep out of Git
+BACKEND/utils

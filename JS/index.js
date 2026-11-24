@@ -83,6 +83,31 @@ document.addEventListener("DOMContentLoaded", () => {
         setMenu(!isOpen);
     });
 
+      // Clicking X closes menu.
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    const isOpen =
+      button.getAttribute("aria-expanded") === "true";
+
+    setMenu(!isOpen);
+  });
+
+  // Close menu when a navigation link is selected
+  panel.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMenu(false));
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (
+      !button.contains(event.target) &&
+      !panel.contains(event.target)
+    ) {
+      setMenu(false);
+    }
+  });
+
     // Close the menu after choosing a link
     panel.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => setMenu(false));
@@ -448,57 +473,6 @@ document.addEventListener("DOMContentLoaded", () => {
             new Date().getFullYear();
     }
 
-
-    /* =====================================================
-       9. NEWSLETTER FORM
-       FRONTEND DEMONSTRATION ONLY
-    ===================================================== */
-
-    const newsletterForm =
-        document.getElementById("footerNewsletterForm");
-
-    const newsletterEmail =
-        document.getElementById("footerNewsletterEmail");
-
-    const newsletterMessage =
-        document.getElementById("footerNewsletterMessage");
-
-    if (newsletterForm && newsletterEmail && newsletterMessage) {
-        newsletterForm.addEventListener("submit", event => {
-            event.preventDefault();
-
-            const email = newsletterEmail.value.trim();
-
-            if (!email || !newsletterEmail.checkValidity()) {
-                newsletterMessage.textContent =
-                    "Please enter a valid email address.";
-
-                newsletterMessage.classList.remove(
-                    "hidden",
-                    "text-emerald-400"
-                );
-
-                newsletterMessage.classList.add("text-red-400");
-                newsletterEmail.focus();
-
-                return;
-            }
-
-            newsletterMessage.textContent =
-                "Thank you! The newsletter form is working in demonstration mode. Subscription has not been saved.";
-
-            newsletterMessage.classList.remove(
-                "hidden",
-                "text-red-400"
-            );
-
-            newsletterMessage.classList.add("text-emerald-400");
-
-            newsletterForm.reset();
-        });
-    }
-
-
     /* =====================================================
        10. APPLICATION POPUP
     ===================================================== */
@@ -578,3 +552,74 @@ document.addEventListener("DOMContentLoaded", () => {
     // click handler is needed to close the popup.
 
 });
+const footerYear = document.getElementById("footerCopyrightYear");
+
+if (footerYear) {
+  footerYear.textContent = new Date().getFullYear();
+}
+// CURRENT PAGE INDICATOR
+(() => {
+    "use strict";
+
+    const indicator = document.getElementById("currentPageIndicator");
+    if (!indicator) return;
+
+    const fileName = window.location.pathname
+        .split("/")
+        .filter(Boolean)
+        .pop() || "index.html";
+
+    const pageName = fileName
+        .replace(/\.html?$/i, "")
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, letter => letter.toUpperCase());
+
+    const pageNames = {
+        "index": "Home",
+        "about": "Our Philosophy",
+        "philosophy": "Our Philosophy",
+        "collection": "Collection",
+        "enquire": "Enquire With Us",
+        "contact": "Contact Us",
+        "admissions": "Admissions"
+    };
+
+    const key = fileName.replace(/\.html?$/i, "").toLowerCase();
+
+    indicator.textContent = pageNames[key] || pageName;
+})();
+// =====================================================
+// CURRENT PAGE INDICATOR
+// Automatically displays the current page name
+// =====================================================
+
+(() => {
+    "use strict";
+
+    const pageNameElement = document.getElementById("currentPageName");
+
+    if (!pageNameElement) return;
+
+    const fileName = window.location.pathname
+        .split("/")
+        .filter(Boolean)
+        .pop() || "index.html";
+
+    const pageName = fileName
+        .replace(/\.html?$/i, "")
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, letter => letter.toUpperCase());
+
+    const pageLabels = {
+        "index": "Home",
+        "apply now": "Apply Now",
+        "noahs ark mvv": "Mission, Vision & Values",
+        "our programs": "Our Programs",
+        "experience": "Experience",
+        "faq": "Frequently Asked Questions",
+        "contact": "Contact Us"
+    };
+
+    pageNameElement.textContent =
+        pageLabels[pageName.toLowerCase()] || pageName;
+})();

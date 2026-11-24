@@ -242,19 +242,83 @@ html.light-mode .page-section {
 
 .mobile-nav-link:hover::before{transform:scaleY(1)}
 
-
 /* =====================================================
-   17. LIGHT THEME FOOTER
+   CURRENT PAGE INDICATOR
+   Visible on desktop, tablet and mobile
 ===================================================== */
 
-html.light-theme #siteFooter{background:#F8F7F2!important;color:#26352D!important;border-top-color:rgba(166,124,40,.25)!important}
-html.light-theme #siteFooter h2,html.light-theme #siteFooter h3,html.light-theme #siteFooter h4{color:#10291E!important}
-html.light-theme #siteFooter p{color:#59665E!important}
-html.light-theme #siteFooter .footer-link{color:#46564C!important}
-html.light-theme #siteFooter .footer-link:hover{color:#A67C28!important}
+#currentPageIndicator {
+    position: fixed;
+    top: 105px;
+    left: 20px;
+    z-index: 1000;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px 17px;
+
+    background: rgba(7, 26, 18, 0.96);
+    color: #D6B56A;
+
+    border: 1px solid rgba(214, 181, 106, 0.55);
+    border-radius: 5px;
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    pointer-events: none;
+
+    transition: all 300ms ease;
+}
+
+/* Small decorative gold dot */
+.page-indicator-dot {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    background: #D6B56A;
+    border-radius: 50%;
+
+    box-shadow: 0 0 10px rgba(214, 181, 106, 0.7);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    #currentPageIndicator {
+        top: 95px;
+        left: 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    #currentPageIndicator {
+        top: 85px;
+        left: 12px;
+
+        padding: 9px 12px;
+        font-size: 9px;
+        letter-spacing: 1.2px;
+        gap: 8px;
+    }
+
+    .page-indicator-dot {
+        width: 6px;
+        height: 6px;
+    }
+}
+
 /* 13. LIGHT MODE — TOP BAR */
 html.light-mode .top-bar {
-    background: #173528 !important;
+    background: #070707 !important;
     color: rgba(255,255,255,0.82) !important;
 }
 
@@ -306,11 +370,137 @@ html.light-mode .text-white\/20 { color: rgba(23,35,29,0.20) !important; }
 html.light-mode .text-cream { color: #17231D !important; }
 html.light-mode .text-gold { color: #8A6A27 !important; }
 
-/* 18. TEXT SELECTION */
-::selection {
-    background: rgba(214,181,106,0.35);
-    color: inherit;
+/* =====================================================
+   15. PREMIUM FOOTER — LINKS & CONTACT CARDS
+===================================================== */
+#siteFooter { isolation: isolate; }
+
+#siteFooter .footer-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color .25s ease, transform .25s ease;
 }
+#siteFooter .footer-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  background: #D6B56A;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s ease;
+}
+#siteFooter .footer-link:hover { color: #F1E4C3; transform: translateX(3px); }
+#siteFooter .footer-link:hover::after,
+#siteFooter .footer-link:focus-visible::after { transform: scaleX(1); }
+#siteFooter .footer-link:focus-visible { outline: 2px solid #D6B56A; outline-offset: 5px; border-radius: 2px; }
+#siteFooter a { -webkit-tap-highlight-color: transparent; }
+
+#siteFooter .footer-contact-card {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,.025);
+  transition: border-color .3s ease, background-color .3s ease, transform .3s ease;
+}
+#siteFooter .footer-contact-card:hover {
+  border-color: rgba(214,181,106,.35);
+  background: rgba(255,255,255,.045);
+  transform: translateY(-2px);
+}
+#siteFooter .footer-contact-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(214,181,106,.2);
+  border-radius: 10px;
+  background: rgba(214,181,106,.07);
+  color: #D6B56A;
+}
+#siteFooter .footer-contact-link { color: rgba(255,255,255,.58); overflow-wrap: anywhere; transition: color .25s ease; }
+#siteFooter .footer-contact-link:hover { color: #F1E4C3; }
+#siteFooter .footer-contact-label {
+  display: block;
+  margin-bottom: 4px;
+  color: rgba(255,255,255,.38);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  #siteFooter .footer-link { font-size: 13px; padding-block: 2px; }
+  #siteFooter nav h3 { margin-bottom: 18px; }
+}
+
+/* =====================================================
+   16. FOOTER — RESPONSIVE COLUMN GRID
+   Requires .footer-main-grid on the main footer wrapper
+===================================================== */
+#siteFooter .footer-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  align-items: start;
+  gap: 2.5rem;
+}
+
+/* Desktop: brand + three navigation columns */
+@media (min-width: 1024px) {
+  #siteFooter .footer-main-grid {
+    grid-template-columns: minmax(0,1.7fr) repeat(3,minmax(0,1fr));
+    column-gap: 32px;
+    row-gap: 40px;
+  }
+}
+
+/* Tablet: brand full width, then navigation columns */
+@media (min-width: 641px) and (max-width: 1023px) {
+  #siteFooter .footer-main-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 36px 28px; }
+  #siteFooter .footer-main-grid > .brand-column { grid-column: 1 / -1; }
+}
+
+/* Mobile: stack sections */
+@media (max-width: 640px) {
+  #siteFooter .footer-main-grid { grid-template-columns: minmax(0,1fr); gap: 30px; }
+  #siteFooter .footer-main-grid > nav { padding-top: 22px; border-top: 1px solid rgba(255,255,255,.09); }
+}
+
+/* Footer navigation lists */
+#siteFooter .footer-nav-list,
+#siteFooter nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+#siteFooter nav ul.space-y-4 > li + li { margin-top: 0; }
+
+#siteFooter .footer-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
 
 /* 19. ACCESSIBILITY — REDUCED MOTION */
 @media (prefers-reduced-motion: reduce) {
@@ -320,4 +510,186 @@ html.light-mode .text-gold { color: #8A6A27 !important; }
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* =========================================================
+   20. EXPERIENCE PAGE — NAVBAR LIGHT MODE
+========================================================= */
+
+/* Main navigation background */
+html.light-mode #navbar,
+html.light-mode #navbar.nav-scrolled {
+    background: rgba(255, 255, 255, 0.97) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07) !important;
+}
+
+/* Navigation inner container */
+html.light-mode #navbar nav,
+html.light-mode #navbar.nav-scrolled nav {
+    border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Desktop navigation links */
+html.light-mode #navbar .premium-nav-link {
+    color: #000000 !important;
+}
+
+html.light-mode #navbar .premium-nav-link:hover,
+html.light-mode #navbar .premium-nav-apply {
+    color: #8A6A27 !important;
+}
+
+/* Navigation separators and hover underline */
+html.light-mode .premium-nav-link:not(:last-child)::before {
+    background: rgba(138, 106, 39, 0.65);
+}
+
+html.light-mode .premium-nav-link::after {
+    background: #8A6A27;
+}
+
+/* Theme toggle button */
+html.light-mode #themeToggle {
+    color: #000000 !important;
+    border-color: rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================================
+   21. EXPERIENCE PAGE — MOBILE NAVIGATION LIGHT MODE
+========================================================= */
+
+html.light-mode #menuPanel {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+html.light-mode #menuPanel .mobile-nav-link,
+html.light-mode #menuPanel a,
+html.light-mode #menuPanel button {
+    color: #000000 !important;
+}
+
+html.light-mode #menuPanel .mobile-nav-link:hover,
+html.light-mode #menuPanel a:hover {
+    color: #8A6A27 !important;
+    background: rgba(214, 181, 106, 0.10);
+}
+
+html.light-mode #menuButton {
+    color: #000000 !important;
+    background: #FFFFFF !important;
+    border-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+html.light-mode #menuButton .menu-line {
+    background-color: #000000 !important;
+}
+
+/* =========================================================
+   22. EXPERIENCE PAGE — FOOTER LIGHT MODE
+========================================================= */
+
+/* Footer background and border */
+html.light-mode #siteFooter {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+/* Footer headings and general text */
+html.light-mode #siteFooter h1,
+html.light-mode #siteFooter h2,
+html.light-mode #siteFooter h3,
+html.light-mode #siteFooter h4,
+html.light-mode #siteFooter p,
+html.light-mode #siteFooter span,
+html.light-mode #siteFooter li,
+html.light-mode #siteFooter small,
+html.light-mode #siteFooter label,
+html.light-mode #siteFooter .footer-heading {
+    color: #000000 !important;
+}
+
+/* Footer links */
+html.light-mode #siteFooter .footer-link,
+html.light-mode #siteFooter .footer-contact-link {
+    color: #333333 !important;
+}
+
+html.light-mode #siteFooter .footer-link:hover,
+html.light-mode #siteFooter .footer-contact-link:hover {
+    color: #8A6A27 !important;
+}
+
+/* Footer contact cards */
+html.light-mode #siteFooter .footer-contact-card {
+    background: #FAFAF7 !important;
+    border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+html.light-mode #siteFooter .footer-contact-card:hover {
+    background: #FFFFFF !important;
+    border-color: rgba(182, 151, 79, 0.45) !important;
+}
+
+/* Contact icons and labels */
+html.light-mode #siteFooter .footer-contact-icon {
+    color: #8A6A27 !important;
+    background: rgba(214, 181, 106, 0.10) !important;
+    border-color: rgba(138, 106, 39, 0.25) !important;
+}
+
+html.light-mode #siteFooter .footer-contact-label {
+    color: #555555 !important;
+}
+
+/* Footer hover underline */
+html.light-mode #siteFooter .footer-link::after {
+    background: #8A6A27;
+}
+
+/* Footer navigation separators on mobile */
+@media (max-width: 640px) {
+    html.light-mode #siteFooter .footer-main-grid > nav {
+        border-top-color: rgba(0, 0, 0, 0.10) !important;
+    }
+}
+
+/* =========================================================
+   23. EXPERIENCE PAGE — NAVBAR & FOOTER TRANSITIONS
+========================================================= */
+
+#navbar,
+#navbar nav,
+#navbar .premium-nav-link,
+#menuPanel,
+#menuPanel a,
+#menuButton,
+#menuButton .menu-line,
+#themeToggle,
+#siteFooter,
+#siteFooter a,
+#siteFooter .footer-contact-card {
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Mobile menu animation */
+#menuPanel {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+    pointer-events: none;
+    transform-origin: top right;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#menuPanel.menu-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
 }

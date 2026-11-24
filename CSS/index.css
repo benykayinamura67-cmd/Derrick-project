@@ -83,8 +83,6 @@ html.light-theme .premium-nav-link:hover{color:var(--gold-dark)}
 html.light-theme .premium-nav-link::after{background:var(--gold-dark)}
 html.light-theme .premium-nav-apply{color:var(--gold-dark)}
 
-
-
 /* =====================================================
    08. NAVIGATION, THEME TOGGLE & MOBILE MENU
 ===================================================== */
@@ -139,82 +137,210 @@ html.light-theme #themeToggle:hover { background: #F2EEE4; }
 html.light-theme #themeToggle #sunIcon { visibility: hidden; opacity: 0; }
 html.light-theme #themeToggle #moonIcon { visibility: visible; opacity: 1; }
 
-#menuButton {
-  background: transparent;
-  transition: border-color 300ms ease, background-color 300ms ease,
-    transform 300ms ease;
-}
-#menuButton:hover {
-  border-color: var(--gold);
-  background: rgba(214,181,106,.06);
+/* KEEP THE CTA HEADING WHITE IN ALL THEMES */
+.ready-journey-heading {
+    color: #ffffff !important;
 }
 
-.menu-line {
-  transform-origin: center;
-  transition: transform 300ms ease, opacity 300ms ease;
+/* =====================================================
+   01. MOBILE MENU BUTTON
+===================================================== */
+
+#menuButton {
+    background: transparent;
+    transition:
+        border-color 300ms ease,
+        background-color 300ms ease,
+        transform 300ms ease;
 }
+
+#menuButton:hover {
+    border-color: var(--gold);
+    background: rgba(214, 181, 106, 0.06);
+}
+
+#menuButton .menu-line {
+    transform-origin: center;
+    transition:
+        transform 300ms ease,
+        opacity 200ms ease;
+}
+
+
+/* =====================================================
+   02. MOBILE NAVIGATION PANEL
+===================================================== */
 
 #menuPanel {
-  position: absolute;
-  z-index: 60;
-  top: calc(100% + 12px);
-  right: 0;
-  border-radius: 0;
-  transform-origin: top right;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(8px) scale(.98);
-  transition: opacity 250ms ease, transform 250ms ease,
-    visibility 250ms ease;
+    position: absolute;
+    z-index: 60;
+    top: calc(100% + 12px);
+    right: 0;
+
+    border-radius: 0;
+    transform-origin: top right;
+
+    /* Closed state */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.97);
+
+    /* Smooth opening and closing */
+    transition:
+        opacity 250ms ease,
+        transform 250ms ease,
+        visibility 250ms ease;
 }
 
+/* Open state */
 #menuPanel.menu-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0) scale(1);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
 }
+
+/* =====================================================
+   CURRENT PAGE INDICATOR
+   Visible on desktop, tablet and mobile
+===================================================== */
+
+#currentPageIndicator {
+    position: fixed;
+    top: 105px;
+    left: 20px;
+    z-index: 1000;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px 17px;
+
+    background: rgba(7, 26, 18, 0.96);
+    color: #D6B56A;
+
+    border: 1px solid rgba(214, 181, 106, 0.55);
+    border-radius: 5px;
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    pointer-events: none;
+
+    transition: all 300ms ease;
+}
+
+/* Small decorative gold dot */
+.page-indicator-dot {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    background: #D6B56A;
+    border-radius: 50%;
+
+    box-shadow: 0 0 10px rgba(214, 181, 106, 0.7);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    #currentPageIndicator {
+        top: 95px;
+        left: 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    #currentPageIndicator {
+        top: 85px;
+        left: 12px;
+
+        padding: 9px 12px;
+        font-size: 9px;
+        letter-spacing: 1.2px;
+        gap: 8px;
+    }
+
+    .page-indicator-dot {
+        width: 6px;
+        height: 6px;
+    }
+}
+/* =====================================================
+   03. MOBILE NAVIGATION LINKS
+===================================================== */
 
 .mobile-nav-link {
-  position: relative;
-  display: block;
-  padding: 14px 16px;
-  color: rgba(255,255,255,.82);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  transition: color 250ms ease, background-color 250ms ease,
-    padding-left 250ms ease;
+    position: relative;
+    display: block;
+    padding: 14px 16px;
+
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    transition:
+        color 250ms ease,
+        background-color 250ms ease,
+        padding-left 250ms ease;
 }
+
 .mobile-nav-link:hover {
-  color: var(--gold);
-  background: rgba(214,181,106,.06);
-  padding-left: 21px;
+    color: var(--gold);
+    background: rgba(214, 181, 106, 0.06);
+    padding-left: 21px;
 }
+
 .mobile-nav-link::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 1px;
-  background: var(--gold);
-  transform: scaleY(0);
-  transition: transform 250ms ease;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 1px;
+    background: var(--gold);
+
+    transform: scaleY(0);
+    transform-origin: center;
+
+    transition: transform 250ms ease;
 }
-.mobile-nav-link:hover::before { transform: scaleY(1); }
+
+.mobile-nav-link:hover::before {
+    transform: scaleY(1);
+}
+/* =====================================================
+   04. LIGHT THEME
+===================================================== */
 
 html.light-theme #menuPanel {
-  background: rgba(255,255,255,.97);
-  border-color: rgba(166,124,40,.25);
-  box-shadow: 0 20px 50px rgba(11,36,27,.12);
+    background: rgba(255, 255, 255, 0.97);
+    border-color: rgba(166, 124, 40, 0.25);
+    box-shadow: 0 20px 50px rgba(11, 36, 27, 0.12);
 }
-html.light-theme .mobile-nav-link { color: rgba(5,7,6,.78); }
+
+html.light-theme .mobile-nav-link {
+    color: rgba(5, 7, 6, 0.78);
+}
+
 html.light-theme .mobile-nav-link:hover {
-  color: var(--gold-dark);
-  background: rgba(166,124,40,.06);
+    color: var(--gold-dark);
+    background: rgba(166, 124, 40, 0.06);
+}
+
+html.light-theme #menuButton:hover {
+    background: rgba(166, 124, 40, 0.08);
 }
 
 /* =====================================================
@@ -258,28 +384,20 @@ html.light-theme .premium-editorial-hero .hero-accent-line { background: #A67C28
 /* =====================================================
    10. HERO IMAGE & TEXT SLIDER
 ===================================================== */
-
 .hero-editorial-image {
   position: absolute;
   isolation: isolate;
   background: #080706;
   clip-path: ellipse(76% 500% at 100% 50%);
   transform: translateZ(0);
-  transition: transform 900ms cubic-bezier(.16,1,.3,1),
-    clip-path 900ms cubic-bezier(.16,1,.3,1);
+  transition: transform .9s cubic-bezier(.16,1,.3,1), clip-path .9s cubic-bezier(.16,1,.3,1);
 }
-
 .hero-image {
   transform: scale(1.02);
   filter: saturate(.92) contrast(.98);
-  transition: transform 1200ms cubic-bezier(.16,1,.3,1),
-    filter 900ms ease;
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1), filter .9s ease;
 }
-#hero:hover .hero-image {
-  transform: scale(1.055);
-  filter: saturate(1) contrast(1.01);
-}
-
+#hero:hover .hero-image { transform: scale(1.055); filter: saturate(1) contrast(1.01); }
 .hero-text-slider { position: relative; }
 .hero-text-slide {
   position: absolute;
@@ -287,34 +405,25 @@ html.light-theme .premium-editorial-hero .hero-accent-line { background: #A67C28
   opacity: 0;
   visibility: hidden;
   transform: translateX(45px);
-  transition: opacity 900ms cubic-bezier(.16,1,.3,1),
-    transform 1100ms cubic-bezier(.16,1,.3,1),
-    visibility 900ms ease;
+  transition: opacity .9s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1), visibility .9s ease;
 }
-.hero-text-slide.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-}
+.hero-text-slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
 .hero-text-slide.leaving { opacity: 0; transform: translateX(-45px); }
-
 .hero-text-slide h3 {
   opacity: 0;
   transform: translateY(25px);
-  transition: opacity 900ms ease 150ms,
-    transform 900ms cubic-bezier(.16,1,.3,1) 150ms;
+  transition: opacity .9s ease .15s, transform .9s cubic-bezier(.16,1,.3,1) .15s;
 }
 .hero-text-slide.active h3 { opacity: 1; transform: translateY(0); }
 
 /* =====================================================
    11. FLOATING APP DOCK
 ===================================================== */
-
 #floatingAppDock {
   position: fixed;
+  z-index: 90;
   left: 20px;
   bottom: 20px;
-  z-index: 90;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -324,33 +433,24 @@ html.light-theme .premium-editorial-hero .hero-accent-line { background: #A67C28
   border: 1px solid rgba(214,181,106,.38);
   border-radius: 999px;
   background: linear-gradient(135deg,rgba(7,26,18,.96),rgba(11,36,27,.92));
-  box-shadow: 0 18px 55px rgba(0,0,0,.28),
-    0 4px 18px rgba(0,0,0,.12),
-    inset 0 1px 0 rgba(255,255,255,.08);
+  box-shadow: 0 18px 55px rgba(0,0,0,.28), 0 4px 18px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.08);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  transition: transform 400ms cubic-bezier(.16,1,.3,1),
-    background-color 400ms ease, border-color 400ms ease,
-    box-shadow 400ms ease;
+  transition: transform .4s cubic-bezier(.16,1,.3,1), background-color .4s ease, border-color .4s ease, box-shadow .4s ease;
 }
 #floatingAppDock:hover {
   transform: translateY(-4px);
   border-color: rgba(214,181,106,.6);
-  box-shadow: 0 22px 65px rgba(0,0,0,.34),
-    0 0 30px rgba(214,181,106,.08),
-    inset 0 1px 0 rgba(255,255,255,.1);
+  box-shadow: 0 22px 65px rgba(0,0,0,.34), 0 0 30px rgba(214,181,106,.08), inset 0 1px 0 rgba(255,255,255,.1);
 }
 
 /* =====================================================
    12. LIGHT THEME OVERRIDES
 ===================================================== */
-
-html.light-theme body { background-color: #FAF8F2; color: #173A2C; }
+html.light-theme body,
 html.light-theme #about { background-color: #FAF8F2; }
-
-html.light-theme #navbar {
-  background: rgba(250,248,242,.95);
-}
+html.light-theme body { color: #173A2C; }
+html.light-theme #navbar { background: rgba(250,248,242,.95); }
 html.light-theme #navbar .premium-nav-link { color: #173A2C; }
 
 html.light-theme #siteFooter {
@@ -403,30 +503,20 @@ html.light-theme .border-white\/20 { border-color: rgba(5,7,6,.18) !important; }
 html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
 
 /* =====================================================
-   13. HERO IMAGE CAROUSEL — RESPONSIVE & MOBILE FIX
+   13. HERO IMAGE CAROUSEL
 ===================================================== */
-
 #heroEditorialCarousel.hero-editorial-image {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   min-height: 0;
-  top: auto;
-  right: auto;
-  overflow: hidden;
   clip-path: none;
   background: #080706;
   isolation: isolate;
+  overflow: hidden;
 }
-
-#heroEditorialCarousel .hero-carousel-track {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
+#heroEditorialCarousel .hero-carousel-track { position: absolute; inset: 0; width: 100%; height: 100%; }
 #heroEditorialCarousel .hero-carousel-slide {
   position: absolute;
   inset: 0;
@@ -435,19 +525,14 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
   opacity: 0;
   visibility: hidden;
   transform: scale(1.035);
-  transition:
-    opacity .75s ease,
-    transform 1.1s cubic-bezier(.22,1,.36,1),
-    visibility .75s ease;
+  transition: opacity .75s ease, transform 1.1s cubic-bezier(.22,1,.36,1), visibility .75s ease;
 }
-
 #heroEditorialCarousel .hero-carousel-slide.is-active {
   z-index: 1;
   opacity: 1;
   visibility: visible;
   transform: scale(1);
 }
-
 #heroEditorialCarousel .hero-carousel-slide img.hero-image {
   display: block;
   width: 100%;
@@ -455,22 +540,13 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
   object-fit: cover;
   object-position: center;
 }
-
-/* Image overlay */
 #heroEditorialCarousel .hero-image-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(0,0,0,.08) 0%,
-    transparent 35%,
-    rgba(0,0,0,.30) 100%
-  );
+  background: linear-gradient(180deg,rgba(0,0,0,.08),transparent 35%,rgba(0,0,0,.3));
 }
-
-/* Carousel arrows */
 #heroEditorialCarousel .hero-carousel-arrow {
   position: absolute;
   top: 50%;
@@ -485,42 +561,23 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
   border-radius: 50%;
   background: rgba(8,7,6,.42);
   color: #fff;
-  font-family: Arial,sans-serif;
-  font-size: clamp(23px,2vw,30px);
-  font-weight: 300;
-  line-height: 1;
+  font: 300 clamp(23px,2vw,30px)/1 Arial,sans-serif;
   cursor: pointer;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transform: translateY(-50%);
-  transition:
-    background .3s ease,
-    color .3s ease,
-    border-color .3s ease,
-    transform .3s ease;
+  transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
 }
-
-#heroEditorialCarousel .hero-carousel-prev {
-  left: clamp(12px,2.5vw,28px);
-}
-
-#heroEditorialCarousel .hero-carousel-next {
-  right: clamp(12px,2.5vw,28px);
-}
-
+#heroEditorialCarousel .hero-carousel-prev { left: clamp(12px,2.5vw,28px); }
+#heroEditorialCarousel .hero-carousel-next { right: clamp(12px,2.5vw,28px); }
 #heroEditorialCarousel .hero-carousel-arrow:hover {
   background: #D4AF37;
   color: #080706;
   border-color: #D4AF37;
   transform: translateY(-50%) scale(1.08);
 }
+#heroEditorialCarousel .hero-carousel-arrow:focus-visible { outline: 2px solid #D4AF37; outline-offset: 4px; }
 
-#heroEditorialCarousel .hero-carousel-arrow:focus-visible {
-  outline: 2px solid #D4AF37;
-  outline-offset: 4px;
-}
-
-/* Carousel counter */
 #heroEditorialCarousel .hero-carousel-counter {
   position: absolute;
   right: clamp(16px,2.5vw,30px);
@@ -536,78 +593,16 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
   letter-spacing: .12em;
   text-shadow: 0 1px 8px rgba(0,0,0,.6);
 }
-
-#heroEditorialCarousel .hero-counter-divider {
-  width: 30px;
-  height: 1px;
-  background: #D4AF37;
-}
-
-/* Tablet */
-@media (max-width: 1023px) {
-  #heroEditorialCarousel.hero-editorial-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    clip-path: none;
-  }
-
-  #heroEditorialCarousel .hero-carousel-slide img.hero-image {
-    object-position: center;
-  }
-}
-
-/* Mobile */
-@media (max-width: 640px) {
-  #heroEditorialCarousel.hero-editorial-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    clip-path: none;
-    border-radius: 0;
-  }
-
-  #heroEditorialCarousel .hero-carousel-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 22px;
-  }
-
-  #heroEditorialCarousel .hero-carousel-prev {
-    left: 10px;
-  }
-
-  #heroEditorialCarousel .hero-carousel-next {
-    right: 10px;
-  }
-
-  #heroEditorialCarousel .hero-carousel-counter {
-    right: 14px;
-    bottom: 14px;
-    font-size: 10px;
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  #heroEditorialCarousel .hero-carousel-slide,
-  #heroEditorialCarousel .hero-carousel-arrow {
-    transition: none;
-  }
-}
+#heroEditorialCarousel .hero-counter-divider { width: 30px; height: 1px; background: #D4AF37; }
 
 /* =====================================================
-   14. ACCESSIBILITY & RESPONSIVE LAYOUT
+   14. RESPONSIVE LAYOUT & ACCESSIBILITY
 ===================================================== */
-
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 @media (min-width: 1280px) {
   .hero-editorial-image { clip-path: ellipse(77% 86% at 100% 50%); }
 }
-
 @media (min-width: 1536px) {
   .hero-editorial-image {
     right: -16%;
@@ -616,11 +611,9 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
     clip-path: ellipse(76% 88% at 100% 50%);
   }
 }
-
 @media (max-width: 1023px) {
   #navbar { background: rgba(7,16,13,.98); }
   html.light-theme #navbar { background: rgba(249,250,250,.98); }
-
   .hero-editorial-image {
     position: relative;
     top: auto;
@@ -630,23 +623,15 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
     clip-path: ellipse(90% 82% at 50% 50%);
   }
 }
-
 @media (max-width: 640px) {
   #hero { min-height: auto; }
-
   .hero-editorial-image {
     width: 115%;
     height: 430px;
     right: -7%;
     clip-path: ellipse(90% 78% at 50% 50%);
   }
-
-  #hero h1 {
-    font-size: 3.35rem;
-    line-height: .98;
-    letter-spacing: -.04em;
-  }
-
+  #hero h1 { font-size: 3.35rem; line-height: .98; letter-spacing: -.04em; }
   .hero-text-slider { min-height: 340px; }
   .hero-text-slide { transform: translateX(30px); }
   .hero-text-slide.leaving { transform: translateX(-30px); }
@@ -655,24 +640,153 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
     right: 12px;
     bottom: 12px;
     gap: 6px;
-    padding: 7px 8px;
     max-width: calc(100vw - 24px);
+    padding: 7px 8px;
     overflow-x: auto;
     scrollbar-width: none;
   }
   #floatingAppDock::-webkit-scrollbar { display: none; }
 
-  .hero-carousel-arrow { width: 36px; height: 36px; font-size: 22px; }
-  .hero-carousel-prev { left: 10px; }
-  .hero-carousel-next { right: 10px; }
+  #heroEditorialCarousel .hero-carousel-arrow { width: 36px; height: 36px; font-size: 22px; }
+  #heroEditorialCarousel .hero-carousel-prev { left: 10px; }
+  #heroEditorialCarousel .hero-carousel-next { right: 10px; }
+  #heroEditorialCarousel .hero-carousel-counter { right: 14px; bottom: 14px; font-size: 10px; }
+}
 
-  .hero-carousel-counter {
-    right: 14px;
-    bottom: 14px;
-    font-size: 10px;
+/* =====================================================
+   15. PREMIUM FOOTER — LINKS & CONTACT CARDS
+===================================================== */
+#siteFooter { isolation: isolate; }
+
+#siteFooter .footer-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color .25s ease, transform .25s ease;
+}
+#siteFooter .footer-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  background: #D6B56A;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s ease;
+}
+#siteFooter .footer-link:hover { color: #F1E4C3; transform: translateX(3px); }
+#siteFooter .footer-link:hover::after,
+#siteFooter .footer-link:focus-visible::after { transform: scaleX(1); }
+#siteFooter .footer-link:focus-visible { outline: 2px solid #D6B56A; outline-offset: 5px; border-radius: 2px; }
+#siteFooter a { -webkit-tap-highlight-color: transparent; }
+
+#siteFooter .footer-contact-card {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,.025);
+  transition: border-color .3s ease, background-color .3s ease, transform .3s ease;
+}
+#siteFooter .footer-contact-card:hover {
+  border-color: rgba(214,181,106,.35);
+  background: rgba(255,255,255,.045);
+  transform: translateY(-2px);
+}
+#siteFooter .footer-contact-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(214,181,106,.2);
+  border-radius: 10px;
+  background: rgba(214,181,106,.07);
+  color: #D6B56A;
+}
+#siteFooter .footer-contact-link { color: rgba(255,255,255,.58); overflow-wrap: anywhere; transition: color .25s ease; }
+#siteFooter .footer-contact-link:hover { color: #F1E4C3; }
+#siteFooter .footer-contact-label {
+  display: block;
+  margin-bottom: 4px;
+  color: rgba(255,255,255,.38);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  #siteFooter .footer-link { font-size: 13px; padding-block: 2px; }
+  #siteFooter nav h3 { margin-bottom: 18px; }
+}
+
+/* =====================================================
+   16. FOOTER — RESPONSIVE COLUMN GRID
+   Requires .footer-main-grid on the main footer wrapper
+===================================================== */
+#siteFooter .footer-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  align-items: start;
+  gap: 2.5rem;
+}
+
+/* Desktop: brand + three navigation columns */
+@media (min-width: 1024px) {
+  #siteFooter .footer-main-grid {
+    grid-template-columns: minmax(0,1.7fr) repeat(3,minmax(0,1fr));
+    column-gap: 32px;
+    row-gap: 40px;
   }
 }
 
+/* Tablet: brand full width, then navigation columns */
+@media (min-width: 641px) and (max-width: 1023px) {
+  #siteFooter .footer-main-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 36px 28px; }
+  #siteFooter .footer-main-grid > .brand-column { grid-column: 1 / -1; }
+}
+
+/* Mobile: stack sections */
+@media (max-width: 640px) {
+  #siteFooter .footer-main-grid { grid-template-columns: minmax(0,1fr); gap: 30px; }
+  #siteFooter .footer-main-grid > nav { padding-top: 22px; border-top: 1px solid rgba(255,255,255,.09); }
+}
+
+/* Footer navigation lists */
+#siteFooter .footer-nav-list,
+#siteFooter nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+#siteFooter nav ul.space-y-4 > li + li { margin-top: 0; }
+
+#siteFooter .footer-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   17. REDUCED MOTION
+===================================================== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
@@ -683,6 +797,9 @@ html.light-theme .border-white\/30 { border-color: rgba(5,7,6,.25) !important; }
 
   .hero-editorial-image,
   .hero-image,
-  .hero-carousel-slide,
-  .hero-carousel-arrow { transition: none; }
+  #heroEditorialCarousel .hero-carousel-slide,
+  #heroEditorialCarousel .hero-carousel-arrow,
+  #siteFooter .footer-contact-card {
+    transition: none !important;
+  }
 }

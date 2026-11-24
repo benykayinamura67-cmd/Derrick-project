@@ -98,58 +98,99 @@
             toast.classList.remove("show");
         }, 3000);
     }
+/* =====================================================
+   05. MOBILE NAVIGATION
+   Features:
+   - Open and close the mobile menu
+   - Close when clicking outside
+   - Close after selecting a navigation link
+   - Close with the Escape key
+   - Reset when switching to desktop
+===================================================== */
 
-    /* =====================================================
-       05. MOBILE NAVIGATION
-    ===================================================== */
+function setMenu(open) {
+    if (!menuButton || !menuPanel) return;
 
-    function setMenu(open) {
-        if (!menuButton || !menuPanel) return;
+    // Update accessibility state
+    menuButton.setAttribute("aria-expanded", String(open));
+    menuButton.setAttribute(
+        "aria-label",
+        open ? "Close navigation menu" : "Open navigation menu"
+    );
 
-        menuButton.setAttribute("aria-expanded", String(open));
-        menuButton.setAttribute(
-            "aria-label",
-            open ? "Close navigation menu" : "Open navigation menu"
-        );
+    // Toggle the menu's visual state
+    menuPanel.classList.toggle("menu-open", open);
 
-        menuPanel.classList.toggle("opacity-0", !open);
-        menuPanel.classList.toggle("scale-95", !open);
-        menuPanel.classList.toggle("pointer-events-none", !open);
+    menuPanel.classList.toggle("opacity-0", !open);
+    menuPanel.classList.toggle("translate-y-2", !open);
+    menuPanel.classList.toggle("scale-95", !open);
+    menuPanel.classList.toggle("pointer-events-none", !open);
 
-        menuPanel.classList.toggle("opacity-100", open);
-        menuPanel.classList.toggle("scale-100", open);
-        menuPanel.classList.toggle("pointer-events-auto", open);
+    menuPanel.classList.toggle("opacity-100", open);
+    menuPanel.classList.toggle("translate-y-0", open);
+    menuPanel.classList.toggle("scale-100", open);
+    menuPanel.classList.toggle("pointer-events-auto", open);
+
+    // Prevent keyboard users from entering a closed menu
+    menuPanel.setAttribute("aria-hidden", String(!open));
+}
+
+function closeMenu() {
+    setMenu(false);
+}
+
+function toggleMenu() {
+    if (!menuButton) return;
+
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    setMenu(!isOpen);
+}
+
+// Open or close the menu when the mobile button is clicked
+menuButton?.addEventListener("click", event => {
+    event.stopPropagation();
+    toggleMenu();
+});
+
+// Keep clicks inside the menu from triggering outside-click behavior
+menuPanel?.addEventListener("click", event => {
+    event.stopPropagation();
+});
+
+// Close the menu when clicking anywhere outside it
+document.addEventListener("click", event => {
+    if (
+        menuPanel &&
+        menuButton &&
+        !menuPanel.contains(event.target) &&
+        !menuButton.contains(event.target)
+    ) {
+        closeMenu();
     }
+});
 
-    function closeMenu() {
-        setMenu(false);
+// Close the menu after selecting a navigation link
+menuPanel?.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+});
+
+// Close the menu when pressing Escape
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        closeMenu();
+        menuButton?.focus();
     }
+});
 
-    menuButton?.addEventListener("click", event => {
-        event.stopPropagation();
+// Reset the mobile menu when switching to desktop
+window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) {
+        closeMenu();
+    }
+});
 
-        setMenu(menuButton.getAttribute("aria-expanded") !== "true");
-    });
-
-    document.addEventListener("click", event => {
-        if (
-            menuPanel &&
-            menuButton &&
-            !menuPanel.contains(event.target) &&
-            !menuButton.contains(event.target)
-        ) {
-            closeMenu();
-        }
-    });
-
-    $$("#menuPanel a").forEach(link => {
-        link.addEventListener("click", closeMenu);
-    });
-
-    window.addEventListener("resize", () => {
-        if (window.innerWidth >= 768) closeMenu();
-    });
-
+// Ensure the menu starts closed when the page loads
+setMenu(false);
     /* =====================================================
        06. GLOBAL LIGHT / DARK THEME
        Header and footer controls stay synchronized.
@@ -568,18 +609,6 @@
         });
 
         filterPrograms();
-    });
-
-    /* =====================================================
-       14. LANGUAGE BUTTONS
-    ===================================================== */
-
-    $("#englishButton")?.addEventListener("click", () => {
-        showToast("English interface selected.");
-    });
-
-    $("#frenchButton")?.addEventListener("click", () => {
-        showToast("French interface is not yet translated.");
     });
 
     /* =====================================================
